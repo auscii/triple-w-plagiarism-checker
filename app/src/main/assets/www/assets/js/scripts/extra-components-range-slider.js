@@ -4,7 +4,7 @@
 
 $(function() {
 	//Start without params
-	$("#range_01").ionRangeSlider();
+	// $("#range_01").ionRangeSlider();
 	//Set min value, max value and start point
 	$("#range_02").ionRangeSlider({
 	    min: 100,

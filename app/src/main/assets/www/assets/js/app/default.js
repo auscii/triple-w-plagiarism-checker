@@ -10,10 +10,26 @@ var userId = localStorage.getItem('id'),
     userDateTimeRegistered = localStorage.getItem('date_time_registered'),
     userProfileIcon = localStorage.getItem('profile_picture'),
     userStatus = localStorage.getItem('status'),
+    userRegisterEmailAddress = localStorage.getItem('userRegisterEmailAddress'),
+    userRegisterAccountType = localStorage.getItem('userRegisterAccountType'),
+    userRegisterFullName = localStorage.getItem('userRegisterFullName'),
+    userRegisterPassword = localStorage.getItem('userRegisterPassword'),
+    userRegisterPreferences = localStorage.getItem('userRegisterPreferences'),
+    userRegisterPaperAbstract = localStorage.getItem('userRegisterPaperAbstract'),
+    userRegisterFullPaper = localStorage.getItem('userRegisterFullPaper'),
+    userRegisterPaperCategories = localStorage.getItem('userRegisterPaperCategories'),
+    technology = "TECHNOLOGY",
+    science = "SCIENCE",
+    medicine = "MEDICINE",
+    academic = "ACADEMIC",
+    author = "AUTHOR",
+    paperReviewer = "PAPER REVIEWER",
     sub = "/",
     users = "USERS/",
     credentials = "CREDENTIALS/",
+    papers = "PAPERS/",
     provider = new firebase.auth.GoogleAuthProvider(),
+    storageReference = firebase.storage().ref(),
     date = new Date(),
     time = date.getHours() + date.getMinutes() + date.getSeconds(),
     dd = String(date.getDate()).padStart(2, '0'),
@@ -36,6 +52,10 @@ function KEY_CODE(len, charSet) {
     return randomString;
 }
 
+function REDIRECT(value) {
+    window.location.href = value;
+}
+
 function RELOAD_PAGE() {
 	location.reload();
 }
@@ -44,47 +64,38 @@ function MODAL(id, action) {
    $(id).modal(action);
 }
 
-function TEST_USER() {
-  var userId = "";
-  INSERT_USER(userId, "John Doe Testing", "j@j.com", "123qwe", "09166860971", 
-              "London New York City, United States of Kingdom USUK", "Developer", "Author", false);
+function USER_CLEAR_LOCAL_STORAGE() {
+  localStorage.clear();
 }
 
-function INSERT_USER(userId, userFullName, userEmailAddress, userPassword, userContactNumber, userAddress, userOccupation, userAccountType, userAction) {
-    if (!userAction) {
-        firebase.auth().createUserWithEmailAndPassword(userEmailAddress, userPassword).then(function(user) {
-            userId = firebase.auth().currentUser.uid;
-            database.ref(users + userKey + sub + credentials).set({
-                id: userId,
-                key: userKey,
-                full_name: userFullName,
-                email_address: userEmailAddress,
-                password: userPassword,
-                contact_number: userContactNumber,
-                address: userAddress,
-                occupation: userOccupation,
-                account_type: userAccountType,
-                date_time_registered: fullCurrentDateTime,
-                profile_picture: defaultUserIconPlaceholder,
-                status: userStatus
-            });
-        });
-    } else {
-        database.ref(users + userKey + sub + credentials).set({
-            id: userId,
-            key: userKey,
-            full_name: userFullName,
-            email_address: userEmailAddress,
-            password: userPassword,
-            contact_number: userContactNumber,
-            address: userAddress,
-            occupation: userOccupation,
-            account_type: userAccountType,
-            date_time_registered: fullCurrentDateTime,
-            profile_picture: defaultUserIconPlaceholder,
-            status: userStatus
-        });
-    }
+function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, userPassword, 
+                     userPreferences, userPaperAbstract, userFullPaper, userPaperCategories) {
+    database.ref(users + userKey + sub + credentials).set({
+        id: userId,
+        key: userKey,
+        full_name: userFullName,
+        email_address: userEmailAddress,
+        password: userPassword,
+        preferences: userPreferences,
+        paperAbstractUrl: userPaperAbstract,
+        fullPaperUrl: userFullPaper,
+        paperCategories: userPaperCategories,
+        account_type: userAccountType,
+        date_time_registered: fullCurrentDateTime,
+        profile_picture: defaultUserIconPlaceholder,
+        status: userStatus
+    });
+}
+
+function SET_USER_REGISTRATION_VALUE() {
+   $("#register-email-address").val(userRegisterEmailAddress);
+   $("#register-fullname").val(userRegisterFullName);
+   console.log('userRegisterPaperCategories -> ', userRegisterPaperCategories);
+   $("div#combo-box-categories select").val(userRegisterPaperCategories);
+
+   $("#register-password").val(userRegisterPassword);
+   $("#input-paper-abstract-paper").attr("src", userRegisterPaperAbstract);
+   $("#input-paper-full-paper").attr("src", userRegisterFullPaper);
 }
 
 function SET_USER_PROFILE() {

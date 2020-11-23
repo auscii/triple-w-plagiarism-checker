@@ -1,17 +1,172 @@
+SET_USER_REGISTRATION_VALUE();
+
 $("#btn-login").click(function() {
-	 AUTH_USER_ACCOUNT();
+	AUTH_USER_ACCOUNT();
 });
 
 $("#btn-login-register").click(function() {
-  window.location.href="index/register.html";
+  REDIRECT("registration/email.html");
 });
 
 $("#btn-register-back").click(function() {
-  window.location.href="index.html";
+  REDIRECT("index.html");
 });
 
-$("#btn-register-submit").click(function() {
-  NEW_ACCOUNT();
+$("#btn-next-email").click(function() {
+  var userRegisterEmailAddress = $('#register-email-address').val();
+  if (userRegisterEmailAddress) {
+    localStorage.setItem('userRegisterEmailAddress', userRegisterEmailAddress);
+    REDIRECT("account-type.html");
+  } else {
+    $('#warning-message').html('Please fill out this field!');
+    MODAL('#modal-warning', 'open');
+  }
+});
+
+$("#btn-previous-email").click(function() {
+  REDIRECT("../index.html");
+});
+
+$("#btn-next-account-type").click(function() {
+  REDIRECT("fullname.html");
+});
+
+$("#btn-previous-account-type").click(function() {
+  REDIRECT("email.html");
+});
+
+$('#account-type-author').click(function() {
+  localStorage.setItem('userRegisterAccountType', author);
+  REDIRECT("fullname.html");
+});  
+
+$('#account-type-paper-reviewer').click(function() {
+  localStorage.setItem('userRegisterAccountType', paperReviewer);
+  REDIRECT("fullname.html");
+});  
+
+$("#btn-previous-fullname").click(function() {
+  REDIRECT("account-type.html");
+});
+
+$("#btn-next-fullname").click(function() {
+  var userRegisterFullName = $('#register-fullname').val();
+  if (userRegisterFullName) {
+    localStorage.setItem('userRegisterFullName', userRegisterFullName);
+    REDIRECT("password.html");
+  } else {
+    $('#warning-message').html('Please fill out this field!');
+    MODAL('#modal-warning', 'open');
+  }
+});
+
+$("#btn-next-password").click(function() {
+  var userRegisterPassword = $('#register-password').val();
+  var userRegisterConfirmPassword = $('#register-c-password').val();
+  if (!userRegisterPassword && !userRegisterConfirmPassword) {
+      $('#warning-message').html('Please fill out this field!');
+    MODAL('#modal-warning', 'open');
+  } else if (userRegisterPassword.length < 6) {
+      $('#warning-message').html('You have to enter at least 6 characters!');
+      MODAL('#modal-warning', 'open');
+  } else if (userRegisterPassword != userRegisterConfirmPassword) {
+    $('#warning-message').html('Password mismatched!');
+      MODAL('#modal-warning', 'open');
+  } else {
+    localStorage.setItem('userRegisterPassword', userRegisterPassword);
+    REDIRECT("preferences.html");
+  }
+});
+
+$("#btn-previous-password").click(function() {
+  REDIRECT("fullname.html");
+});
+
+$("#preferences-technology").click(function() {
+  STORE_PREFERENCES(technology);
+});
+
+$("#preferences-science").click(function() {
+  STORE_PREFERENCES(science);
+});
+
+$("#preferences-medicine").click(function() {
+  STORE_PREFERENCES(medicine);
+});
+
+$("#preferences-academic").click(function() {
+  STORE_PREFERENCES(academic);
+});
+
+$("#btn-previous-preferences").click(function() {
+  REDIRECT("password.html");
+});
+
+$("#btn-done-paper").click(function() {
+  if (userRegisterAccountType == author) {
+    var userRegisterPaperAbstract = $('#input-paper-abstract-paper')[0].files[0];
+    var userRegisterFullPaper = $('#input-paper-full-paper')[0].files[0];
+
+    if (userRegisterPaperAbstract == undefined || userRegisterFullPaper == undefined) {
+        $('#warning-message').html('Please upload document files!');
+        MODAL('#modal-warning', 'open');
+        return;
+    }
+
+    var userRegisterPaperCategories = $('#input-paper-categories').val();
+    var uploadAbstract = storageReference.child(papers + userRegisterPaperAbstract.name).put(userRegisterPaperAbstract);
+    var uploadFullPaper = storageReference.child(papers + userRegisterFullPaper.name).put(userRegisterFullPaper);
+
+    uploadAbstract.on('state_changed', function(snapshot) {
+      MODAL('#modal-progress', 'open');
+      $('#loading-message').html('Saving user account...');
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED:
+          console.log('Upload abstract is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: 
+          console.log('Upload abstract is running');
+          break;
+      }
+    }, function(error) {
+        $('#warning-message').html('Failed Uploading abstract file!');
+        MODAL('#modal-warning', 'open');
+    }, function() {
+        uploadAbstract.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+           let abstractUrl = downloadURL;
+           uploadFullPaper.on('state_changed', function(snapshot) {
+              switch (snapshot.state) {
+                case firebase.storage.TaskState.PAUSED:
+                  console.log('Upload Fullpaper is paused');
+                  break;
+                case firebase.storage.TaskState.RUNNING: 
+                  console.log('Upload Fullpaper is running');
+                  break;
+              }
+            }, function(error) {
+                $('#warning-message').html('Failed Uploading fullpaper file!');
+                MODAL('#modal-warning', 'open');
+            }, function() {
+                uploadFullPaper.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    let fullPaperUrl = downloadURL;
+                    if (userRegisterPaperAbstract && userRegisterFullPaper && userRegisterPaperCategories) {
+                       localStorage.setItem('userRegisterPaperAbstract', userRegisterPaperAbstract);
+                       localStorage.setItem('userRegisterFullPaper', userRegisterFullPaper);
+                       localStorage.setItem('userRegisterPaperCategories', userRegisterPaperCategories);
+                       NEW_ACCOUNT(abstractUrl, fullPaperUrl);
+                    } else {
+                       $('#warning-message').html('Please fill out this field!');
+                       MODAL('#modal-warning', 'open');
+                    }
+                });
+            });
+        });
+    });
+  }
+});
+
+$("#btn-previous-paper").click(function() {
+  REDIRECT("preferences.html");
 });
 
 //methods
@@ -64,9 +219,9 @@ function AUTH_GOOGLE_ACCOUNT() {
 }
 
 function USER_LOG_OUT() {
-  localStorage.clear();
+  USER_CLEAR_LOCAL_STORAGE();
   firebase.auth().signOut();
-  window.location.href="index.html";
+  REDIRECT("index.html");
 }
 
 function AUTH_USER_ACCOUNT() {
@@ -111,7 +266,7 @@ function AUTH_USER_ACCOUNT() {
                    localStorage.setItem('date_time_registered', userDateTimeRegistered);
                    localStorage.setItem('profile_picture', userIconUrl);
                    localStorage.setItem('status', userStatus);
-                   window.location.href='main.html';
+                   REDIRECT("main.html");
                 }
 
             });
@@ -131,32 +286,27 @@ function AUTH_USER_ACCOUNT() {
     });
 }
 
-function NEW_ACCOUNT() {
-  var registerEmailAddress = $("#register-email-address").val().trim();
-  var registerPassword = $("#register-password").val().trim();
-  var registerFullname = $("#register-fullname").val().trim();
-  var registerAddress = $("#register-address").val().trim();
-  var registerContactNumber = $("#register-contact-number").val().trim();
-  var registerOccupation = $("#register-occupation").val().trim();
-  var registerUserKey = registerEmailAddress.replace(/[^a-zA-Z ]/g,'').trim();
-  $('#modal-register-btn').html('Close');
-  $('#modal-register-btn').css({"background-color":"#eb4034"});
-  if (!registerEmailAddress || !registerPassword || !registerFullname ||
-      !registerAddress || !registerContactNumber || !registerOccupation) {
-      MODAL('#modal-login-error', 'open');
-      $('#error-message').html("Please fill-up all input fields!");
+function NEW_ACCOUNT(abstractUrl, fullPaperUrl) {
+  firebase.auth().createUserWithEmailAndPassword(userRegisterEmailAddress, userRegisterPassword).then(function(user) {
+    INSERT_USER(firebase.auth().currentUser.uid, userRegisterEmailAddress, userRegisterAccountType, userRegisterFullName, userRegisterPassword, 
+                userRegisterPreferences, abstractUrl, fullPaperUrl, userRegisterPaperCategories);
+    USER_CLEAR_LOCAL_STORAGE();
+    MODAL('#modal-progress', 'close');
+    REDIRECT("../index.html");
+  }, function(error) {
+      MODAL('#modal-progress', 'close');
+      MODAL('#modal-warning', 'open');
+      $('#warning-message').html(error.code + ": " + error.message);
+  });
+}
+
+function STORE_PREFERENCES(type) {
+  if (userRegisterAccountType == author) {
+    localStorage.setItem('userRegisterPreferences', type);
+    REDIRECT("paper.html");
   } else {
-      MODAL('#modal-progress', 'open');
-      $('#loading-message').html('Saving user account...');
-      firebase.auth().createUserWithEmailAndPassword(registerEmailAddress, registerPassword).then(function(user) {
-          INSERT_USER(firebase.auth().currentUser.uid, registerFullname, registerEmailAddress, registerPassword, registerContactNumber, 
-                      registerAddress, registerOccupation, "TESTING ACCOUNT", true);
-          MODAL('#modal-progress', 'close');
-          window.location.href='index.html';
-      }, function(error) {
-          MODAL('#modal-register', 'open');
-          $('#modal-register-message').html(error.code + ": " + error.message);
-          $('#modal-register-btn').html('Close');
-      });
+    MODAL('#modal-progress', 'open');
+    $('#loading-message').html('Saving user account...');
+    NEW_ACCOUNT('', '');
   }
 }
