@@ -33,45 +33,56 @@
             <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
               <form class="login-form">
                 <div class="row">
-                  <div class="input-field col s12">
-                    <h5 class="ml-4">Sign in</h5>
+                  <div class="input-field col s12"><br>
+                    <h5 class="ml-4 text-center bold">Register</h5>
+                    <a id="btn-register-back" class="btn waves-effect waves-light border-round gradient-25deg-purple-deep-red">Back</a>
                   </div>
                 </div>
                 <div class="row margin">
                   <div class="input-field col s12">
-                    <i class="material-icons prefix pt-2">person_outline</i>
-                    <input id="user-email-address" type="text">
-                    <label for="username" class="center-align">Username</label>
+                    <i class="material-icons prefix pt-2">mail_outline</i>
+                    <input id="register-email-address" type="email">
+                    <label for="register-email-address">Email Address</label>
                   </div>
                 </div>
                 <div class="row margin">
                   <div class="input-field col s12">
                     <i class="material-icons prefix pt-2">lock_outline</i>
-                    <input id="user-password" type="password">
-                    <label for="password">Password</label>
+                    <input id="register-password" type="password">
+                    <label for="register-password">Password</label>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col s12 m12 l12 ml-2 mt-1">
-                    <p>
-                      <label>
-                        <input type="checkbox" />
-                        <span>Remember Me</span>
-                      </label>
-                    </p>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix pt-2">account_circle</i>
+                    <input id="register-fullname" type="text">
+                    <label for="register-fullname">Fullname</label>
+                  </div>
+                </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix pt-2">local_phone</i>
+                    <input id="register-contact-number" type="number">
+                    <label for="register-contact-number">Contact Number</label>
+                  </div>
+                </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix pt-2">book</i>
+                    <input id="register-occupation" type="text">
+                    <label for="register-occupation">Occupation</label>
+                  </div>
+                </div>
+                <div class="row margin">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix pt-2">location_city</i>
+                    <input id="register-address" type="text">
+                    <label for="register-address">Address</label>
                   </div>
                 </div>
                 <div class="row">
                   <div class="input-field col s12">
-                    <a href="#" id="btn-login" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Login</a>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="input-field col s6 m6 l6">
-                    <p class="margin medium-small"><a href="#">Create an account</a></p>
-                  </div>
-                  <div class="input-field col s6 m6 l6">
-                    <p class="margin right-align medium-small"><a href="#">Forgot password</a></p>
+                    <a id="btn-register-submit" class="btn waves-effect waves-light border-round gradient-45deg-purple-deep-orange col s12">Login</a> &nbsp;
                   </div>
                 </div>
               </form>
@@ -105,7 +116,7 @@
               </div>
           </div>
           <div class="modal-body text-right">
-              <button href="#" onclick="MODAL('#modal-login-error', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
+              <button onclick="MODAL('#modal-login-error', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
           </div>
       </div>
     </div>

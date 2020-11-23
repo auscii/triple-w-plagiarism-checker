@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Nov 23 20:31:32 CST 2020
+#Mon Nov 23 21:35:58 CST 2020
 1034.base=C\:\\Users\\knigh\\Documents\\Random\\triple-w-plagiarism-checker\\app\\build\\intermediates\\merged_assets\\debug\\mergeDebugAssets\\out
 881.path=www/assets/images/gallery/faq-search.jpg
 508.set=ASSET

@@ -7,7 +7,7 @@ $("#btn-login-register").click(function() {
 });
 
 $("#btn-register-back").click(function() {
-  window.location.href="../index.html";
+  window.location.href="index.html";
 });
 
 $("#btn-register-submit").click(function() {
@@ -64,10 +64,9 @@ function AUTH_GOOGLE_ACCOUNT() {
 }
 
 function USER_LOG_OUT() {
-  console.log("user_log_out");
   localStorage.clear();
   firebase.auth().signOut();
-  window.location.href="../index.html";
+  window.location.href="index.html";
 }
 
 function AUTH_USER_ACCOUNT() {
@@ -135,7 +134,6 @@ function AUTH_USER_ACCOUNT() {
 function NEW_ACCOUNT() {
   var registerEmailAddress = $("#register-email-address").val().trim();
   var registerPassword = $("#register-password").val().trim();
-  var registerReTypePassword = $("#register-re-password").val().trim();
   var registerFullname = $("#register-fullname").val().trim();
   var registerAddress = $("#register-address").val().trim();
   var registerContactNumber = $("#register-contact-number").val().trim();
@@ -143,44 +141,20 @@ function NEW_ACCOUNT() {
   var registerUserKey = registerEmailAddress.replace(/[^a-zA-Z ]/g,'').trim();
   $('#modal-register-btn').html('Close');
   $('#modal-register-btn').css({"background-color":"#eb4034"});
-  if (registerPassword != registerReTypePassword) {
-      $('#modal-register').modal('show');
-      //MODAL('#modal-login-error', 'open');
-      $('#modal-register-message').html('Password Mismatched! Please confirm your Password.');
-  } else if (!registerEmailAddress || !registerPassword || !registerFullname ||
-             !registerAddress || !registerContactNumber || !registerOccupation) {
-      $('#modal-register').modal('show');
-      $('#modal-register-message').html('Please fill-up all input fields!');
+  if (!registerEmailAddress || !registerPassword || !registerFullname ||
+      !registerAddress || !registerContactNumber || !registerOccupation) {
+      MODAL('#modal-login-error', 'open');
+      $('#error-message').html("Please fill-up all input fields!");
   } else {
-      $('#modal-progress').modal('show');
+      MODAL('#modal-progress', 'open');
       $('#loading-message').html('Saving user account...');
       firebase.auth().createUserWithEmailAndPassword(registerEmailAddress, registerPassword).then(function(user) {
-          var user = firebase.auth().currentUser;
-          database.ref(users + registerUserKey + sub + userInformation).set({
-              user_key: registerUserKey,
-              user_id: user.uid,
-              user_full_name: registerFullname,
-              user_icon_url: freeUserImage,
-              user_position: member,
-              user_email_address: registerEmailAddress,
-              user_contact_number: registerContactNumber,
-              user_occupation: registerOccupation,
-              user_address: registerAddress,
-              user_password: registerPassword,
-              user_status: 1,
-              user_date_logged_in_date: currentDate,
-              user_date_logged_in_time: currentTime
-          });
-          $('#modal-progress').modal('hide');
-          $('#modal-register').modal('show');
-          $('#modal-register-message').html('Successfully register new account!');
-          $('#modal-register-btn').html('OK');
-          $('#modal-register-btn').css({"background-color":"#008a07"});
-          $("#modal-register-btn").click(function() {
-             window.location.href="../index.html";
-          });
+          INSERT_USER(firebase.auth().currentUser.uid, registerFullname, registerEmailAddress, registerPassword, registerContactNumber, 
+                      registerAddress, registerOccupation, "TESTING ACCOUNT", true);
+          MODAL('#modal-progress', 'close');
+          window.location.href='index.html';
       }, function(error) {
-          $('#modal-register').modal('show');
+          MODAL('#modal-register', 'open');
           $('#modal-register-message').html(error.code + ": " + error.message);
           $('#modal-register-btn').html('Close');
       });
