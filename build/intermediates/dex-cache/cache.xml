@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-drive-9.2.0.aar\502bed1317194a6d651dc0c8f58fc23c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7c7c21cc7a45d5c2a57d77f4840d4d4ea3c7604f">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\19.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-auth-9.2.0.aar\8112f906c051b222e2818b5473d633fb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f56a68df45e18ce77814db6553fdaa229308f49b">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\11.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-base-9.2.0.aar\b4a6f9c09558a6d523f47e20b0b9413f\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="30489a97b06cc3945bdbcc1770089af9e3b3b64d">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\40.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-cast-9.2.0.aar\4474a7b0ead7cf373534cf0cc1df5225\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="be009dbe07b3a252c8cda07fc948ac713d2f5171">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\14.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\appcompat-v7-27.1.1.aar\6e835e41a84d88bb3ffe87c8736af99e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d968b9bd0011800e0d333d1571b8d34bcb8a0b6e">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\53.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-cast-framework-9.2.0.aar\ffb9a73665b039456454fb1475258de6\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="163b095362fd14d682ac311bf672c2fb54de5078">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\13.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\support-vector-drawable-27.1.1.aar\4ecbb26293b06fdb6fade3b061d54cd1\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c9a721adcd7dbae7a197b0ef81102336539f63ff">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\59.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-tagmanager-9.2.0.aar\36e250167ec41875525ac4a8aa19a8b8\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7378806b630886994099d03c369983f2848a609f">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\8.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-plus-9.2.0.aar\a1be377d1e3844324f1bfaaa51d07e6e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e3f200938bb888d83c2da807cb6aee983baae254">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-9.2.0.aar\10d0c554e68b64ad62d72fe12c321edb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f315c6b5b99081f16a79c9aaa557328a4644fe63">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\12.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\viewmodel-1.1.0.aar\974a5b8e29657c0172d797a07a86b879\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1fd3ceac7f415975323d52c6c6057db409a907f6">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\64.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-messaging-9.2.0.aar\623a45c6e7ef1c5d4deaae4eaa24b9ba\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="21bb89120d84fa29afeb0f9c0ebf415bc3b45a7e">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\41.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-analytics-9.2.0.aar\37e981ec77b950a2e8a4736378e46442\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="4838df6db988160b107e954e02a745370df543b6">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\43.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\support-core-utils-27.1.1.aar\e8c3304897d683a67be7b02837215278\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ec657bb192b20229696216bf233779b16bf75a54">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\58.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-panorama-9.2.0.aar\de24720e4d2989d36a27157cb98fb151\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="33b5900f82d19fd3dacee518363b249ace77b8f5">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\35.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-ads-lite-9.2.0.aar\055aa7acde5401eb78bcbb1d67f9bf69\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e91e1f335dc418d0138991a1d5155f0490ab6082">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\6.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-auth-9.2.0.aar\8c90186597371ee8b110318201a413ad\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="20ca7888c59f63d439f218a8810c88039f8bc7db">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\20.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-wallet-9.2.0.aar\7aa96db4f18a7439128fa1f4bb06fcd6\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="39261f58509b1a379df041f03da394c29da05395">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\29.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\27.1.1\39ded76b5e1ce1c5b2688e1d25cdc20ecee32007\support-annotations-27.1.1.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="39ded76b5e1ce1c5b2688e1d25cdc20ecee32007">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\61.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-appinvite-9.2.0.aar\6f12527621a65a56d75e17876a04a211\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="5acfd484717d9175c175569a114d46dbeec074ed">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\10.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-location-9.2.0.aar\ebcecf8210484b5f6afdeeb6bf09c8e2\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a03f4d605b0f29222c2ddf8b7896258cb4b92def">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-config-9.2.0.aar\0128775e9495b3b1359b26fa08f25337\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ce9432b50a02be101bc491a1b38d3904200bd988">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\16.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-safetynet-9.2.0.aar\414555b819a00fdbdb2844e03ebba1d2\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a0712565a784bedd07ada2393c95e0b1e288840f">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\37.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-storage-9.2.0.aar\7f5ec23ccb376af6189d79e013d14407\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a378adc3106cb3560ab3dfed05f1fda26cff5b49">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\25.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-maps-9.2.0.aar\b7ffd324a4df190c223c15d2e44379f8\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="299e04800d1169b9f3dd04c376c7b266a3594cca">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-gcm-9.2.0.aar\a7eca8d4d44830c016ef02a071ad5737\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="535d4497b5fa5d451e07a043e9e220d5c25ab7c7">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\27.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-23.0.0.aar\22de0c953414cfdcc4ecfa3da440c4c7\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="03d38bb042efe3e5ce27ba66b729a9523c36d8fe">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\52.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\livedata-core-1.1.0.aar\687634a1d271922fa51b4880de42c945\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8a9fd7c97f1d13f97f3b52f9d2e54cd857d5acf9">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\63.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-appindexing-9.2.0.aar\7845e3da24066bbf5ae39be32dd92f0c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="811202a9098047576814fc2171b56b83b537a8b9">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\28.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-games-9.2.0.aar\0e605aa0855bbfc5be0a4fa17a1ddf95\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="dd7b4a8e01cafa79a0b228b2ee5bd57ae5577444">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\18.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-auth-common-9.2.0.aar\e12abebd5d53f5b5cea026579d5d530c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="44120508d7240c3e34a05957981a5c3c9b9f61aa">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\21.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-gass-9.2.0.aar\093ef3a6e50e7d7b188467971e543464\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="1dc44c4798cbd79e95e4838a3fdc734c0e3f895f">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\47.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-analytics-impl-9.2.0.aar\46e075dca12bc018a45709bbc164a822\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7428f0d1debdcf1b5792a26146e51a38d992d04d">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\9.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\animated-vector-drawable-27.1.1.aar\d432705fdffdc36c1e13b9026a0955a6\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="2feadd535770271ca57b7b431f42151aa4af324a">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\56.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-tagmanager-api-9.2.0.aar\cc320f7a422f18076a6b3313e98ac9ea\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="74694bf98bd1f856cf478bd0c516531801badced">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\42.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-clearcut-9.2.0.aar\4cb8e903cf8e7c995705ee9195f9c848\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b53d61bae49278c0fa202d9066d2e72fc151c1e8">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\15.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-9.2.0.aar\3383fda91ca1d3e7f9f773cc4c12c7c7\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fb15fd9774b5c51dcb39d8e6fa1b6f06bcd1cd34">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\44.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-auth-module-9.2.0.aar\fdfff96be9eed88e3a075b4510b1ca47\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e791f7f2fbf9ca5b3b576916533f844dfb384024">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-storage-common-9.2.0.aar\4ce2bfa4b0d838a22a9a8a82e7410265\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fa6c324604383981fb74c4cb036d4171ed0a9a02">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\26.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-iid-9.2.0.aar\9f3d4d3144ee2263d59169fb2f470b9d\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fbb50f7f89342c915898c9376a67229e2fcee286">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\31.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\modules-2\files-2.1\android.arch.core\common\1.1.0\8007981f7d7540d89cd18471b8e5dcd2b4f99167\common-1.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8007981f7d7540d89cd18471b8e5dcd2b4f99167">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\67.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\mediarouter-v7-23.0.0.aar\22de0c953414cfdcc4ecfa3da440c4c7\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d358b3dd49a7c67844622dcbc9cf4339e13952ce">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\51.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-fitness-9.2.0.aar\9a0920402a569a3fec23683b653f9a0e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="982031d2aa9652bc955d0b581ec70378c0adfc56">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-common-9.2.0.aar\ad71bb7c0b12d83cf6786ee4dfa85a61\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="363f626ad5686283250cdb6073ae1bba5cb07a87">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\46.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-iid-9.2.0.aar\afd0a13c518b7098a14ca72d75887e64\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="dc4c18602ecffb3e69cda6cdc51ba4feac0f97d7">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\45.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-nearby-9.2.0.aar\0e72c11e429e15a4f182a43d43a5a7fb\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="404f4108b41050173f93836f5b35efdd9525a0ad">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\support-compat-27.1.1.aar\8c065978d658835394fc0d4b13485f29\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="23dcb4803d3103bde3f3f5db978a726338fe49ae">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\60.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-vision-9.2.0.aar\b3bd0b9fcdc29534edf625d3e0817448\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3c8fcebabb73df25937704f5566bf6c388ea941d">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\38.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-crash-9.2.0.aar\943914803db69b1a858f1ca6614c5485\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0595e77431edaba6793410f9bfa3603c063c58e7">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\17.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-wearable-9.2.0.aar\95b7b490ecf5c400200574cd6288f934\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="08cdd337d1d9247eb915f0ab365624dd7966e7fa">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\support-core-ui-27.1.1.aar\f73a9eefc2686de147459455af65da51\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="874f1143c11f5d38533efe512bf913e3e847e7df">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\57.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-identity-9.2.0.aar\5663dbbfcd39e92a7db974410ae32c3b\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="7c39a4b431976abc46d3cf6344c75d06c769cd35">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\30.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-tasks-9.2.0.aar\92261942aad728fd0205bf8e9eaeafe6\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="593fbaec1c3e100480a2bd72457b64b7dde6ac2d">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\48.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-ads-9.2.0.aar\02829c4b0d8b7f85fdc7d73e6f3da3a2\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a06eb7761fca120bbb46b34b930a3a3462ba9d7f">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-places-9.2.0.aar\311c6b1ca2cfa7e9aa866af072dc1c7f\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8ec9ae00d45e758ac5b7a1c5dc0daa8a4b24280f">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\32.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\89843b9dc256811c882a80b7bdfdc916\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="71d380aeac037e63bab7bda2ba211777e16a2f42">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\66.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-basement-9.2.0.aar\291197769de8f368ce54aebf10bef545\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="dd7676ac12aa6653718b7ea33d93ce9d6915d526">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\49.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.1.aar\2c4736cbe951caa16068875ef11f279e\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="88c68e5ef7c5ace393d014c9ec5fe736b1ca55cf">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\54.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-database-connection-9.2.0.aar\516ccb466ad6048a433f38394494c50c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="33203b081101ca6242a4cd746aafe5fc2dd98a34">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\24.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\firebase-database-9.2.0.aar\2dbda34d4ee26763e86a7e59fb82bfb0\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="d7572433ba21aa9e4624c819fa738b2748b82d05">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\23.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\runtime-1.1.0.aar\a1301744b705a450a0577b72710d5e4c\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="e2bbe48deed35056023eed2cdc0cc92e5c7d3617">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\62.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\support-fragment-27.1.1.aar\764112d03a429d63f45b194c14d54a79\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="3304d33470ff64cf83bce9189ff3648a42eb2aa7">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\55.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\modules-2\files-2.1\android.arch.lifecycle\common\1.1.0\edf3f7bfb84a7521d0599efa3b0113a0ee90f85\common-1.1.0.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0edf3f7bfb84a7521d0599efa3b0113a0ee90f85">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\65.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-analytics-9.2.0.aar\14ed24d7dc394860fecf06ea2d863583\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="18e52280643effbab30370b073e456d670a0db54">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\an0nym0us3\.gradle\caches\transforms-1\files-1.1\play-services-contextmanager-9.2.0.aar\752e34adf97716c4a0eff2b0441e0da5\jars\classes.jar"
+        jumboMode="false"
+        min-sdk-version="19"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8ad1b5663f367dac619256d75fb08a98c7baa4f4">
+        <dex dex="C:\xampp\htdocs\backryde\android\backrydedriver\app\build\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+
+</items>
