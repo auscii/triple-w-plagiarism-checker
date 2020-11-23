@@ -34,21 +34,21 @@
               <form class="login-form">
                 <div class="row">
                   <div class="input-field col s12">
-                    <h5 class="ml-4">Sign in</h5>
+                    <h5 class="ml-4 text-center bold">Log in</h5>
                   </div>
                 </div>
                 <div class="row margin">
                   <div class="input-field col s12">
                     <i class="material-icons prefix pt-2">person_outline</i>
-                    <input id="user-email-address" type="text">
-                    <label for="username" class="center-align">Username</label>
+                    <input id="user-email-address" type="email">
+                    <label for="user-email-address" class="center-align">Email Address</label>
                   </div>
                 </div>
                 <div class="row margin">
                   <div class="input-field col s12">
                     <i class="material-icons prefix pt-2">lock_outline</i>
                     <input id="user-password" type="password">
-                    <label for="password">Password</label>
+                    <label for="user-password">Password</label>
                   </div>
                 </div>
                 <div class="row">
@@ -68,10 +68,10 @@
                 </div>
                 <div class="row">
                   <div class="input-field col s6 m6 l6">
-                    <p class="margin medium-small"><a href="#">Create an account</a></p>
+                    <p class="margin medium-small"><a href="register.html">Create an account</a></p>
                   </div>
                   <div class="input-field col s6 m6 l6">
-                    <p class="margin right-align medium-small"><a href="#">Forgot password</a></p>
+                    <p class="margin right-align medium-small"><a onclick="MODAL('#modal-not-available', 'open')">Forgot password</a></p>
                   </div>
                 </div>
               </form>

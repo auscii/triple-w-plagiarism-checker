@@ -69,7 +69,6 @@ function INSERT_USER(userId, userFullName, userEmailAddress, userPassword, userC
                 status: userStatus
             });
         });
-        console.log('INSERT_USER_ACTION IS FALSE !');
     } else {
         database.ref(users + userKey + sub + credentials).set({
             id: userId,
@@ -85,10 +84,7 @@ function INSERT_USER(userId, userFullName, userEmailAddress, userPassword, userC
             profile_picture: defaultUserIconPlaceholder,
             status: userStatus
         });
-        console.log('INSERT_USER_ACTION IS TRUE !');
     }
-
-    console.log('INSERT_USER_SUCCESS !');
 }
 
 function SET_USER_PROFILE() {
