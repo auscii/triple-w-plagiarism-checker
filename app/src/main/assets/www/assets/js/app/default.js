@@ -1,5 +1,5 @@
 var userId = localStorage.getItem('id'),
-    userKey = localStorage.getItem('key'),
+    userGetKey = localStorage.getItem('key'),
     userFullName = localStorage.getItem('full_name'),
     userEmailAddress = localStorage.getItem('email_address'),
     userPassword = localStorage.getItem('p'),
@@ -32,6 +32,7 @@ var userId = localStorage.getItem('id'),
     users = "USERS/",
     credentials = "CREDENTIALS/",
     papers = "PAPERS/",
+    conferences = "CONFERENCES/",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -44,6 +45,7 @@ var userId = localStorage.getItem('id'),
     currentTime = Date().slice(16,25),
     fullCurrentDateTime = currentDate + ' ' + currentTime,
     userKey = "USER" + KEY_CODE(3) + fullDate + time,
+    conferenceKey = "CONF" + KEY_CODE(3) + fullDate + time,
     defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png";
 
 function KEY_CODE(len, charSet) {
@@ -87,7 +89,7 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
         account_type: userAccountType,
         date_time_registered: fullCurrentDateTime,
         profile_picture: defaultUserIconPlaceholder,
-        status: userStatus
+        status: 1
     });
 }
 

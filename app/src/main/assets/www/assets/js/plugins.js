@@ -396,7 +396,7 @@ function resizetable() {
          $('.vertical-layout.vertical-dark-menu .sidenav-dark .brand-logo img').attr('src','../assets/images/logo/materialize-logo.png');
       }
       if($('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo').length > 0){
-         $('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo img').attr('src','../assets/images/logo/materialize-logo-color.png');
+         $('.vertical-layout.vertical-modern-menu .sidenav-light .brand-logo img').attr('src','../../../app/src/main/assets/www/assets/images/logo/materialize-logo-color.png');
       }
    }
 }
