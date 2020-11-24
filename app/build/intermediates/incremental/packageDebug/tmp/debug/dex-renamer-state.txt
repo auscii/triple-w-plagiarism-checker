@@ -1,4 +1,4 @@
-#Tue Nov 24 03:05:21 CST 2020
+#Tue Nov 24 10:02:05 CST 2020
 base.0=C\:\\Users\\knigh\\Documents\\Random\\triple-w-plagiarism-checker\\app\\build\\intermediates\\dex\\debug\\mergeDexDebug\\out
 path.0=classes.dex
 renamed.0=classes.dex

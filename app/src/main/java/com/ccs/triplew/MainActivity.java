@@ -1,16 +1,13 @@
 package com.ccs.triplew;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.StrictMode;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.ValueCallback;
@@ -18,43 +15,23 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Button;
-import android.widget.ImageButton;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import android.widget.Toast;
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
 
-    private static final int INPUT_FILE_REQUEST_CODE = 1;
-    public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 101;
-    private static final String TAG = MainActivity.class.getSimpleName();
     private WebView webView;
     private WebSettings webSettings;
-    private ValueCallback<Uri[]> mUploadMessage;
-    private String mCameraPhotoPath = null;
-    private long size = 0;
-    private static final int REQUEST_CODE_PERMISSION = 2;
-    private  GPSTracker gps;
-    private  String mPermission = Manifest.permission.ACCESS_FINE_LOCATION;
-    private  Button btnShowLocation;
-    private String location;
-    private double latitude = 0, longitude = 0;
-    private String speechValue  = "";
-    private ImageButton btnSpeak;
-    private final int REQ_CODE_SPEECH_INPUT = 100;
-    private static final int CAMERA_REQUEST = 1888;
-    private static final int MY_CAMERA_PERMISSION_CODE = 100;
-    private File pic = null;
-    protected static final int CAMERA_PIC_REQUEST = 0;
+    private ValueCallback<Uri> mUploadMessage;
+    public ValueCallback<Uri[]> uploadMessage;
+    public static final int REQUEST_SELECT_FILE = 100;
+    private final static int FILECHOOSER_RESULTCODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewDidLoad();
+        web();
     }
 
     @Override
@@ -72,123 +49,35 @@ public class MainActivity extends Activity {
         super.onRestart();
     }
 
-    private File createImageFile() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES);
-        File imageFile = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-        return imageFile;
-    }
-
-    public class PQChromeClient extends WebChromeClient {
-        public boolean onShowFileChooser(WebView view, ValueCallback<Uri[]> filePath, WebChromeClient.FileChooserParams fileChooserParams) {
-            if (mUploadMessage != null) {
-                mUploadMessage.onReceiveValue(null);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (requestCode == REQUEST_SELECT_FILE) {
+                if (uploadMessage == null)
+                    return;
+                uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, intent));
+                uploadMessage = null;
             }
-            mUploadMessage = filePath;
-            Log.e("FileCooserParams => ", filePath.toString());
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                File photoFile = null;
-                try {
-                    photoFile = createImageFile();
-                    takePictureIntent.putExtra("PhotoPath", mCameraPhotoPath);
-                } catch (IOException ex) {
-                    Log.e(TAG, "Unable to create Image File", ex);
-                }
-                if (photoFile != null) {
-                    mCameraPhotoPath = "file:" + photoFile.getAbsolutePath();
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(photoFile));
-                } else {
-                    takePictureIntent = null;
-                }
-            }
-            Intent contentSelectionIntent = new Intent(Intent.ACTION_GET_CONTENT);
-            contentSelectionIntent.addCategory(Intent.CATEGORY_OPENABLE);
-            contentSelectionIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-            contentSelectionIntent.setType("image/*");
-            Intent[] intentArray;
-            if (takePictureIntent != null) {
-                intentArray = new Intent[]{takePictureIntent};
-            } else {
-                intentArray = new Intent[2];
-            }
-            Intent chooserIntent = new Intent(Intent.ACTION_CHOOSER);
-            chooserIntent.putExtra(Intent.EXTRA_INTENT, contentSelectionIntent);
-            chooserIntent.putExtra(Intent.EXTRA_TITLE, "Image Chooser");
-            chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, intentArray);
-            startActivityForResult(Intent.createChooser(chooserIntent, "Select images"), 1);
-            return true;
+        } else if (requestCode == FILECHOOSER_RESULTCODE)  {
+            if (null == mUploadMessage)
+            return;
+            Uri result = intent == null || resultCode != MainActivity.RESULT_OK ? null : intent.getData();
+            mUploadMessage.onReceiveValue(result);
+            mUploadMessage = null;
+        }
+        else {
+            Toast.makeText(MainActivity.this, "Failed to Upload Image", Toast.LENGTH_LONG).show();
         }
     }
 
-    private void initCaptureCamera() {
-        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(builder.build());
-
-        Intent i = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(i, CAMERA_PIC_REQUEST);
-    }
-
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-          // UN-COMMENT IF YOU WANT TO DEACTIVATE BACK
-//        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-//            return true;
-//        }
-//        return super.onKeyDown(keyCode, event);
-
-        if (event.getAction() == KeyEvent.ACTION_DOWN) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_BACK:
-                    if (webView.canGoBack()) {
-                        webView.goBack();
-                    } else {
-                        finish();
-                    }
-                    return true;
-            }
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    public class PQClient extends WebViewClient {
-        ProgressDialog progressDialog;
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            if (url.contains("mailto:")) {
-                view.getContext().startActivity(
-                        new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-                return true;
-            } else {
-                view.loadUrl(url);
-                return true;
-            }
-        }
-        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-            if (progressDialog == null) {
-                progressDialog = new ProgressDialog(MainActivity.this);
-                progressDialog.setMessage("Loading...");
-                progressDialog.hide();
-            }
-        }
-        public void onPageFinished(WebView view, String url) {
-            webView.loadUrl("javascript:(function(){ " + "document.getElementById('android-app').style.display='none';})()");
-            try {
-                if (progressDialog.isShowing()) {
-                    progressDialog.dismiss();
-                    progressDialog = null;
-                }
-            } catch (Exception exception) {
-                exception.printStackTrace();
-            }
-        }
-    }
-
-    private void viewDidLoad() {
+    private void web() {
         webView = (WebView) findViewById(R.id.webView);
         webSettings = webView.getSettings();
         webSettings.setAppCacheEnabled(true);
@@ -196,14 +85,78 @@ public class MainActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setAllowFileAccess(true);
-        webView.setWebViewClient(new PQClient());
-        webView.setWebChromeClient(new PQChromeClient());
         webView.setVerticalScrollBarEnabled(false);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setDatabaseEnabled(true);
         webView.getSettings().setDatabasePath("/data/data/" + webView.getContext().getPackageName() + "/databases/");
-        //webView.setBackgroundColor(Color.parseColor("#F44336"));
         webView.loadUrl("file:///android_asset/www/index.html");
+        webView.setWebViewClient(new myWebClient());
+        webView.setWebChromeClient(new WebChromeClient() {
+            // For Android 3.0+
+            protected void openFileChooser(ValueCallback uploadMsg, String acceptType) {
+                Log.i("openFileChooser", "-> openFileChooser 3.0");
+                mUploadMessage = uploadMsg;
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType("image/*");
+                startActivityForResult(Intent.createChooser(i, "File Browser"), FILECHOOSER_RESULTCODE);
+            }
+            // For Android 5.0+
+            public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
+                Log.i("onShowFileChooser", "-> onShowFileChooser 5.0+");
+                if (uploadMessage != null) {
+                    uploadMessage.onReceiveValue(null);
+                    uploadMessage = null;
+                }
+                uploadMessage = filePathCallback;
+                Intent intent = fileChooserParams.createIntent();
+                try {
+                    startActivityForResult(intent, REQUEST_SELECT_FILE);
+                } catch (ActivityNotFoundException e) {
+                    uploadMessage = null;
+                    Toast.makeText(MainActivity.this, "Cannot Open File Chooser", Toast.LENGTH_LONG).show();
+                    return false;
+                }
+                return true;
+            }
+            //For Android 4.1 only
+            protected void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
+                Log.i("openFileChooser", "-> openFileChooser 4.1");
+                mUploadMessage = uploadMsg;
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent, "File Browser"), FILECHOOSER_RESULTCODE);
+            }
+            protected void openFileChooser(ValueCallback<Uri> uploadMsg) {
+                Log.i("openFileChooser", "-> openFileChooser 4.2");
+                mUploadMessage = uploadMsg;
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
+                i.setType("image/*");
+                startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
+            }
+        });
+    }
+
+}
+
+class myWebClient extends WebViewClient {
+    @Override
+    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+        super.onPageStarted(view, url, favicon);
+    }
+
+    @Override
+    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+        view.loadUrl(url);
+        return true;
+    }
+
+    @Override
+    public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        Log.i("onPageFinished", "-> onPageFinished");
     }
 
 }
