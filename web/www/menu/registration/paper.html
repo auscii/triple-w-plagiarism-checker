@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="author" content="ThemeSelect">
+    <title>Triple W</title>
+    <link rel="apple-touch-icon" href="../../assets/images/logo/ic_launcher.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../../assets/images/logo/ic_launcher.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- BEGIN: VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="../../assets/vendors/vendors.min.css">
+    <!-- END: VENDOR CSS-->
+    <!-- BEGIN: Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="../../assets/css/themes/vertical-modern-menu-template/materialize.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/themes/vertical-modern-menu-template/style.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/css/pages/login.css">
+    <!-- END: Page Level CSS-->
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="../../assets/css/custom/custom.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/vendors/dropify/css/dropify.min.css">
+    <!-- END: Custom CSS-->
+  </head>
+  <!-- END: Head-->
+  <body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu 1-column login-bg blank-page blank-page" 
+        data-open="click" 
+        data-menu="vertical-modern-menu" 
+        data-col="1-column">
+
+    <div class="row">
+      <span>&nbsp;</span>
+    </div>
+    <div class="row">
+      <span>&nbsp;</span>
+    </div>
+    <div class="row">
+      <span>&nbsp;</span>
+    </div>
+    <div class="row">
+      <span>&nbsp;</span>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <div class="container">
+          <div id="login-page" class="row">
+            <div class="col s12 m6 l4 z-depth-4 card-panel border-radius-6 login-card bg-opacity-8">
+              <form class="login-form">
+                <div class="row">
+                  <div class="input-field col s12"><br>
+                    <h5 class="ml-4 text-center bold">Pre-upload your Paper</h5>
+                    <p class="text-center">Maximum file upload size 2MB</p>
+                  </div>
+                </div>
+                  <div class="row section">
+                    <div class="col s12 m8 l9" id="combo-box-categories">
+                      <p>Categories</p>
+                      <select id="input-paper-categories" class="form-control">
+                        <option disabled selected>--Select Categories--</option>
+                        <option value="Technology">Technology</option>
+                        <option value="Science">Science</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Academic">Academic</option>
+                      </select>
+                    </div>
+                  </div>
+                <div class="row margin">
+                  <div class="row section">
+                    <div class="col s12 m8 5">
+                      <p>Upload your Abstract paper</p>
+                      <input type="file" id="input-paper-abstract-paper" class="dropify" data-max-file-size="2M" />
+                    </div>
+                  </div>
+                  <div class="row section">
+                    <div class="col s12 m8 5">
+                      <p>Upload your full paper</p>
+                      <input type="file" id="input-paper-full-paper" class="dropify" data-max-file-size="2M" />
+                    </div>
+                  </div>
+                </div> <br>
+                <div class="row">
+                  <div class="input-field col s12 center">
+                    <a class="btn mb-1 waves-effect waves-light" id="btn-previous-paper">Back</a> 
+                    <a class="btn mb-1 waves-effect waves-light" id="btn-done-paper">Done</a> 
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 center">
+                    <span>&nbsp;</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12 center">
+                    <span>&nbsp;</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="modal-warning" class="modal">
+      <div class="modal-content">
+          <div class="modal-header">
+              <div class="modal-title modal-header-title">
+                <p class="text-center default-caption" id="warning-message"></p> 
+              </div>
+          </div>
+          <div class="modal-body text-center">
+              <button href="#" onclick="MODAL('#modal-warning', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
+          </div>
+      </div>
+    </div>
+
+    <div id="modal-progress" class="modal">
+      <div class="modal-content">
+          <div class="modal-body">
+            <p class="text-center default-caption" id="loading-message"></p>
+            <div class="col s12 m4 center">
+                <div class="preloader-wrapper big active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <!-- JS-->
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+    <script src="../../assets/js/vendors.min.js" type="text/javascript"></script>
+    <script src="../../assets/js/plugins.js" type="text/javascript"></script>
+    <script src="../../assets/js/custom/custom-script.js" type="text/javascript"></script>
+    <script src="../../assets/js/scripts/advance-ui-modals.js" type="text/javascript"></script>
+    <script src="../../assets/js/common/main.js" type="text/javascript"></script>
+    <script src="../../assets/js/app/default.js" type="text/javascript"></script>
+    <script src="../../assets/js/app/auth.js" type="text/javascript"></script>
+    <script src="../../assets/js/app/index.js" type="text/javascript"></script>
+    <script src="../../assets/vendors/dropify/js/dropify.min.js"></script>
+    <script src="../../assets/js/scripts/form-file-uploads.js"></script>
+
+  </body>
+
+</html>

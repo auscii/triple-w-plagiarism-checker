@@ -1,0 +1,16 @@
+.text-center {
+	text-align: center;
+}
+
+.center {
+	margin: 0 auto;
+}
+
+.default-caption {
+	font-weight: bolder;
+	font-size: 21px;
+}
+
+.bold {
+	font-weight: bold;
+}
