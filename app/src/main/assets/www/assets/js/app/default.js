@@ -90,9 +90,7 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
 function SET_USER_REGISTRATION_VALUE() {
    $("#register-email-address").val(userRegisterEmailAddress);
    $("#register-fullname").val(userRegisterFullName);
-   console.log('userRegisterPaperCategories -> ', userRegisterPaperCategories);
    $("div#combo-box-categories select").val(userRegisterPaperCategories);
-
    $("#register-password").val(userRegisterPassword);
    $("#input-paper-abstract-paper").attr("src", userRegisterPaperAbstract);
    $("#input-paper-full-paper").attr("src", userRegisterFullPaper);
