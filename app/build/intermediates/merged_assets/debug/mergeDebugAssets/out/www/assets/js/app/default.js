@@ -18,12 +18,16 @@ var userId = localStorage.getItem('id'),
     userRegisterPaperAbstract = localStorage.getItem('userRegisterPaperAbstract'),
     userRegisterFullPaper = localStorage.getItem('userRegisterFullPaper'),
     userRegisterPaperCategories = localStorage.getItem('userRegisterPaperCategories'),
+    userType = localStorage.getItem('userType'),
     technology = "TECHNOLOGY",
     science = "SCIENCE",
     medicine = "MEDICINE",
     academic = "ACADEMIC",
     author = "AUTHOR",
     paperReviewer = "PAPER REVIEWER",
+    conferenceChair = "CONFERENCE CHAIR",
+    mobile = "MOBILE",
+    web = "WEB",
     sub = "/",
     users = "USERS/",
     credentials = "CREDENTIALS/",
@@ -90,9 +94,7 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
 function SET_USER_REGISTRATION_VALUE() {
    $("#register-email-address").val(userRegisterEmailAddress);
    $("#register-fullname").val(userRegisterFullName);
-   console.log('userRegisterPaperCategories -> ', userRegisterPaperCategories);
    $("div#combo-box-categories select").val(userRegisterPaperCategories);
-
    $("#register-password").val(userRegisterPassword);
    $("#input-paper-abstract-paper").attr("src", userRegisterPaperAbstract);
    $("#input-paper-full-paper").attr("src", userRegisterFullPaper);

@@ -1,7 +1,13 @@
 SET_USER_REGISTRATION_VALUE();
 
 $("#btn-login").click(function() {
+  localStorage.setItem('userType', mobile);
 	AUTH_USER_ACCOUNT();
+});
+
+$("#btn-w-login").click(function() {
+  localStorage.setItem('userType', web);
+  AUTH_USER_ACCOUNT();
 });
 
 $("#btn-login-register").click(function() {
@@ -175,7 +181,6 @@ $("#btn-previous-paper").click(function() {
   REDIRECT("preferences.html");
 });
 
-//methods
 function LOGIN_GOOGLE_ACCOUNT() {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
@@ -252,29 +257,36 @@ function AUTH_USER_ACCOUNT() {
                 var userFullName = data.val().full_name;
                 var userEmailAddress = data.val().email_address;
                 var p = data.val().password;
-                var userContactNumber = data.val().contact_number;
-                var userAddress = data.val().address;
-                var userOccupation = data.val().occupation;
+                var userFullPaperUrl = data.val().fullPaperUrl;
+                var userPaperAbstractUrl = data.val().paperAbstractUrl;
+                var userPaperCategories = data.val().paperCategories;
+                var userPreferences = data.val().preferences;
                 var userAccountType = data.val().account_type;
                 var userDateTimeRegistered = data.val().date_time_registered;
                 var userIconUrl = data.val().profile_picture;
-                var userStatus = data.val().status;
                 if (userLoginEmailAddress == userEmailAddress) {
+                   if (userType == web) {
+                     if (userAccountType == author || userAccountType == paperReviewer) {
+                        MODAL('#modal-progress', 'close');
+                        MODAL('#modal-login-error', 'open');
+                        $('#error-message').html("User account must be Conference Chair only.");
+                        return;
+                     }
+                   }
                    localStorage.setItem('id', userId);
                    localStorage.setItem('key', userKey);
                    localStorage.setItem('full_name', userFullName);
                    localStorage.setItem('email_address', userEmailAddress);
                    localStorage.setItem('p', p);
-                   localStorage.setItem('contact_number', userContactNumber);
-                   localStorage.setItem('address', userAddress);
-                   localStorage.setItem('occupation', userOccupation);
+                   localStorage.setItem('fullPaperUrl', userFullPaperUrl);
+                   localStorage.setItem('paperAbstractUrl', userPaperAbstractUrl);
+                   localStorage.setItem('paperCategories', userPaperCategories);
+                   localStorage.setItem('preferences', userPreferences);
                    localStorage.setItem('account_type', userAccountType);
                    localStorage.setItem('date_time_registered', userDateTimeRegistered);
                    localStorage.setItem('profile_picture', userIconUrl);
-                   localStorage.setItem('status', userStatus);
                    REDIRECT("main.html");
                 }
-
             });
           });
         } else {
