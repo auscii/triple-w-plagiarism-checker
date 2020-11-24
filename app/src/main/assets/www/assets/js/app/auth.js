@@ -8,6 +8,12 @@ $("#btn-login-register").click(function() {
   REDIRECT("registration/email.html");
 });
 
+$("#btn-w-register-submit").click(function() {
+  $('#loading-message').html('Saving user account...');
+  MODAL('#modal-progress', 'open');
+  NEW_ACCOUNT(web,'','');
+});
+
 $("#btn-register-back").click(function() {
   REDIRECT("index.html");
 });
@@ -153,7 +159,7 @@ $("#btn-done-paper").click(function() {
                        localStorage.setItem('userRegisterPaperAbstract', userRegisterPaperAbstract);
                        localStorage.setItem('userRegisterFullPaper', userRegisterFullPaper);
                        localStorage.setItem('userRegisterPaperCategories', userRegisterPaperCategories);
-                       NEW_ACCOUNT(abstractUrl, fullPaperUrl);
+                       NEW_ACCOUNT(mobile, abstractUrl, fullPaperUrl);
                     } else {
                        $('#warning-message').html('Please fill out this field!');
                        MODAL('#modal-warning', 'open');
@@ -286,18 +292,48 @@ function AUTH_USER_ACCOUNT() {
     });
 }
 
-function NEW_ACCOUNT(abstractUrl, fullPaperUrl) {
-  firebase.auth().createUserWithEmailAndPassword(userRegisterEmailAddress, userRegisterPassword).then(function(user) {
-    INSERT_USER(firebase.auth().currentUser.uid, userRegisterEmailAddress, userRegisterAccountType, userRegisterFullName, userRegisterPassword, 
-                userRegisterPreferences, abstractUrl, fullPaperUrl, userRegisterPaperCategories);
-    USER_CLEAR_LOCAL_STORAGE();
-    MODAL('#modal-progress', 'close');
-    REDIRECT("../index.html");
-  }, function(error) {
+function NEW_ACCOUNT(type, abstractUrl, fullPaperUrl) {
+  if (type == mobile) {
+    firebase.auth().createUserWithEmailAndPassword(userRegisterEmailAddress, userRegisterPassword).then(function(user) {
+      INSERT_USER(firebase.auth().currentUser.uid, userRegisterEmailAddress, userRegisterAccountType, userRegisterFullName, userRegisterPassword, 
+                  userRegisterPreferences, abstractUrl, fullPaperUrl, userRegisterPaperCategories);
       MODAL('#modal-progress', 'close');
-      MODAL('#modal-warning', 'open');
-      $('#warning-message').html(error.code + ": " + error.message);
-  });
+      REDIRECT("../index.html");
+    }, function(error) {
+        MODAL('#modal-progress', 'close');
+        MODAL('#modal-warning', 'open');
+        $('#warning-message').html(error.code + ": " + error.message);
+    });
+  } else {
+    var fullName = $('#w-register-fullname').val();
+    var emailAddress = $('#w-register-email-address').val();
+    var password = $('#w-register-password').val();
+    var confirmPassword = $('#w-register-c-password').val();
+    if (!fullName || !emailAddress || !password) {
+        MODAL('#modal-progress', 'close');
+        MODAL('#modal-warning', 'open');
+        $('#warning-message').html('Please fill out all input fields!');
+    } else if (password.length < 6) {
+      $('#warning-message').html('You have to enter at least 6 characters!');
+        MODAL('#modal-progress', 'close');
+        MODAL('#modal-warning', 'open');
+    } else if (password != confirmPassword) {
+        MODAL('#modal-progress', 'close');
+        MODAL('#modal-warning', 'open');
+        $('#warning-message').html('Password mismatched!');
+    } else {
+      firebase.auth().createUserWithEmailAndPassword(emailAddress, password).then(function(user) {
+        INSERT_USER(firebase.auth().currentUser.uid, emailAddress, conferenceChair, 
+                    fullName, password, 'NONE', 'NONE', 'NONE', 'NONE');
+        MODAL('#modal-progress', 'close');
+        REDIRECT("index.html");
+      }, function(error) {
+          MODAL('#modal-warning', 'open');
+          $('#warning-message').html(error.code + ": " + error.message);
+      });
+    }
+  }
+  USER_CLEAR_LOCAL_STORAGE();
 }
 
 function STORE_PREFERENCES(type) {
@@ -305,8 +341,8 @@ function STORE_PREFERENCES(type) {
     localStorage.setItem('userRegisterPreferences', type);
     REDIRECT("paper.html");
   } else {
-    MODAL('#modal-progress', 'open');
     $('#loading-message').html('Saving user account...');
-    NEW_ACCOUNT('', '');
+    MODAL('#modal-progress', 'open');
+    NEW_ACCOUNT(mobile,'','');
   }
 }
