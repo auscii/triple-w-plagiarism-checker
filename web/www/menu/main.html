@@ -472,7 +472,7 @@
 
                         <div class="input-field col m4 s6">
                             <p>Upload Conference Banner</p>
-                            <input type="file" id="new-conference-banner" class="dropify" data-max-file-size="2M" />
+                            <input type="file" id="new-conference-banner" class="dropify" accept="image/*"/>
                         </div>
 
                         <p class="text-left default-caption" style="font-weight: bolder; font-size: 30px;">Conference Details</p> 
@@ -536,13 +536,13 @@
 
                         <div class="input-field col s6">
                           <i class="material-icons prefix pt-2">view_list</i>
-                          <input id="new-conference-average-percentage-report" type="number" class="validate">
+                          <input id="new-conference-average-percentage-report" type="number" class="validate" onkeypress="VALIDATE(event)">
                           <label for="new-conference-average-percentage-report">Acceptable percentage for originality report:</label>
                         </div>
 
                         <div class="input-field col s6">
                           <i class="material-icons prefix">view_day</i>
-                          <input id="new-conference-number-papers-accomodated" type="number" class="validate">
+                          <input id="new-conference-number-papers-accomodated" type="number" class="validate" onkeypress="VALIDATE(event)">
                           <label for="new-conference-number-papers-accomodated">Numbers of papers to be accomodated:</label>
                         </div>
 

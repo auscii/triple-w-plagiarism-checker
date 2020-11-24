@@ -105,3 +105,18 @@ function SET_USER_REGISTRATION_VALUE() {
 function SET_USER_PROFILE() {
 //    $("#view_id____________").attr("src", user____________);
 }
+
+function VALIDATE(evt) {
+  var theEvent = evt || window.event;
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
