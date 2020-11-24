@@ -122,3 +122,9 @@ function VALIDATE(evt) {
     if(theEvent.preventDefault) theEvent.preventDefault();
   }
 }
+
+function UPDATE_TEXT_FIELDS() {
+  $(function() {
+      M.updateTextFields();
+  });
+}
