@@ -1,5 +1,5 @@
 var userId = localStorage.getItem('id'),
-    userKey = localStorage.getItem('key'),
+    userGetKey = localStorage.getItem('key'),
     userFullName = localStorage.getItem('full_name'),
     userEmailAddress = localStorage.getItem('email_address'),
     userPassword = localStorage.getItem('p'),
@@ -32,6 +32,7 @@ var userId = localStorage.getItem('id'),
     users = "USERS/",
     credentials = "CREDENTIALS/",
     papers = "PAPERS/",
+    conferences = "CONFERENCES/",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -44,7 +45,10 @@ var userId = localStorage.getItem('id'),
     currentTime = Date().slice(16,25),
     fullCurrentDateTime = currentDate + ' ' + currentTime,
     userKey = "USER" + KEY_CODE(3) + fullDate + time,
-    defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png";
+    conferenceKey = "CONF" + KEY_CODE(3) + fullDate + time,
+    isConferenceAvailable = false,
+    defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png",
+    noImage = "https://media.istockphoto.com/vectors/no-image-available-sign-vector-id936182806?k=6&m=936182806&s=612x612&w=0&h=F5sh9tAuiAtEPNE1NiFZ7mH7-7cjx0q4CXOcxiziFpw=";
 
 function KEY_CODE(len, charSet) {
     charSet = charSet || 'ABCDFGHIJKLMNOPQRSTUVWXYZ'+'0123456789';
@@ -87,7 +91,7 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
         account_type: userAccountType,
         date_time_registered: fullCurrentDateTime,
         profile_picture: defaultUserIconPlaceholder,
-        status: userStatus
+        status: 1
     });
 }
 
@@ -102,4 +106,25 @@ function SET_USER_REGISTRATION_VALUE() {
 
 function SET_USER_PROFILE() {
 //    $("#view_id____________").attr("src", user____________);
+}
+
+function VALIDATE(evt) {
+  var theEvent = evt || window.event;
+  if (theEvent.type === 'paste') {
+      key = event.clipboardData.getData('text/plain');
+  } else {
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+  }
+  var regex = /[0-9]|\./;
+  if( !regex.test(key) ) {
+    theEvent.returnValue = false;
+    if(theEvent.preventDefault) theEvent.preventDefault();
+  }
+}
+
+function UPDATE_TEXT_FIELDS() {
+  $(function() {
+      M.updateTextFields();
+  });
 }
