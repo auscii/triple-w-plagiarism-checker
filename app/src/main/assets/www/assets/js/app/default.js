@@ -46,6 +46,7 @@ var userId = localStorage.getItem('id'),
     fullCurrentDateTime = currentDate + ' ' + currentTime,
     userKey = "USER" + KEY_CODE(3) + fullDate + time,
     conferenceKey = "CONF" + KEY_CODE(3) + fullDate + time,
+    isConferenceAvailable = false,
     defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png",
     noImage = "https://media.istockphoto.com/vectors/no-image-available-sign-vector-id936182806?k=6&m=936182806&s=612x612&w=0&h=F5sh9tAuiAtEPNE1NiFZ7mH7-7cjx0q4CXOcxiziFpw=";
 

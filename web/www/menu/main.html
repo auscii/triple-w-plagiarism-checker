@@ -42,43 +42,11 @@
               <li class="hide-on-large-only"><a class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i class="material-icons">search</i></a></li>
               <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="../../../app/src/main/assets/www/assets/images/avatar/avatar-7.png" alt="avatar"><i></i></span></a></li>
             </ul>
-            <!-- translation-button-->
-            <ul class="dropdown-content" id="translation-dropdown">
-              <li><a class="grey-text text-darken-1" href="#!"><i class="flag-icon flag-icon-gb"></i> English</a></li>
-              <li><a class="grey-text text-darken-1" href="#!"><i class="flag-icon flag-icon-fr"></i> French</a></li>
-              <li><a class="grey-text text-darken-1" href="#!"><i class="flag-icon flag-icon-cn"></i> Chinese</a></li>
-              <li><a class="grey-text text-darken-1" href="#!"><i class="flag-icon flag-icon-de"></i> German</a></li>
-            </ul>
-            <!-- notifications-dropdown-->
-            <ul class="dropdown-content" id="notifications-dropdown">
-              <li>
-                <h6>NOTIFICATIONS<span class="new badge">5</span></h6>
-              </li>
-              <li class="divider"></li>
-              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new order has been placed!</a>
-                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
-              </li>
-              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
-                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
-              </li>
-              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
-                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
-              </li>
-              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
-                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
-              </li>
-              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
-                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
-              </li>
-            </ul>
             <!-- profile-dropdown-->
             <ul class="dropdown-content" id="profile-dropdown">
-              <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
-              <li><a class="grey-text text-darken-1" href="app-chat.html"><i class="material-icons">chat_bubble_outline</i> Chat</a></li>
-              <li><a class="grey-text text-darken-1" href="page-faq.html"><i class="material-icons">help_outline</i> Help</a></li>
+              <li><a class="grey-text text-darken-1" href="profile.html"><i class="material-icons">person_outline</i> Profile</a></li>
               <li class="divider"></li>
-              <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">lock_outline</i> Lock</a></li>
-              <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
+              <li><a class="grey-text text-darken-1" onclick="USER_LOG_OUT()"><i class="material-icons">keyboard_tab</i> Logout</a></li>
             </ul>
           </div>
           <nav class="display-none search-sm">
@@ -107,13 +75,13 @@
         </h1>
       </div>
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
-        <li class="bold"><a class="active waves-effect waves-cyan " href="changelog.html"><i class="material-icons">info</i><span class="menu-title" data-i18n="">My Programmes</span></a>
+        <li class="bold"><a class="active waves-effect waves-cyan " href="main.html"><i class="material-icons">info</i><span class="menu-title" data-i18n="">My Programmes</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="changelog.html"><i class="material-icons">home</i><span class="menu-title" data-i18n="">Dashboard</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="dashboard.html"><i class="material-icons">home</i><span class="menu-title" data-i18n="">Dashboard</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="https://pixinvent.com/materialize-material-design-admin-template/documentation/index.html"><i class="material-icons">contact_mail</i><span class="menu-title" data-i18n="">Profile</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">contact_mail</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="https://pixinvent.ticksy.com/"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " onclick="USER_LOG_OUT()"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
         </li>
       </ul>
       <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
@@ -162,9 +130,9 @@
                       <h4 class="header white-text">&nbsp;</h4>
                         <div class="row">
                             <span id="list-of-conferences"></span>
+                            <span id="conference-warning-message"></span>
                         </div>
                   </div>
-
 
                   <div class="col s12 m4 center" id="conference-progress-spinner" style="margin-left: 250px;">
                     <div class="preloader-wrapper big active">
@@ -183,155 +151,7 @@
                   </div>
 
                 </div>
-              </div><!-- START RIGHT SIDEBAR NAV -->
-              <aside id="right-sidebar-nav">
-                 <div id="slide-out-right" class="slide-out-right-sidenav sidenav rightside-navigation">
-                    <div class="row">
-                       <div class="slide-out-right-title">
-                          <div class="col s12 border-bottom-1 pb-0 pt-1">
-                             <div class="row">
-                                <div class="col s2 pr-0 center">
-                                   <i class="material-icons vertical-text-middle"><a href="#" class="sidenav-close">clear</a></i>
-                                </div>
-                                <div class="col s10 pl-0">
-                                   <ul class="tabs">
-                                      <li class="tab col s4 p-0">
-                                         <a href="#messages" class="active">
-                                            <span>Messages</span>
-                                         </a>
-                                      </li>
-                                      <li class="tab col s4 p-0">
-                                         <a href="#settings">
-                                            <span>Settings</span>
-                                         </a>
-                                      </li>
-                                      <li class="tab col s4 p-0">
-                                         <a href="#activity">
-                                            <span>Activity</span>
-                                         </a>w
-                                      </li>
-                                   </ul>
-                                </div>
-                             </div>
-                          </div>
-                       </div>
-                    </div>
-                 </div>
-
-                 <!-- Slide Out Chat -->
-                 <ul id="slide-out-chat" class="sidenav slide-out-right-sidenav-chat">
-                    <li class="center-align pt-2 pb-2 sidenav-close chat-head">
-                       <a href="#!"><i class="material-icons mr-0">chevron_left</i>Elizabeth Elliott</a>
-                    </li>
-                    <li class="chat-body">
-                       <ul class="collection">
-                          <li class="collection-item display-flex avatar pl-5 pb-0" data-target="slide-out-chat">
-                             <span class="avatar-status avatar-online avatar-50"
-                                ><img src="../../../app/src/main/assets/www/assets/images/avatar/avatar-7.png" alt="avatar" />
-                             </span>
-                             <div class="user-content speech-bubble">
-                                <p class="medium-small">hello!</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar justify-content-end pl-5 pb-0" data-target="slide-out-chat">
-                             <div class="user-content speech-bubble-right">
-                                <p class="medium-small">How can we help? We're here for you!</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar pl-5 pb-0" data-target="slide-out-chat">
-                             <span class="avatar-status avatar-online avatar-50"
-                                ><img src="../../../app/src/main/assets/www/assets/images/avatar/avatar-7.png" alt="avatar" />
-                             </span>
-                             <div class="user-content speech-bubble">
-                                <p class="medium-small">I am looking for the best admin template.?</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar justify-content-end pl-5 pb-0" data-target="slide-out-chat">
-                             <div class="user-content speech-bubble-right">
-                                <p class="medium-small">Materialize admin is the responsive materializecss admin template.</p>
-                             </div>
-                          </li>
-
-                          <li class="collection-item display-grid width-100 center-align">
-                             <p>8:20 a.m.</p>
-                          </li>
-
-                          <li class="collection-item display-flex avatar pl-5 pb-0" data-target="slide-out-chat">
-                             <span class="avatar-status avatar-online avatar-50"
-                                ><img src="../../../app/src/main/assets/www/assets/images/avatar/avatar-7.png" alt="avatar" />
-                             </span>
-                             <div class="user-content speech-bubble">
-                                <p class="medium-small">Ohh! very nice</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar justify-content-end pl-5 pb-0" data-target="slide-out-chat">
-                             <div class="user-content speech-bubble-right">
-                                <p class="medium-small">Thank you.</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar pl-5 pb-0" data-target="slide-out-chat">
-                             <span class="avatar-status avatar-online avatar-50"
-                                ><img src="../../../app/src/main/assets/www/assets/images/avatar/avatar-7.png" alt="avatar" />
-                             </span>
-                             <div class="user-content speech-bubble">
-                                <p class="medium-small">How can I purchase it?</p>
-                             </div>
-                          </li>
-
-                          <li class="collection-item display-grid width-100 center-align">
-                             <p>9:00 a.m.</p>
-                          </li>
-
-                          <li class="collection-item display-flex avatar justify-content-end pl-5 pb-0" data-target="slide-out-chat">
-                             <div class="user-content speech-bubble-right">
-                                <p class="medium-small">From ThemeForest.</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar justify-content-end pl-5 pb-0" data-target="slide-out-chat">
-                             <div class="user-content speech-bubble-right">
-                                <p class="medium-small">Only $24</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar pl-5 pb-0" data-target="slide-out-chat">
-                             <span class="avatar-status avatar-online avatar-50"
-                                ><img src="../../../app/src/main/assets/www/assets/images/avatar/avatar-7.png" alt="avatar" />
-                             </span>
-                             <div class="user-content speech-bubble">
-                                <p class="medium-small">Ohh! Thank you.</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar pl-5 pb-0" data-target="slide-out-chat">
-                             <span class="avatar-status avatar-online avatar-50"
-                                ><img src="../../../app/src/main/assets/www/assets/images/avatar/avatar-7.png" alt="avatar" />
-                             </span>
-                             <div class="user-content speech-bubble">
-                                <p class="medium-small">I will purchase it for sure.</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar justify-content-end pl-5 pb-0" data-target="slide-out-chat">
-                             <div class="user-content speech-bubble-right">
-                                <p class="medium-small">Great, Feel free to get in touch on</p>
-                             </div>
-                          </li>
-                          <li class="collection-item display-flex avatar justify-content-end pl-5 pb-0" data-target="slide-out-chat">
-                             <div class="user-content speech-bubble-right">
-                                <p class="medium-small">https://pixinvent.ticksy.com/</p>
-                             </div>
-                          </li>
-                       </ul>
-                    </li>
-                    <li class="center-align chat-footer">
-                       <form class="col s12" onsubmit="slide_out_chat()" action="javascript:void(0);">
-                          <div class="input-field">
-                             <input id="icon_prefix" type="text" class="search" />
-                             <label for="icon_prefix">Type here..</label>
-                             <a onclick="slide_out_chat()"><i class="material-icons prefix">send</i></a>
-                          </div>
-                       </form>
-                    </li>
-                 </ul>
-              </aside>
-              <!-- END RIGHT SIDEBAR NAV -->
+              </div>
           </div>
         </div>
       </div>

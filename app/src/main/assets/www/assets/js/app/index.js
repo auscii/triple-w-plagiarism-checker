@@ -104,9 +104,27 @@ function USER_PROGRAMMES() {
 		var modeOfReview = data.val().conference_mode_of_review;
 		var dateTimeCreated = data.val().date_time_created;
 		if (key) {
+			isConferenceAvailable = true;
 			$('#list-of-conferences').append('<div class="col s12 m6 l4 card-width"><div class="card card-border center-align gradient-45deg-indigo-purple"><div class="card-content white-text"><img class="responsive-img circle z-depth-4" style="height: 100px; width: 100px;" src="'+banner+'"/><h5 class="white-text mb-1">'+title+'</h5><p class="m-0">'+eventPlace+'</p><p class="mt-8">Creative usable interface & <br />designer @Clevision</p><a class="waves-effect waves-light btn gradient-45deg-deep-orange-orange border-round mt-7 z-depth-4">View Conference</a><div class="row mt-5"><a href="#" class="col s4"><h5 class="gradient-45deg-indigo-light-blue icon-background circle white-text z-depth-3"><i class="fab fa-behance"></i></h5><p class="white-text"><b>12.8k</b></p><p class="white-text">Followers</p></a><a href="#" class="col s4"><h5 class="icon-background circle gradient-45deg-indigo-blue white-text z-depth-3"><i class="fab fa-linkedin-in"></i></h5><p class="white-text"><b>10.1k</b></p><p class="white-text">Followers</p></a><a href="#" class="col s4"><h5 class="icon-background circle gradient-45deg-red-pink white-text z-depth-3"><i class="fab fa-pinterest-p"></i></h5><p class="white-text"><b>8.23k</b></p><p class="white-text">Followers</p></a></div></div></div></div>');
 			$('#conference-progress-spinner').css({"display":"none"}); 
 		}
     });
+	setTimeout(function() {
+		CHECK_IF_DATA_EXISTS();
+	}, 5000);
+}
 
+function CHECK_IF_DATA_EXISTS() {
+	var start = setInterval( function() {
+		if (isConferenceAvailable) {
+	  		clearInterval(start);
+			return;
+		} else {
+			MODAL('#modal-warning', 'open');
+			$('#conference-progress-spinner').css({"display":"none"}); 
+			$('#warning-message').html('No available data');
+			$('#conference-warning-message').html('No available data');
+			isConferenceAvailable = true;
+		}
+	}, 1000);
 }
