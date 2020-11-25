@@ -2,12 +2,12 @@ SET_USER_REGISTRATION_VALUE();
 
 $("#btn-login").click(function() {
   localStorage.setItem('userType', mobile);
-	AUTH_USER_ACCOUNT();
+	AUTH_USER_ACCOUNT(mobile);
 });
 
 $("#btn-w-login").click(function() {
   localStorage.setItem('userType', web);
-  AUTH_USER_ACCOUNT();
+  AUTH_USER_ACCOUNT(web);
 });
 
 $("#btn-login-register").click(function() {
@@ -235,7 +235,7 @@ function USER_LOG_OUT() {
   REDIRECT("index.html");
 }
 
-function AUTH_USER_ACCOUNT() {
+function AUTH_USER_ACCOUNT(typeUser) {
   var userLoginEmailAddress = $("#user-email-address").val();
   var userLoginPassword = $("#user-password").val();
   MODAL('#modal-progress', 'open');
@@ -265,13 +265,21 @@ function AUTH_USER_ACCOUNT() {
                 var userDateTimeRegistered = data.val().date_time_registered;
                 var userIconUrl = data.val().profile_picture;
                 if (userLoginEmailAddress == userEmailAddress) {
-                   if (userType == web) {
+                   if (typeUser == web) {
                      if (userAccountType == author || userAccountType == paperReviewer) {
                         MODAL('#modal-progress', 'close');
                         MODAL('#modal-login-error', 'open');
-                        $('#error-message').html("User account must be Conference Chair only.");
+                        $('#error-message').html("Conference Chair user account only.");
                         return;
                      }
+                   } 
+                   else {
+                      if (userAccountType == conferenceChair) {
+                        MODAL('#modal-progress', 'close');
+                        MODAL('#modal-login-error', 'open');
+                        $('#error-message').html("Author and Paper Reviewer user account only.");
+                        return;
+                      }
                    }
                    localStorage.setItem('id', userId);
                    localStorage.setItem('key', userKey);

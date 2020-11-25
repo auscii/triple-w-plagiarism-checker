@@ -9,6 +9,8 @@ var userId = localStorage.getItem('id'),
     userAccountType = localStorage.getItem('account_type'),
     userDateTimeRegistered = localStorage.getItem('date_time_registered'),
     userProfileIcon = localStorage.getItem('profile_picture'),
+    userAbstractUrl = localStorage.getItem('paperAbstractUrl'),
+    userFullPaperUrl = localStorage.getItem('fullPaperUrl'),
     userStatus = localStorage.getItem('status'),
     userRegisterEmailAddress = localStorage.getItem('userRegisterEmailAddress'),
     userRegisterAccountType = localStorage.getItem('userRegisterAccountType'),
@@ -33,6 +35,7 @@ var userId = localStorage.getItem('id'),
     credentials = "CREDENTIALS/",
     papers = "PAPERS/",
     conferences = "CONFERENCES/",
+    programmes = "PROGRAMMES/",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -102,11 +105,22 @@ function SET_USER_REGISTRATION_VALUE() {
    $("#register-password").val(userRegisterPassword);
    $("#input-paper-abstract-paper").attr("src", userRegisterPaperAbstract);
    $("#input-paper-full-paper").attr("src", userRegisterFullPaper);
+   $("#mobile-upper-user-icon").attr("src", userProfileIcon);
+   $("#mobile-user-profile-icon").attr("src", userProfileIcon);
+   $("#user-profile-fullname").html(userFullName);
+   $("#user-profile-email-address").html(userEmailAddress);
+   $("#user-profile-account-type").html(userAccountType);
+
+   console.log('userAbstractUrl ->', userAbstractUrl);
+   console.log('userFullPaperUrl ->', userFullPaperUrl);
+
+   $("a.user-profile-full-paper").attr("href", userAbstractUrl);
+   $("a.user-profile-abstract").attr("href", userFullPaperUrl);
 }
 
-function SET_USER_PROFILE() {
-//    $("#view_id____________").attr("src", user____________);
-}
+function POPULATE_USER_PAPERS() {
+    //$('#user-profile-papers').append('<div class="col s2 mt-2 pr-0 circle"><a href="#"><img class="responsive-img circle" src="../assets/images/logo/no-image-available.jpg" alt=""></a></div><div class="col s9"><a href="#"><p class="m-0" style="font-weight: bolder; text-transform: uppercase;">Title</p></a><a href="#"><p class="m-0">Description</p></a></div>');
+ }
 
 function VALIDATE(evt) {
   var theEvent = evt || window.event;

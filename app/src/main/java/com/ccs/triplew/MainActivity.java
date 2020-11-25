@@ -1,13 +1,16 @@
 package com.ccs.triplew;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.ValueCallback;
@@ -32,6 +35,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         web();
+        checkPermissions();
     }
 
     @Override
@@ -67,6 +71,14 @@ public class MainActivity extends Activity {
         }
         else {
             Toast.makeText(MainActivity.this, "Failed to Upload Image", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            Log.i("ON_REQUEST_PERMISSION" , "Permission Already Granted");
         }
     }
 
@@ -137,6 +149,15 @@ public class MainActivity extends Activity {
                 startActivityForResult(Intent.createChooser(i, "File Chooser"), FILECHOOSER_RESULTCODE);
             }
         });
+    }
+
+    private void checkPermissions() {
+        int permissionCheck = ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        } else {
+            Log.i("PERMISSION" , "Permission Granted");
+        }
     }
 
 }

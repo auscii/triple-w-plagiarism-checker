@@ -19,6 +19,9 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/dashboard-modern.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/intro.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/custom/custom.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/hover-effects/media-hover-effects.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/dropify/css/dropify.min.css">
     <!-- END: CSS-->
   </head>
 
@@ -29,9 +32,7 @@
         <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
           <div class="nav-wrapper">
             <ul class="navbar-list right">
-              <!-- <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light translation-button" href="javascript:void(0);" data-target="translation-dropdown"><span class="flag-icon flag-icon-gb"></span></a></li>
-              <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">5</small></i></a></li> -->
-              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img src="../assets/images/avatar/avatar-7.png" alt="avatar"><i></i></span></a></li>
+              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
             </ul>
             <!-- notifications-dropdown-->
             <ul class="dropdown-content" id="notifications-dropdown">
@@ -57,10 +58,10 @@
             </ul>
             <!-- profile-dropdown-->
             <ul class="dropdown-content" id="profile-dropdown">
-              <li><a class="grey-text text-darken-1" href="user-profile-page.html"><i class="material-icons">person_outline</i> Profile</a></li>
+              <li><a class="grey-text text-darken-1" href="profile.html"><i class="material-icons">person_pin</i> Profile</a></li>
               <li class="divider"></li>
-              <li><a class="grey-text text-darken-1" href="user-lock-screen.html"><i class="material-icons">compare_arrows</i> Switch User</a></li>
-              <li><a class="grey-text text-darken-1" href="user-login.html"><i class="material-icons">keyboard_tab</i> Logout</a></li>
+              <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">compare_arrows</i> Switch User</a></li>
+              <li><a class="grey-text text-darken-1" onclick="USER_LOG_OUT()"><i class="material-icons">keyboard_tab</i> Logout</a></li>
             </ul>
           </div>
           <nav class="display-none search-sm">
@@ -84,12 +85,13 @@
         <h1 class="logo-wrapper"><a class="brand-logo darken-1" style="margin-top: 7px;"><span class="logo-text" style="margin-left: 35px; color: #fff;">Triple W</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
       </div>
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
-        <li class="bold"><a class="active waves-effect waves-cyan " href="main.html"><i class="material-icons">home</i><span class="menu-title" data-i18n="">Dashboard</span></a>
-        <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">assignment</i><span class="menu-title" data-i18n="">Conference</span></a>
+        <li class="bold"><a class="active waves-effect waves-cyan " href="main.html"><i class="material-icons">assignment</i><span class="menu-title" data-i18n="">Conference</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">art_track</i><span class="menu-title" data-i18n="">Bookmarks</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">My Papers</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">My Profile</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " onclick="USER_LOG_OUT()"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
         </li>
@@ -111,38 +113,189 @@
                 </div>
               </div>
 
-              <span id="list-conference-cards"></span>
-
-              <!-- <div class="col s12 m4">
-                  <div class="card blue-grey darken-4 bg-image-1">
-                        <div class="card-content white-text">
-                              <span class="card-title font-weight-400 mb-10">Macbook Pro</span>
-                              <p>Buy Macbook <br/>online Huge selection of Apple
-                              </p>
-                              <div class="border-non mt-5">
-                                    <a class="waves-effect waves-light btn red border-round box-shadow">View</a>
-                              </div>
-                        </div>
+              <div class="col s12 m4 center" id="main-mobile-progress-spinner" style="margin-top: 150px;">
+                <div class="preloader-wrapper big active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
                   </div>
-              </div> -->
+                </div>
+              </div>
+
+              <span id="list-conference-cards"></span>
 
             </div>
           </div>
       </div>
     </div>
     <!-- END: Page Main-->
+
+    <div class="modal" id="modal-not-available">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Not yet available</p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <button type="button" onclick="MODAL('#modal-not-available', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-update-conference">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-title">
+              <p class="text-center default-caption" style="font-weight: bolder; font-size: 21px;">VIEW CONFERENCE</p> 
+            </div>
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                      <div class="col s12 m12 xl6">
+                       <ul id="projects-collection" class="collection z-depth-1">
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Conference Banner</p>
+                                   <img id="m-view-conference-banner" class="view-card-img">
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Title</p>
+                                   <p class="collections-content" id="m-view-event-title"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Place</p>
+                                   <p class="collections-content" id="m-view-event-place"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Date</p>
+                                   <p class="collections-content" id="m-view-event-date"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Time</p>
+                                   <p class="collections-content" id="m-view-event-time"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Description</p>
+                                   <p class="collections-content" id="m-view-description"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Category</p>
+                                   <p class="collections-content" id="m-view-category"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Abstract Submission Date</p>
+                                   <p class="collections-content" id="m-view-abstract-submission"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Full Paper Submission Date</p>
+                                   <p class="collections-content" id="m-view-full-paper-submission"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Average Percentage Report</p>
+                                   <p class="collections-content" id="m-view-average-percentage-report"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Number of Papers Accomodated</p>
+                                   <p class="collections-content" id="m-view-no-papers-accomodated"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Allow Paper Application</p>
+                                   <p class="collections-content" id="m-view-allow-paper-application"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Mode of Review</p>
+                                   <p class="collections-content" id="m-view-mode-of-review"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Date/Time Created</p>
+                                   <p class="collections-content" id="m-view-date-time-created"></p>
+                                </div>
+                             </div>
+                          </li>
+                       </ul>
+                    </div>
+
+                </div> <br> <br>
+                <div class="modal-footer">
+                    <button onclick="MODAL('#modal-update-conference', 'close')" class="btn btn-danger text-center">
+                      <i class="fa fa-times-circle"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- BEGIN JS-->
     <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
     <script src="../assets/js/vendors.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartjs/chart.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartist-js/chartist.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartist-js/chartist-plugin-tooltip.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartist-js/chartist-plugin-fill-donut.min.js" type="text/javascript"></script>
     <script src="../assets/js/plugins.js" type="text/javascript"></script>
     <script src="../assets/js/custom/custom-script.js" type="text/javascript"></script>
     <script src="../assets/js/scripts/customizer.js" type="text/javascript"></script>
-    <script src="../assets/js/scripts/dashboard-modern.js" type="text/javascript"></script>
+    <script src="../assets/js/scripts/media-hover-effects.js" type="text/javascript"></script>
+    <script src="../assets/js/scripts/advance-ui-modals.js" type="text/javascript"></script>
+    <script src="../assets//vendors/dropify/js/dropify.min.js"></script>
+    <script src="../assets/js/scripts/form-file-uploads.js"></script>
     <script src="../assets/js/common/main.js" type="text/javascript"></script>
     <script src="../assets/js/app/default.js" type="text/javascript"></script>
     <script src="../assets/js/app/auth.js" type="text/javascript"></script>
