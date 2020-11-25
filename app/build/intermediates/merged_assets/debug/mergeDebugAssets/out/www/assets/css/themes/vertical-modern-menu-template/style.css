@@ -664,12 +664,12 @@
 
 .indigo
 {
-    background-color: #3f51b5 !important;
+    background-color: #000 !important;
 }
 
 .indigo-text
 {
-    color: #3f51b5 !important;
+    color: #000 !important;
 }
 
 .indigo.lighten-5
@@ -4910,12 +4910,12 @@ li.home:before
 
 .indigo
 {
-    background-color: #3f51b5 !important;
+    background-color: #000 !important;
 }
 
 .indigo-text
 {
-    color: #3f51b5 !important;
+    color: #000 !important;
 }
 
 .indigo.lighten-5
@@ -8407,7 +8407,7 @@ nav.display-none.search-sm .nav-wrapper form .input-field input.search-box-sm:no
 .sidenav.sidenav-fixed .collapsible-body > ul:not(.collapsible) > li.active a,
 .sidenav.sidenav-fixed .collapsible-body > ul:not(.collapsible) > li.active i
 {
-    color: #3f51b5;
+    color: #000;
     background: none;
 }
 
@@ -8535,7 +8535,7 @@ nav.display-none.search-sm .nav-wrapper form .input-field input.search-box-sm:no
 .sidenav-dark.sidenav-main .sidenav .collapsible-body > ul:not(.collapsible) > li.active,
 .sidenav-dark.sidenav-main .sidenav.fixed .collapsible-body > ul:not(.collapsible) > li.active
 {
-    background: #3f51b5;
+    background: #000;
 }
 .sidenav-dark.sidenav-main .sidenav li .navigation-header-text
 {
@@ -9105,7 +9105,7 @@ nav.display-none.search-sm .nav-wrapper form .input-field input.search-box-sm:no
 
     color: #fff;
     border-radius: .3rem;
-    background-color: #3f51b5;
+    background-color: #000;
 }
 
 #slide-out-chat .speech-bubble-right:after
@@ -9123,7 +9123,7 @@ nav.display-none.search-sm .nav-wrapper form .input-field input.search-box-sm:no
 
     border: 10px solid transparent;
     border-right: 0;
-    border-left-color: #3f51b5;
+    border-left-color: #000;
 }
 
 #slide-out-chat .chat-body ul.collection
@@ -10183,12 +10183,12 @@ a.button-collapse.top-nav
 
 .fc-state-active
 {
-    color: #3f51b5 !important;
+    color: #000 !important;
 }
 
 .fc-state-down
 {
-    color: #3f51b5 !important;
+    color: #000 !important;
 }
 
 /*

@@ -110,17 +110,19 @@ function SET_USER_REGISTRATION_VALUE() {
    $("#user-profile-fullname").html(userFullName);
    $("#user-profile-email-address").html(userEmailAddress);
    $("#user-profile-account-type").html(userAccountType);
-
-   console.log('userAbstractUrl ->', userAbstractUrl);
-   console.log('userFullPaperUrl ->', userFullPaperUrl);
-
    $("a.user-profile-full-paper").attr("href", userAbstractUrl);
    $("a.user-profile-abstract").attr("href", userFullPaperUrl);
 }
 
 function POPULATE_USER_PAPERS() {
-    //$('#user-profile-papers').append('<div class="col s2 mt-2 pr-0 circle"><a href="#"><img class="responsive-img circle" src="../assets/images/logo/no-image-available.jpg" alt=""></a></div><div class="col s9"><a href="#"><p class="m-0" style="font-weight: bolder; text-transform: uppercase;">Title</p></a><a href="#"><p class="m-0">Description</p></a></div>');
- }
+    database.ref(users + userGetKey + sub + conferences).on('child_added', function(data) {
+        var banner = data.val().conference_banner;
+        var title = data.val().conference_title;
+        var description = data.val().conference_description;
+
+        $('#user-profile-papers').append('<div class="row mt-2"><div class="col s2 mt-2 pr-0 circle"><a href="#"><img class="responsive-img circle" style="width: 250px; height: 250px;" src="'+banner+'" alt=""></a></div><div class="col s9" style="margin-top: 150px;><a href="#"><p class="m-0" style="font-weight: bolder; text-transform: uppercase;">TITLE: '+title+'</p></a><a href="#"><p class="m-0">DESCRIPTION: '+description+'</p></a></div></div>');
+    });
+}
 
 function VALIDATE(evt) {
   var theEvent = evt || window.event;

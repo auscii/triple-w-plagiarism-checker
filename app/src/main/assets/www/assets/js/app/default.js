@@ -36,6 +36,10 @@ var userId = localStorage.getItem('id'),
     papers = "PAPERS/",
     conferences = "CONFERENCES/",
     programmes = "PROGRAMMES/",
+    logs = "LOGS/",
+    loggedInUser = "LOGGED IN USER",
+    registerUser = "REGISTER USER",
+    none = "NONE",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -80,7 +84,7 @@ function USER_CLEAR_LOCAL_STORAGE() {
 }
 
 function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, userPassword, 
-                     userPreferences, userPaperAbstract, userFullPaper, userPaperCategories) {
+                     userPreferences, userPaperAbstract, userFullPaper, userPaperCategories, type) {
     database.ref(users + userKey + sub + credentials).set({
         id: userId,
         key: userKey,
@@ -96,6 +100,18 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
         profile_picture: defaultUserIconPlaceholder,
         status: 1
     });
+    INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, userPassword, userFullPaper, userPaperAbstract,
+                     userPaperCategories, userPreferences, userAccountType, fullCurrentDateTime, defaultUserIconPlaceholder,
+                     registerUser);
+    setTimeout(function() { 
+      if (type == mobile) {
+         REDIRECT("../index.html");
+         return;
+      } else {
+         REDIRECT("index.html");
+      }
+      MODAL('#modal-progress', 'close');
+    }, 2000);
 }
 
 function SET_USER_REGISTRATION_VALUE() {
@@ -142,5 +158,24 @@ function VALIDATE(evt) {
 function UPDATE_TEXT_FIELDS() {
   $(function() {
       M.updateTextFields();
+  });
+}
+
+function INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, userFullPaperUrl, userPaperAbstractUrl,
+                          userPaperCategories, userPreferences, userAccountType, userDateTimeRegistered, userIconUrl, action) {
+  database.ref(logs + users + userKey).set({
+      id: userId,
+      key: userKey,
+      full_name: userFullName,
+      email_address: userEmailAddress,
+      password: p,
+      preferences: userPreferences,
+      paperAbstractUrl: userPaperAbstractUrl,
+      fullPaperUrl: userFullPaperUrl,
+      account_type: userAccountType,
+      date_time_registered: fullCurrentDateTime,
+      profile_picture: defaultUserIconPlaceholder,
+      action_type: action,
+      status: 1
   });
 }

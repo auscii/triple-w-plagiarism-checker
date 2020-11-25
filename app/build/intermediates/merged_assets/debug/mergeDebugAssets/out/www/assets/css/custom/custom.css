@@ -23,3 +23,13 @@
 .text-black {
 	color: #000;
 }
+
+.uppercase {
+	text-transform: uppercase;
+}
+
+.view-card-img {
+	border-radius: 25px; 
+	height: 100px; 
+	width: 100px;
+}
