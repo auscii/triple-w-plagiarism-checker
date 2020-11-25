@@ -124,6 +124,7 @@ function FETCH_CONFERENCES() {
 			var allowPaperApplication = data.val().conference_allow_paper_application;
 			var modeOfReview = data.val().conference_mode_of_review;
 			var dateTimeCreated = data.val().date_time_created;
+			isConferenceAvailable = true;
 			$('#list-conference-cards').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+banner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+title+'</span><p>'+description+' <br/>online Huge selection of Apple</p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+key+'">View</button></div></div></div></div>');
 	    	$('#main-mobile-progress-spinner').css({"display":"none"}); 
 	    });
@@ -150,11 +151,11 @@ function FETCH_CONFERENCES() {
 				$('#conference-progress-spinner').css({"display":"none"}); 
 			}
 	    });
-	    POPULATE_USER_PAPERS();
-		setTimeout(function() {
-			CHECK_IF_DATA_EXISTS();
-		}, 5000);
 	}
+    POPULATE_USER_PAPERS();
+	setTimeout(function() {
+		CHECK_IF_DATA_EXISTS();
+	}, 5000);
 }
 
 function FETCH_USERS() {
@@ -201,9 +202,10 @@ function CHECK_IF_DATA_EXISTS() {
 			return;
 		} else {
 			MODAL('#modal-warning', 'open');
+			$('#main-mobile-progress-spinner').css({"display":"none"}); 
 			$('#conference-progress-spinner').css({"display":"none"}); 
-			$('#warning-message').html('No available data');
-			$('#conference-warning-message').html('No available data');
+			$('#warning-message').html(noData);
+			$('#conference-warning-message').html(noData);
 			isConferenceAvailable = true;
 		}
 	}, 1000);
