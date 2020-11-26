@@ -9462,7 +9462,7 @@ Cards
             transition: .5s;
 }
 
-.card-animation-1:hover .image-n-margin
+/*.card-animation-1:hover .image-n-margin
 {
     margin-top: -80px;
     margin-bottom: 30px;
@@ -9472,7 +9472,7 @@ Cards
        -moz-transition: .5s;
          -o-transition: .5s;
             transition: .5s;
-}
+}*/
 
 /* alert card */
 .card-alert .card-content

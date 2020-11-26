@@ -480,7 +480,7 @@ function SEARCH_CONFERENCE(ele) {
 				$('#card-search-conference').css({"display":"block"});
 				$('#total-search-result').html(totalConferenceResult);
 				$('#search-warning-message').html('');
-				$('#card-search-conference').append('<button onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+conferenceKey+'" style="border: none; background: none;"> <div class="row"><div class="row"><div class="col s12 m6 l3 card-width" id="profile-history"><div class="card btn-large gradient-45deg-light-red-cyan gradient-shadow white-text padding-4 mt-5" style="width: 277px; height: 100px; border-radius: 10px;"><div class="col s5 m5 left-align"><h5 class="mb-0 white-text" style="font-size: 15px; width: 150px; font-weight: bolder;">'+conferenceEventTitle+'</h5><p style="font-size: 11px; width: 90px;">'+conferenceDescription+'</p></div><div class="col s7 m5 right-align"><img src="'+conferenceBanner+'" style="width: 50px; height: 50px; margin-top: 15px;" /></div></div></div></div></div></button>');
+				$('#card-search-conference').append('<button onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+conferenceKey+'" style="border: none; background: none;"><div class="row"><div class="row"><div class="col s12 m6 l3 card-width" id="profile-history"><div class="card btn-large gradient-45deg-light-red-cyan gradient-shadow white-text padding-4 mt-5" style="width: 277px; height: 100px; border-radius: 10px;"><div class="col s5 m5 left-align"><h5 class="mb-0 white-text" style="font-size: 15px; width: 150px; font-weight: bolder;">'+conferenceEventTitle+'</h5><p style="font-size: 11px; width: 90px;">'+conferenceDescription+'</p></div><div class="col s7 m5 right-align"><img src="'+conferenceBanner+'" style="width: 50px; height: 50px; margin-top: 15px;" /></div></div></div></div></div></button>');
 				$("#card-search-conference").click(function() {
 				  	MODAL('#modal-view-enroll-conference', 'open');
 				  	if (selectedKey == conferenceKey) {
@@ -610,10 +610,33 @@ function BOOKMARK_LISTS() {
 			var conferenceModeOfReview = data.val().conference_mode_of_review;
 			var conferenceDateTimeCreated = data.val().date_time_created;
 			var conferenceUserCreatedBy = data.val().user_email;
-			var conferenceStatus = data.val().status;
-			$('#m-progress-spinner').css({"display":"none"}); 
-			$('#list-bookmark-papers').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+conferenceBanner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+conferenceEventTitle+'</span><p>'+conferenceDescription+' <br/>online Huge selection of Apple</p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+bookmarkKey+'">View</button></div></div></div></div>');
+			var userLikes = data.val().user_likes;
+			var paperStatus = data.val().paper_status;
 			isBookmarkAvailable = true;
+			$('#m-progress-spinner').css({"display":"none"}); 
+			$('#list-bookmark-papers').append('<button onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+bookmarkKey+'" style="border: none; background: none; text-align: left;"><div class="col s12 m6 l4 card-width"><div class="card-panel border-radius-6 mt-10 card-animation-1"><img class="responsive-img border-radius-8 z-depth-4 image-n-margin" src="'+conferenceBanner+'"/><h6><a href="#" class="mt-5">'+conferenceEventTitle+'</a></h6><p>'+conferenceDescription+'</p><div class="row mt-4"><a href="#"><div class="col s12 p-0 mt-1"><span class="pt-2" style="margin-left: 10px;">STATUS: '+paperStatus+'</span></div></a><div class="col s12 mt-1 left-align" style="margin-left: -8px;"><a href="#"><span class="material-icons">thumb_up</span></a><span class="ml-3 vertical-align-top">'+userLikes+' like(s)</span></div></div></div></div></button>');
+			$('#list-bookmark-papers').click(function() {
+				MODAL('#modal-view-conference', 'open');
+				if (selectedKey == bookmarkKey) {
+					$("#m-view-conference-banner").attr("src", conferenceBanner);
+			   		$("#m-view-event-title").html(conferenceEventTitle);
+			   		$("#m-view-event-place").html(conferenceEventPlace);
+			   		$("#m-view-event-date").html(conferenceEventDate);
+			   		$("#m-view-event-time").html(conferenceEventTime);
+			   		$("#m-view-description").html(conferenceDescription);
+			   		$("#m-view-category").html(conferenceCategory);
+			   		$("#m-view-abstract-submission").html(conferenceAbstractSubmission);
+			   		$("#m-view-full-paper-submission").html(conferenceFullPaperSubmission);
+			   		$("#m-view-average-percentage-report").html(conferenceAveragePercentageReport);
+			   		$("#m-view-no-papers-accomodated").html(conferenceNumberPapersAccomodated);
+			   		$("#m-view-allow-paper-application").html(conferenceAllowPaperApplication);
+			   		$("#m-view-mode-of-review").html(conferenceModeOfReview);
+			   		$("#m-view-date-time-created").html(conferenceDateTimeCreated);
+			   		$("#m-view-publish-by").html(conferenceUserCreatedBy);
+			   		$("#m-view-likes").html(userLikes);
+			   		$("#m-view-paper-status").html(paperStatus);
+				}
+			});
 		});	
 		setTimeout(function() {
 			routeKey = search;
