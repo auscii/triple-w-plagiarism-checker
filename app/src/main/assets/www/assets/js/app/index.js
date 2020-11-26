@@ -1,6 +1,7 @@
 CHECK_USER_SESSION();
 FETCH_CONFERENCES();
 FETCH_USERS();
+ENROLLMENT_MODULE();
 SEARCH_CONFERENCE();
 
 $("#card-new-conference").click(function() {
@@ -425,6 +426,7 @@ function CHECK_USER_SESSION() {
 function SEARCH_CONFERENCE(ele) {
 	var isConferenceAvailable = false;
 	var totalConferenceResult = 0;
+	routeKey = search;
 	if (userType == mobile && event.key === 'Enter') {
 		$('#search-warning-message').css({"display":"none"});
 		$("#card-search-conference").empty();
@@ -477,23 +479,91 @@ function SEARCH_CONFERENCE(ele) {
 				   		$("#m-view-mode-of-review").html(conferenceModeOfReview);
 				   		$("#m-view-date-time-created").html(conferenceDateTimeCreated);
 				   		$("#m-view-published-by").html(conferenceUserCreatedBy);
+                   		localStorage.setItem('conferenceEventKey', conferenceKey);
+                   		localStorage.setItem('conferenceBanner', conferenceBanner);
+                   		localStorage.setItem('conferenceEventTitle', conferenceEventTitle);
+                   		localStorage.setItem('conferenceEventPlace', conferenceEventPlace);
+                   		localStorage.setItem('conferenceEventDate', conferenceEventDate);
+                   		localStorage.setItem('conferenceEventTime', conferenceEventTime);
+                   		localStorage.setItem('conferenceDescription', conferenceDescription);
+                   		localStorage.setItem('conferenceCategory', conferenceCategory);
+                   		localStorage.setItem('conferenceAbstractSubmission', conferenceAbstractSubmission);
+                   		localStorage.setItem('conferenceFullPaperSubmission', conferenceFullPaperSubmission);
+                   		localStorage.setItem('conferenceAveragePercentageReport', conferenceAveragePercentageReport);
+                   		localStorage.setItem('conferenceNumberPapersAccomodated', conferenceNumberPapersAccomodated);
+                   		localStorage.setItem('conferenceAllowPaperApplication', conferenceAllowPaperApplication);
+                   		localStorage.setItem('conferenceModeOfReview', conferenceModeOfReview);
+                   		localStorage.setItem('conferenceDateTimeCreated', conferenceDateTimeCreated);
+                   		localStorage.setItem('conferenceUserCreatedBy', conferenceUserCreatedBy);
 				  	}
 				});
 			}
 		});
-		setTimeout(function() {
-			var start = setInterval( function() {
-				if (isConferenceAvailable) {
-					$('#m-search-spinner').css({"display":"none"}); 
-			  		clearInterval(start);
-					return;
-				} else {
-					$('#m-search-spinner').css({"display":"none"}); 
-					$('#search-warning-message').css({"display":"block"});
-					$('#search-warning-message').html(noData);
-					isConferenceAvailable = true;
-				}
-			}, 1000);
-		}, 5000);
+		if (routeKey == search) {
+			setTimeout(function() {
+				var start = setInterval( function() {
+					if (isConferenceAvailable) {
+						$('#m-search-spinner').css({"display":"none"}); 
+				  		clearInterval(start);
+						return;
+					} else {
+						$('#m-search-spinner').css({"display":"none"}); 
+						$('#search-warning-message').css({"display":"block"});
+						$('#search-warning-message').html(noData);
+						isConferenceAvailable = true;
+					}
+				}, 1000);
+			}, 5000);
+		}
 	}
+}
+
+function ENROLLMENT_MODULE() {
+	routeKey = enrollment;
+	if (userType == mobile) {
+		$("#conference-enrollment-image").attr("src", conferenceBanner);
+		$("#conference-enrollment-event-title").html(conferenceEventTitle);
+		$("#conference-enrollment-description").html(conferenceDescription);
+		$("#conference-enrollment-published-on").html(conferenceDateTimeCreated);
+		$("#conference-enrollment-published-by").html(conferenceUserCreatedBy);
+		$("#conference-enrollment-event-place").html(conferenceEventPlace);
+		$("#conference-enrollment-event-date").html(conferenceEventDate);
+		$("#conference-enrollment-event-time").html(conferenceEventTime);
+		$("#conference-enrollment-category").html(conferenceCategory);
+		$("#conference-enrollment-abstract-submission").html(conferenceAbstractSubmission);
+		$("#conference-enrollment-full-paper-submission").html(conferenceFullPaperSubmission);
+		$("#conference-enrollment-average-percentage-report").html(conferenceAveragePercentageReport);
+		$("#conference-enrollment-number-papers-accomodated").html(conferenceNumberPapersAccomodated);
+		$("#conference-enrollment-mode-of-review").html(conferenceModeOfReview);
+		$('#btn-bookmark-paper').val(conferenceDateTimeCreated);
+		$('#btn-submit-bookmark').click(function() {
+			database.ref(bookmarks + userGetKey + sub + conferenceEventKey).set({
+		    	bookmark_key: bookmarkKey,
+		    	conference_banner: conferenceBanner,
+		    	conference_title: conferenceEventTitle,
+		    	conference_event_place: conferenceEventPlace,
+		    	conference_event_date: conferenceEventDate,
+		    	conference_event_time: conferenceEventTime,
+		    	conference_description: conferenceDescription,
+		    	conference_category: conferenceCategory,
+		    	conference_abstract_Submission: conferenceAbstractSubmission,
+		    	conference_full_paper_submission: conferenceFullPaperSubmission,
+		    	conference_average_percentage_report: conferenceAveragePercentageReport,
+		    	conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
+		    	conference_allow_paper_application: conferenceAllowPaperApplication,
+		    	conference_mode_of_review: conferenceModeOfReview,
+		    	date_time_created: fullCurrentDateTime,
+		    	user_email: userEmailAddress,
+		        status: 1
+		    });
+		    MODAL('#modal-bookmark', 'close');
+		    MODAL('#modal-info', 'open');
+		    $('#modal-message').html('Bookmark saved!');
+		});
+	}
+}
+
+function PROMPT_BOOKMARK() {
+	$('#bookmark-message').html('Do you wish to bookmark this paper?');
+	MODAL('#modal-bookmark', 'open');
 }

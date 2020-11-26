@@ -36,3 +36,5 @@ MOBILE
 
 • Hide keyboard when search conference
 
+• Handle validation when no internet
+
