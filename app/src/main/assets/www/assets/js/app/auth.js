@@ -227,8 +227,10 @@ function AUTH_GOOGLE_ACCOUNT() {
 }
 
 function USER_LOG_OUT() {
-  USER_CLEAR_LOCAL_STORAGE();
+  INSERT_USER_LOGS(userId, userGetKey, userFullName, userEmailAddress, userPassword, userFullPaperUrl, userAbstractUrl,
+                   none, userAccountType, userDateTimeRegistered, userProfileIcon, loggedOutUser);
   firebase.auth().signOut();
+  USER_CLEAR_LOCAL_STORAGE();
   REDIRECT("index.html");
 }
 
@@ -257,7 +259,6 @@ function AUTH_USER_ACCOUNT(typeUser) {
                 var userFullPaperUrl = data.val().fullPaperUrl;
                 var userPaperAbstractUrl = data.val().paperAbstractUrl;
                 var userPaperCategories = data.val().paperCategories;
-                var userPreferences = data.val().preferences;
                 var userAccountType = data.val().account_type;
                 var userDateTimeRegistered = data.val().date_time_registered;
                 var userIconUrl = data.val().profile_picture;
@@ -286,12 +287,11 @@ function AUTH_USER_ACCOUNT(typeUser) {
                    localStorage.setItem('fullPaperUrl', userFullPaperUrl);
                    localStorage.setItem('paperAbstractUrl', userPaperAbstractUrl);
                    localStorage.setItem('paperCategories', userPaperCategories);
-                   localStorage.setItem('preferences', userPreferences);
                    localStorage.setItem('account_type', userAccountType);
                    localStorage.setItem('date_time_registered', userDateTimeRegistered);
                    localStorage.setItem('profile_picture', userIconUrl);
                    INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, userFullPaperUrl, userPaperAbstractUrl,
-                                    userPaperCategories, userPreferences, userAccountType, userDateTimeRegistered, userIconUrl,
+                                    userPaperCategories, userAccountType, userDateTimeRegistered, userIconUrl,
                                     loggedInUser);
                    REDIRECT("main.html");
                 }

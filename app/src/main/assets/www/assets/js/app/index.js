@@ -60,6 +60,14 @@ $("#btn-save-new-conference").click(function() {
   }
 });
 
+$("#profile-history").click(function() {
+	REDIRECT('history.html');
+});
+
+$("#profile-papers").click(function(){
+	REDIRECT('papers.html');
+});
+
 function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, conferenceEventPlace, conferenceEventDate,
         				   conferenceEventTime, conferenceDescription, conferenceCategory, conferenceAbstractSubmission,
         				   conferenceFullPaperSubmission, conferenceAveragePercentageReport, conferenceNumberPapersAccomodated,
@@ -159,6 +167,7 @@ function FETCH_CONFERENCES() {
 }
 
 function FETCH_USERS() {
+	$('#profile-card-history').css({"display":"block"});
 	if (userType == web) {
 		database.ref(users).on('child_added', function(snapshot) {
 			database.ref(users + snapshot.key).on('child_added', function(data) {
@@ -174,7 +183,6 @@ function FETCH_USERS() {
 		        var userAccountType = data.val().account_type;
 		        var userDateTimeRegistered = data.val().date_time_registered;
 		        var userIconUrl = data.val().profile_picture;
-
 		        if (userId != undefined) {
 		        	$('#user-table-list').append('<tr><td><img id="mobile-upper-user-icon" style="height: 50px; width: 50px;" src="'+userIconUrl+'"></td><td>'+userKey+'</td><td>'+userFullName+'</td><td>'+userEmailAddress+'</td><td>'+userAccountType+'</td><td>'+userDateTimeRegistered+'</td><td><button style="text-align: center;" class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userFullPaperUrl+'">Full Paper</button><br><br><button class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userPaperAbstractUrl+'">Abstract Paper</button></td></tr>');
 		        	$('#users-management-spinner').css({"display":"none"}); 
@@ -182,6 +190,23 @@ function FETCH_USERS() {
 		    });
 	    });
 	}
+	database.ref(logs + users + userGetKey).on('child_added', function(data) {
+		isMobileAvailable = true;
+		if (data.val().key == userGetKey) {
+			$('#profile-list-history').append('<tr><td class="mb-0 black-text">'+data.val().date_created+'</td><td class="mb-0 black-text">'+data.val().action_type+'</td></tr>');
+			$('#m-profile-spinner').css({"display":"none"});
+			$('#profile-card-history').css({"display":"block"});
+		}
+    });
+    if (userAbstractUrl || userFullPaperUrl) {
+		$('#profile-list-papers').append('<tr><td class="mb-0 black-text">'+userDateTimeRegistered+'</td><td class="mb-0 black-text"><a href="'+userAbstractUrl+'" class="waves-effect waves-light btn-small">Download and View</a></td><td class="mb-0 black-text"><a href="'+userFullPaperUrl+'" class="waves-effect waves-light btn-small">Download and View</a></td></tr>');
+    }
+	setTimeout(function() {
+		if (!isMobileAvailable) {
+			$('#m-profile-spinner').css({"display":"none"});
+			$('#profile-card-history').css({"display":"block"});
+		}
+	}, 5000);
 }
 
 function OPEN_URL(input) {
