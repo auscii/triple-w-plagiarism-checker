@@ -34,3 +34,5 @@ MOBILE
 
 • Allow download files using anchor href tag
 
+• Hide keyboard when search conference
+

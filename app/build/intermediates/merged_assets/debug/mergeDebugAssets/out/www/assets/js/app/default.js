@@ -36,6 +36,12 @@ var userId = localStorage.getItem('id'),
     papers = "PAPERS/",
     conferences = "CONFERENCES/",
     programmes = "PROGRAMMES/",
+    logs = "LOGS/",
+    loggedInUser = "LOGGED IN USER",
+    loggedOutUser = "LOGGED OUT USER",
+    registerUser = "REGISTER USER",
+    none = "NONE",
+    noData = "No available data",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -49,7 +55,9 @@ var userId = localStorage.getItem('id'),
     fullCurrentDateTime = currentDate + ' ' + currentTime,
     userKey = "USER" + KEY_CODE(3) + fullDate + time,
     conferenceKey = "CONF" + KEY_CODE(3) + fullDate + time,
+    logKey = "LOGS" + KEY_CODE(3) + fullDate + time,
     isConferenceAvailable = false,
+    isMobileAvailable = false,
     defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png",
     noImage = "https://media.istockphoto.com/vectors/no-image-available-sign-vector-id936182806?k=6&m=936182806&s=612x612&w=0&h=F5sh9tAuiAtEPNE1NiFZ7mH7-7cjx0q4CXOcxiziFpw=";
 
@@ -80,7 +88,7 @@ function USER_CLEAR_LOCAL_STORAGE() {
 }
 
 function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, userPassword, 
-                     userPreferences, userPaperAbstract, userFullPaper, userPaperCategories) {
+                     userPreferences, userPaperAbstract, userFullPaper, userPaperCategories, type) {
     database.ref(users + userKey + sub + credentials).set({
         id: userId,
         key: userKey,
@@ -96,6 +104,18 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
         profile_picture: defaultUserIconPlaceholder,
         status: 1
     });
+    INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, userPassword, userFullPaper, userPaperAbstract,
+                     userPaperCategories, userPreferences, userAccountType, fullCurrentDateTime, defaultUserIconPlaceholder,
+                     registerUser);
+    setTimeout(function() { 
+      if (type == mobile) {
+         REDIRECT("../index.html");
+         return;
+      } else {
+         REDIRECT("index.html");
+      }
+      MODAL('#modal-progress', 'close');
+    }, 2000);
 }
 
 function SET_USER_REGISTRATION_VALUE() {
@@ -119,7 +139,6 @@ function POPULATE_USER_PAPERS() {
         var banner = data.val().conference_banner;
         var title = data.val().conference_title;
         var description = data.val().conference_description;
-
         $('#user-profile-papers').append('<div class="row mt-2"><div class="col s2 mt-2 pr-0 circle"><a href="#"><img class="responsive-img circle" style="width: 250px; height: 250px;" src="'+banner+'" alt=""></a></div><div class="col s9" style="margin-top: 150px;><a href="#"><p class="m-0" style="font-weight: bolder; text-transform: uppercase;">TITLE: '+title+'</p></a><a href="#"><p class="m-0">DESCRIPTION: '+description+'</p></a></div></div>');
     });
 }
@@ -142,5 +161,23 @@ function VALIDATE(evt) {
 function UPDATE_TEXT_FIELDS() {
   $(function() {
       M.updateTextFields();
+  });
+}
+
+function INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, userFullPaperUrl, userPaperAbstractUrl,
+                          userPaperCategories, userAccountType, userDateTimeRegistered, userIconUrl, action) {
+  database.ref(logs + users + userKey + sub + logKey).set({
+      id: userId,
+      key: userKey,
+      full_name: userFullName,
+      email_address: userEmailAddress,
+      password: p,
+      paperAbstractUrl: userPaperAbstractUrl,
+      fullPaperUrl: userFullPaperUrl,
+      account_type: userAccountType,
+      profile_picture: defaultUserIconPlaceholder,
+      date_created: fullCurrentDateTime,
+      action_type: action,
+      status: 1
   });
 }

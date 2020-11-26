@@ -17,7 +17,7 @@ $("#btn-login-register").click(function() {
 $("#btn-w-register-submit").click(function() {
   $('#loading-message').html('Saving user account...');
   MODAL('#modal-progress', 'open');
-  NEW_ACCOUNT(web,'','');
+  NEW_ACCOUNT(web, none, none, none);
 });
 
 $("#btn-register-back").click(function() {
@@ -118,17 +118,14 @@ $("#btn-done-paper").click(function() {
   if (userRegisterAccountType == author) {
     var userRegisterPaperAbstract = $('#input-paper-abstract-paper')[0].files[0];
     var userRegisterFullPaper = $('#input-paper-full-paper')[0].files[0];
-
     if (userRegisterPaperAbstract == undefined || userRegisterFullPaper == undefined) {
         $('#warning-message').html('Please upload document files!');
         MODAL('#modal-warning', 'open');
         return;
     }
-
-    var userRegisterPaperCategories = $('#input-paper-categories').val();
+    var paperCategories = $('#input-paper-categories').val();
     var uploadAbstract = storageReference.child(papers + userRegisterPaperAbstract.name).put(userRegisterPaperAbstract);
     var uploadFullPaper = storageReference.child(papers + userRegisterFullPaper.name).put(userRegisterFullPaper);
-
     uploadAbstract.on('state_changed', function(snapshot) {
       MODAL('#modal-progress', 'open');
       $('#loading-message').html('Saving user account...');
@@ -161,11 +158,11 @@ $("#btn-done-paper").click(function() {
             }, function() {
                 uploadFullPaper.snapshot.ref.getDownloadURL().then(function(downloadURL) {
                     let fullPaperUrl = downloadURL;
-                    if (userRegisterPaperAbstract && userRegisterFullPaper && userRegisterPaperCategories) {
-                       localStorage.setItem('userRegisterPaperAbstract', userRegisterPaperAbstract);
-                       localStorage.setItem('userRegisterFullPaper', userRegisterFullPaper);
-                       localStorage.setItem('userRegisterPaperCategories', userRegisterPaperCategories);
-                       NEW_ACCOUNT(mobile, abstractUrl, fullPaperUrl);
+                    if (userRegisterPaperAbstract && userRegisterFullPaper && paperCategories) {
+                       localStorage.setItem('userRegisterPaperAbstract', abstractUrl);
+                       localStorage.setItem('userRegisterFullPaper', fullPaperUrl);
+                       localStorage.setItem('userRegisterPaperCategories', paperCategories);
+                       NEW_ACCOUNT(mobile, abstractUrl, fullPaperUrl, paperCategories);
                     } else {
                        $('#warning-message').html('Please fill out this field!');
                        MODAL('#modal-warning', 'open');
@@ -230,8 +227,10 @@ function AUTH_GOOGLE_ACCOUNT() {
 }
 
 function USER_LOG_OUT() {
-  USER_CLEAR_LOCAL_STORAGE();
+  INSERT_USER_LOGS(userId, userGetKey, userFullName, userEmailAddress, userPassword, userFullPaperUrl, userAbstractUrl,
+                   none, userAccountType, userDateTimeRegistered, userProfileIcon, loggedOutUser);
   firebase.auth().signOut();
+  USER_CLEAR_LOCAL_STORAGE();
   REDIRECT("index.html");
 }
 
@@ -260,7 +259,6 @@ function AUTH_USER_ACCOUNT(typeUser) {
                 var userFullPaperUrl = data.val().fullPaperUrl;
                 var userPaperAbstractUrl = data.val().paperAbstractUrl;
                 var userPaperCategories = data.val().paperCategories;
-                var userPreferences = data.val().preferences;
                 var userAccountType = data.val().account_type;
                 var userDateTimeRegistered = data.val().date_time_registered;
                 var userIconUrl = data.val().profile_picture;
@@ -289,10 +287,12 @@ function AUTH_USER_ACCOUNT(typeUser) {
                    localStorage.setItem('fullPaperUrl', userFullPaperUrl);
                    localStorage.setItem('paperAbstractUrl', userPaperAbstractUrl);
                    localStorage.setItem('paperCategories', userPaperCategories);
-                   localStorage.setItem('preferences', userPreferences);
                    localStorage.setItem('account_type', userAccountType);
                    localStorage.setItem('date_time_registered', userDateTimeRegistered);
                    localStorage.setItem('profile_picture', userIconUrl);
+                   INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, userFullPaperUrl, userPaperAbstractUrl,
+                                    userPaperCategories, userAccountType, userDateTimeRegistered, userIconUrl,
+                                    loggedInUser);
                    REDIRECT("main.html");
                 }
             });
@@ -312,13 +312,12 @@ function AUTH_USER_ACCOUNT(typeUser) {
     });
 }
 
-function NEW_ACCOUNT(type, abstractUrl, fullPaperUrl) {
+function NEW_ACCOUNT(type, abstractUrl, fullPaperUrl, paperCategories) {
   if (type == mobile) {
     firebase.auth().createUserWithEmailAndPassword(userRegisterEmailAddress, userRegisterPassword).then(function(user) {
-      INSERT_USER(firebase.auth().currentUser.uid, userRegisterEmailAddress, userRegisterAccountType, userRegisterFullName, userRegisterPassword, 
-                  userRegisterPreferences, abstractUrl, fullPaperUrl, userRegisterPaperCategories);
-      MODAL('#modal-progress', 'close');
-      REDIRECT("../index.html");
+      let userId = firebase.auth().currentUser.uid;
+      INSERT_USER(userId, userRegisterEmailAddress, userRegisterAccountType, userRegisterFullName, userRegisterPassword, 
+                  userRegisterPreferences, abstractUrl, fullPaperUrl, paperCategories, type);
     }, function(error) {
         MODAL('#modal-progress', 'close');
         MODAL('#modal-warning', 'open');
@@ -344,9 +343,7 @@ function NEW_ACCOUNT(type, abstractUrl, fullPaperUrl) {
     } else {
       firebase.auth().createUserWithEmailAndPassword(emailAddress, password).then(function(user) {
         INSERT_USER(firebase.auth().currentUser.uid, emailAddress, conferenceChair, 
-                    fullName, password, 'NONE', 'NONE', 'NONE', 'NONE');
-        MODAL('#modal-progress', 'close');
-        REDIRECT("index.html");
+                    fullName, password, 'NONE', 'NONE', 'NONE', 'NONE', type);
       }, function(error) {
           MODAL('#modal-warning', 'open');
           $('#warning-message').html(error.code + ": " + error.message);
@@ -363,6 +360,6 @@ function STORE_PREFERENCES(type) {
   } else {
     $('#loading-message').html('Saving user account...');
     MODAL('#modal-progress', 'open');
-    NEW_ACCOUNT(mobile,'','');
+    NEW_ACCOUNT(mobile, none, none, none);
   }
 }

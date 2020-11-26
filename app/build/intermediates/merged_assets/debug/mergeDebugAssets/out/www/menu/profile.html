@@ -86,11 +86,11 @@
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         <li class="bold"><a class="waves-effect waves-cyan " href="main.html"><i class="material-icons">assignment</i><span class="menu-title" data-i18n="">Conference</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">art_track</i><span class="menu-title" data-i18n="">Bookmarks</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="bookmarks.html"><i class="material-icons">art_track</i><span class="menu-title" data-i18n="">Bookmarks</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="#"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">My Papers</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="notifications.html"><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Notifications</span></a>
         </li>
-        <li class="bold"><a class="active waves-effect waves-cyan " href="#"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">My Profile</span></a>
+        <li class="bold"><a class="active waves-effect waves-cyan " href="profile.html"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " onclick="USER_LOG_OUT()"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
         </li>
@@ -130,6 +130,30 @@
                   </div>
                 </div>
                 <hr>
+
+                <div class="row">
+                  <div class="col s12 m6 l3 card-width" id="profile-history">
+                        <div class="card gradient-45deg-deep-orange-orange gradient-shadow white-text padding-4 mt-5" style="border-radius: 10px;">
+                              <div class="col s5 m5 left-align">
+                                    <h5 class="mb-0 white-text">HISTORY</h5>
+                              </div>
+                              <div class="col s7 m5 right-align">
+                                    <img src="../assets/images/icon/laptop.png" style="width: 50px;" />
+                              </div>
+                        </div>
+                  </div>
+                  <div class="col s12 m6 l3 card-width" id="profile-papers">
+                        <div class="card gradient-45deg-blue-indigo gradient-shadow white-text padding-4 mt-5" style="border-radius: 10px;">
+                              <div class="col s5 m5 left-align">
+                                    <h5 class="mb-0 white-text">PAPERS</h5>
+                              </div>
+                              <div class="col s7 m5 right-align">
+                                    <img src="../assets/images/icon/printer.png" style="width: 50px;" />
+                              </div>
+                        </div>
+                  </div>
+                </div>
+
                 <!-- <div class="row">
                   <div class="col s12">
                     <h6>Papers</h6>
@@ -169,14 +193,9 @@
     <!-- BEGIN JS-->
     <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
     <script src="../assets/js/vendors.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartjs/chart.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartist-js/chartist.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartist-js/chartist-plugin-tooltip.js" type="text/javascript"></script>
-    <script src="../assets/vendors/chartist-js/chartist-plugin-fill-donut.min.js" type="text/javascript"></script>
     <script src="../assets/js/plugins.js" type="text/javascript"></script>
     <script src="../assets/js/custom/custom-script.js" type="text/javascript"></script>
     <script src="../assets/js/scripts/customizer.js" type="text/javascript"></script>
-    <script src="../assets/js/scripts/dashboard-modern.js" type="text/javascript"></script>
     <script src="../assets/js/common/main.js" type="text/javascript"></script>
     <script src="../assets/js/app/default.js" type="text/javascript"></script>
     <script src="../assets/js/app/auth.js" type="text/javascript"></script>

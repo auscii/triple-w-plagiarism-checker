@@ -58,9 +58,12 @@ $(function () {
 
   $('#scroll-dynamic').DataTable({
     "responsive": true,
-    scrollY: '50vh',
-    scrollCollapse: true,
-    paging: false
+    "bPaginate": true,
+    "bLengthChange": false,
+    "bInfo": false,
+    "ordering": false,
+    "bAutoWidth": false,
+    "bFilter": false //hide search input form
   })
 
   // Horizontal And Vertical Scroll Table

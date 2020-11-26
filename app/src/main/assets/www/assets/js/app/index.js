@@ -1,6 +1,7 @@
 CHECK_USER_SESSION();
 FETCH_CONFERENCES();
 FETCH_USERS();
+SEARCH_CONFERENCE();
 
 $("#card-new-conference").click(function() {
   MODAL('#modal-create-conference', 'open');
@@ -418,5 +419,15 @@ function CHECK_USER_SESSION() {
 	if (!userId || userId == "" || userId == undefined) {
 		REDIRECT('index.html');
 		return;
+	}
+}
+
+function SEARCH_CONFERENCE(ele) {
+	if (userType == mobile && event.key === 'Enter') {
+		var searchConference = $('#input-search-conference').val();
+		console.log('searchConference ->', searchConference);
+
+		// $('#m-search-spinner').css({"display":"block"}); 
+		$('#card-search-conference').css({"display":"block"}); 
 	}
 }

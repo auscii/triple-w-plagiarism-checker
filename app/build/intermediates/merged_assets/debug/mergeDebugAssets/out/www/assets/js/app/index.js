@@ -1,6 +1,7 @@
 CHECK_USER_SESSION();
 FETCH_CONFERENCES();
 FETCH_USERS();
+SEARCH_CONFERENCE();
 
 $("#card-new-conference").click(function() {
   MODAL('#modal-create-conference', 'open');
@@ -58,6 +59,14 @@ $("#btn-save-new-conference").click(function() {
         });
     });
   }
+});
+
+$("#profile-history").click(function() {
+	REDIRECT('history.html');
+});
+
+$("#profile-papers").click(function(){
+	REDIRECT('papers.html');
 });
 
 function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, conferenceEventPlace, conferenceEventDate,
@@ -124,6 +133,7 @@ function FETCH_CONFERENCES() {
 			var allowPaperApplication = data.val().conference_allow_paper_application;
 			var modeOfReview = data.val().conference_mode_of_review;
 			var dateTimeCreated = data.val().date_time_created;
+			isConferenceAvailable = true;
 			$('#list-conference-cards').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+banner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+title+'</span><p>'+description+' <br/>online Huge selection of Apple</p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+key+'">View</button></div></div></div></div>');
 	    	$('#main-mobile-progress-spinner').css({"display":"none"}); 
 	    });
@@ -150,14 +160,15 @@ function FETCH_CONFERENCES() {
 				$('#conference-progress-spinner').css({"display":"none"}); 
 			}
 	    });
-	    POPULATE_USER_PAPERS();
-		setTimeout(function() {
-			CHECK_IF_DATA_EXISTS();
-		}, 5000);
 	}
+    POPULATE_USER_PAPERS();
+	setTimeout(function() {
+		CHECK_IF_DATA_EXISTS();
+	}, 5000);
 }
 
 function FETCH_USERS() {
+	$('#profile-card-history').css({"display":"block"});
 	if (userType == web) {
 		database.ref(users).on('child_added', function(snapshot) {
 			database.ref(users + snapshot.key).on('child_added', function(data) {
@@ -173,7 +184,6 @@ function FETCH_USERS() {
 		        var userAccountType = data.val().account_type;
 		        var userDateTimeRegistered = data.val().date_time_registered;
 		        var userIconUrl = data.val().profile_picture;
-
 		        if (userId != undefined) {
 		        	$('#user-table-list').append('<tr><td><img id="mobile-upper-user-icon" style="height: 50px; width: 50px;" src="'+userIconUrl+'"></td><td>'+userKey+'</td><td>'+userFullName+'</td><td>'+userEmailAddress+'</td><td>'+userAccountType+'</td><td>'+userDateTimeRegistered+'</td><td><button style="text-align: center;" class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userFullPaperUrl+'">Full Paper</button><br><br><button class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userPaperAbstractUrl+'">Abstract Paper</button></td></tr>');
 		        	$('#users-management-spinner').css({"display":"none"}); 
@@ -181,6 +191,23 @@ function FETCH_USERS() {
 		    });
 	    });
 	}
+	database.ref(logs + users + userGetKey).on('child_added', function(data) {
+		isMobileAvailable = true;
+		if (data.val().key == userGetKey) {
+			$('#profile-list-history').append('<tr><td class="mb-0 black-text">'+data.val().date_created+'</td><td class="mb-0 black-text">'+data.val().action_type+'</td></tr>');
+			$('#m-profile-spinner').css({"display":"none"});
+			$('#profile-card-history').css({"display":"block"});
+		}
+    });
+    if (userAbstractUrl || userFullPaperUrl) {
+		$('#profile-list-papers').append('<tr><td class="mb-0 black-text">'+userDateTimeRegistered+'</td><td class="mb-0 black-text"><a href="'+userAbstractUrl+'" class="waves-effect waves-light btn-small">Download and View</a></td><td class="mb-0 black-text"><a href="'+userFullPaperUrl+'" class="waves-effect waves-light btn-small">Download and View</a></td></tr>');
+    }
+	setTimeout(function() {
+		if (!isMobileAvailable) {
+			$('#m-profile-spinner').css({"display":"none"});
+			$('#profile-card-history').css({"display":"block"});
+		}
+	}, 5000);
 }
 
 function OPEN_URL(input) {
@@ -201,9 +228,10 @@ function CHECK_IF_DATA_EXISTS() {
 			return;
 		} else {
 			MODAL('#modal-warning', 'open');
+			$('#main-mobile-progress-spinner').css({"display":"none"}); 
 			$('#conference-progress-spinner').css({"display":"none"}); 
-			$('#warning-message').html('No available data');
-			$('#conference-warning-message').html('No available data');
+			$('#warning-message').html(noData);
+			$('#conference-warning-message').html(noData);
 			isConferenceAvailable = true;
 		}
 	}, 1000);
@@ -391,5 +419,34 @@ function CHECK_USER_SESSION() {
 	if (!userId || userId == "" || userId == undefined) {
 		REDIRECT('index.html');
 		return;
+	}
+}
+
+// document.onkeypress = enter;
+// function enter(e) {
+//    if (e.which == 13) { 
+//       $('#modal-progress').modal('hide');
+//       AUTH_USER_ACCOUNT();
+//    }
+// }
+
+function SEARCH_CONFERENCE(ele) {
+	var field = document.createElement('input');
+	field.setAttribute('type', 'text');
+	// document.body.appendChild(field);
+
+	if (event.key === 'Enter') {
+		var searchConference = $('#input-search-conference').val();
+		console.log('searchConference ->', searchConference);
+
+		// $('#m-search-spinner').css({"display":"block"}); 
+		$('#card-search-conference').css({"display":"block"}); 
+
+		setTimeout(function() {
+    field.focus();
+    setTimeout(function() {
+        field.setAttribute('style', 'display:none;');
+    }, 50);
+}, 50);
 	}
 }
