@@ -2,6 +2,7 @@ CHECK_USER_SESSION();
 FETCH_CONFERENCES();
 FETCH_USERS();
 ENROLLMENT_MODULE();
+BOOKMARK_LISTS();
 SEARCH_CONFERENCE();
 
 $("#card-new-conference").click(function() {
@@ -244,6 +245,7 @@ function VIEW_UPDATE_CONFERENCE(input) {
 	if (userType == mobile) {
 		database.ref(programmes + conferences).on('child_added', function(data) {
 			if (data.val().conference_key == selectedKey) {
+				var conferenceKey = data.val().conference_key;
 				var banner = data.val().conference_banner;
 				var title = data.val().conference_title;
 				var eventPlace = data.val().conference_event_place;
@@ -258,6 +260,7 @@ function VIEW_UPDATE_CONFERENCE(input) {
 				var allowPaperApplication = data.val().conference_allow_paper_application;
 				var modeOfReview = data.val().conference_mode_of_review;
 				var dateTimeCreated = data.val().date_time_created;
+				var conferenceUserCreatedBy = data.val().user_created_by;
 
 		   		$("#m-view-conference-banner").attr("src", banner);
 		   		$("#m-view-event-title").html(title);
@@ -273,6 +276,23 @@ function VIEW_UPDATE_CONFERENCE(input) {
 		   		$("#m-view-allow-paper-application").html(allowPaperApplication);
 		   		$("#m-view-mode-of-review").html(modeOfReview);
 		   		$("#m-view-date-time-created").html(dateTimeCreated);
+
+           		localStorage.setItem('conferenceEventKey', conferenceKey);
+           		localStorage.setItem('conferenceBanner', banner);
+           		localStorage.setItem('conferenceEventTitle', title);
+           		localStorage.setItem('conferenceEventPlace', eventPlace);
+           		localStorage.setItem('conferenceEventDate', eventDate);
+           		localStorage.setItem('conferenceEventTime', eventTime);
+           		localStorage.setItem('conferenceDescription', description);
+           		localStorage.setItem('conferenceCategory', category);
+           		localStorage.setItem('conferenceAbstractSubmission', abstractSubmission);
+           		localStorage.setItem('conferenceFullPaperSubmission', fullPaperSubmission);
+           		localStorage.setItem('conferenceAveragePercentageReport', averagePercentageReport);
+           		localStorage.setItem('conferenceNumberPapersAccomodated', numberPapersAccomodated);
+           		localStorage.setItem('conferenceAllowPaperApplication', allowPaperApplication);
+           		localStorage.setItem('conferenceModeOfReview', modeOfReview);
+           		localStorage.setItem('conferenceDateTimeCreated', dateTimeCreated);
+           		localStorage.setItem('conferenceUserCreatedBy', conferenceUserCreatedBy);
 			}
 	    });
 	}
@@ -554,6 +574,8 @@ function ENROLLMENT_MODULE() {
 		    	conference_mode_of_review: conferenceModeOfReview,
 		    	date_time_created: fullCurrentDateTime,
 		    	user_email: userEmailAddress,
+		    	user_likes: 0,
+		    	paper_status: noSubmission,
 		        status: 1
 		    });
 		    MODAL('#modal-bookmark', 'close');
@@ -566,4 +588,47 @@ function ENROLLMENT_MODULE() {
 function PROMPT_BOOKMARK() {
 	$('#bookmark-message').html('Do you wish to bookmark this paper?');
 	MODAL('#modal-bookmark', 'open');
+}
+
+function BOOKMARK_LISTS() {
+	var isBookmarkAvailable = false;
+	if (userType == mobile) {
+		database.ref(bookmarks + userGetKey).on('child_added', function(data) {
+			var bookmarkKey = data.val().bookmark_key;
+			var conferenceBanner = data.val().conference_banner;
+			var conferenceEventTitle = data.val().conference_title;
+			var conferenceEventPlace = data.val().conference_event_place;
+			var conferenceEventDate = data.val().conference_event_date;
+			var conferenceEventTime = data.val().conference_event_time;
+			var conferenceDescription = data.val().conference_description;
+			var conferenceCategory = data.val().conference_category;
+			var conferenceAbstractSubmission = data.val().conference_abstract_Submission;
+			var conferenceFullPaperSubmission = data.val().conference_full_paper_submission;
+			var conferenceAveragePercentageReport = data.val().conference_average_percentage_report;
+			var conferenceNumberPapersAccomodated = data.val().conference_number_papers_accomodated;
+			var conferenceAllowPaperApplication = data.val().conference_allow_paper_application;
+			var conferenceModeOfReview = data.val().conference_mode_of_review;
+			var conferenceDateTimeCreated = data.val().date_time_created;
+			var conferenceUserCreatedBy = data.val().user_email;
+			var conferenceStatus = data.val().status;
+			$('#m-progress-spinner').css({"display":"none"}); 
+			$('#list-bookmark-papers').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+conferenceBanner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+conferenceEventTitle+'</span><p>'+conferenceDescription+' <br/>online Huge selection of Apple</p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+bookmarkKey+'">View</button></div></div></div></div>');
+			isBookmarkAvailable = true;
+		});	
+		setTimeout(function() {
+			routeKey = search;
+			var start = setInterval( function() {
+				if (isBookmarkAvailable) {
+					$('#m-progress-spinner').css({"display":"none"}); 
+			  		clearInterval(start);
+					return;
+				} else {
+					$('#m-progress-spinner').css({"display":"none"}); 
+					$('#bookmark-warning-message').css({"display":"block"});
+					$('#bookmark-warning-message').html(noData);
+					isBookmarkAvailable = true;
+				}
+			}, 1000);
+		}, 5000);	
+	}
 }
