@@ -19,9 +19,6 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/dashboard-modern.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/intro.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/custom/custom.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendors/hover-effects/media-hover-effects.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendors/magnific-popup/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendors/dropify/css/dropify.min.css">
     <!-- END: CSS-->
   </head>
 
@@ -32,6 +29,8 @@
         <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
           <div class="nav-wrapper">
             <ul class="navbar-list right">
+              <!-- <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light translation-button" href="javascript:void(0);" data-target="translation-dropdown"><span class="flag-icon flag-icon-gb"></span></a></li>
+              <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">5</small></i></a></li> -->
               <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
             </ul>
             <!-- notifications-dropdown-->
@@ -58,10 +57,10 @@
             </ul>
             <!-- profile-dropdown-->
             <ul class="dropdown-content" id="profile-dropdown">
-              <li><a class="grey-text text-darken-1" href="profile.html"><i class="material-icons">person_pin</i> Profile</a></li>
+              <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">person_pin</i> Profile</a></li>
               <li class="divider"></li>
               <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">compare_arrows</i> Switch User</a></li>
-              <li><a class="grey-text text-darken-1" onclick="USER_LOG_OUT()"><i class="material-icons">keyboard_tab</i> Logout</a></li>
+              <li><a class="grey-text text-darken-1" href="#" onclick="USER_LOG_OUT()"><i class="material-icons">keyboard_tab</i> Logout</a></li>
             </ul>
           </div>
           <nav class="display-none search-sm">
@@ -85,13 +84,13 @@
         <h1 class="logo-wrapper"><a class="brand-logo darken-1" style="margin-top: 7px;"><span class="logo-text" style="margin-left: 35px; color: #fff;">Triple W</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
       </div>
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
-        <li class="bold"><a class="active waves-effect waves-cyan " href="main.html"><i class="material-icons">assignment</i><span class="menu-title" data-i18n="">Conference</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="main.html"><i class="material-icons">assignment</i><span class="menu-title" data-i18n="">Conference</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="bookmarks.html"><i class="material-icons">art_track</i><span class="menu-title" data-i18n="">Bookmarks</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="notifications.html"><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Notifications</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="mypapers.html"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">Papers</span></a>
+        <li class="bold"><a class="active waves-effect waves-cyan " href="mypapers.html"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">Papers</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
@@ -102,10 +101,6 @@
     </aside>
     <!-- END: SideNav-->
 
-    <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top">
-      <a href="search.html" class="btn-floating btn-large gradient-45deg-light-red-cyan gradient-shadow"><i class="material-icons">search</i></a>
-    </div>
-
     <!-- BEGIN: Page Main-->
     <div id="main">
       <div class="row">
@@ -115,11 +110,11 @@
 
               <div class="card">
                 <div class="card-content">
-                  <p class="caption mb-0" style="text-align: center; font-weight: bolder; font-size: 18px;">Conference papers</p>
+                  <p class="caption mb-0" style="text-align: center; font-weight: bolder; font-size: 18px;">My Papers</p>
                 </div>
               </div>
 
-              <div class="col s12 m4 center" id="main-mobile-progress-spinner" style="margin-top: 150px;">
+              <div class="col s12 m4 center" id="m-papers-progress-spinner" style="margin-top: 150px;">
                 <div class="preloader-wrapper big active">
                   <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
@@ -135,9 +130,9 @@
                 </div>
               </div>
 
-              <span id="list-conference-cards"></span>
+              <span id="my-papers-list"></span>
 
-              <h5 id="warning-message" style="margin-top: 150px; text-align: center;"></h5>
+              <h5 id="papers-warning-message" style="display: none; margin-top: 150px; text-align: center;"></h5>
 
             </div>
           </div>
@@ -145,22 +140,7 @@
     </div>
     <!-- END: Page Main-->
 
-    <div class="modal" id="modal-not-available">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="modal-title">
-                      <p class="text-center default-caption">Not yet available</p> 
-                    </div>
-                </div>
-                <div class="modal-body text-center">
-                    <button type="button" onclick="MODAL('#modal-not-available', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal" id="modal-update-conference">
+    <div class="modal" id="modal-view-paper">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-title">
               <p class="text-center default-caption" style="font-weight: bolder; font-size: 21px;">VIEW CONFERENCE</p> 
@@ -168,15 +148,20 @@
             <div class="modal-content">
                 <div class="modal-body text-center">
                       <div class="col s12 m12 xl6">
-                      <button class="btn btn-danger" id="btn-enroll-view-conference" style="float: left;" onclick="REDIRECT('enrollment.html')">
-                        <i class="fa fa-times-circle"></i> ENROLL
-                      </button> <br><br>
                        <ul id="projects-collection" class="collection z-depth-1">
                           <li class="collection-item">
                              <div class="row">
                                 <div class="col s12">
                                    <p class="collections-title font-weight-900 uppercase">Conference Banner</p>
                                    <img id="m-view-conference-banner" class="view-card-img">
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Published by</p>
+                                   <p class="collections-content" id="m-view-published-by"></p>
                                 </div>
                              </div>
                           </li>
@@ -284,12 +269,36 @@
                                 </div>
                              </div>
                           </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Submitted by</p>
+                                   <p class="collections-content" id="m-view-submitted-by"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Total likes</p>
+                                   <p class="collections-content" id="m-view-total-likes"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Paper status</p>
+                                   <p class="collections-content" id="m-view-paper-status"></p>
+                                </div>
+                             </div>
+                          </li>
                        </ul>
                     </div>
 
                 </div> <br> <br>
                 <div class="modal-footer">
-                    <button onclick="MODAL('#modal-update-conference', 'close')" class="btn btn-danger text-center">
+                    <button onclick="MODAL('#modal-view-paper', 'close')" class="btn btn-danger text-center">
                       <i class="fa fa-times-circle"></i> Close
                     </button>
                 </div>
@@ -303,10 +312,7 @@
     <script src="../assets/js/plugins.js" type="text/javascript"></script>
     <script src="../assets/js/custom/custom-script.js" type="text/javascript"></script>
     <script src="../assets/js/scripts/customizer.js" type="text/javascript"></script>
-    <script src="../assets/js/scripts/media-hover-effects.js" type="text/javascript"></script>
     <script src="../assets/js/scripts/advance-ui-modals.js" type="text/javascript"></script>
-    <script src="../assets/vendors/dropify/js/dropify.min.js"></script>
-    <script src="../assets/js/scripts/form-file-uploads.js"></script>
     <script src="../assets/js/common/main.js" type="text/javascript"></script>
     <script src="../assets/js/app/default.js" type="text/javascript"></script>
     <script src="../assets/js/app/auth.js" type="text/javascript"></script>

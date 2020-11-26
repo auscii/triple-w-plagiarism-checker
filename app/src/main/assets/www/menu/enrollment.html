@@ -91,6 +91,8 @@
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="notifications.html"><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Notifications</span></a>
         </li>
+        <li class="bold"><a class="waves-effect waves-cyan " href="mypapers.html"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">Papers</span></a>
+        </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " onclick="USER_LOG_OUT()"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
@@ -123,8 +125,8 @@
                         <center>
                           <a class="waves-effect waves-light btn mb-1" onclick="PROMPT_BOOKMARK()" style="height: 35px; text-align: center; border-radius: 50px;">
                             <i class="material-icons left">bookmark</i> Bookmark
-                          </a>
-                          <a class="waves-effect waves-light btn mb-1" style="height: 35px; text-align: center; border-radius: 50px;">
+                          </a> <br> <br>
+                          <a class="waves-effect waves-light btn mb-1" onclick="SUBSCRIBE_PAPER()" style="height: 35px; text-align: center; border-radius: 50px;">
                             <i class="material-icons left">check</i> Subscribe
                           </a>
                         </center>
@@ -174,6 +176,26 @@
       </div>
     </div>
     <!-- END: Page Main-->
+
+    <div class="modal" id="modal-subscribe">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption" id="subscribe-message"></p> 
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <a class="waves-effect waves-light btn mb-1" id="btn-submit-subscribe">
+                    <i class="material-icons left">check</i> Yes
+                  </a>&nbsp;
+                  <a class="waves-effect waves-light btn mb-1" onclick="MODAL('#modal-subscribe', 'close')">
+                    <i class="material-icons left">close</i> No
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal" id="modal-bookmark">
         <div class="modal-dialog modal-dialog-centered" role="document">

@@ -19,10 +19,6 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/dashboard-modern.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/intro.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/custom/custom.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendors/data-tables/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendors/data-tables/extensions/responsive/css/responsive.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/vendors/data-tables/css/select.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/pages/data-tables.css">
     <!-- END: CSS-->
   </head>
 
@@ -61,7 +57,7 @@
             </ul>
             <!-- profile-dropdown-->
             <ul class="dropdown-content" id="profile-dropdown">
-              <li><a class="grey-text text-darken-1" href="profile.html"><i class="material-icons">person_pin</i> Profile</a></li>
+              <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">person_pin</i> Profile</a></li>
               <li class="divider"></li>
               <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">compare_arrows</i> Switch User</a></li>
               <li><a class="grey-text text-darken-1" href="#" onclick="USER_LOG_OUT()"><i class="material-icons">keyboard_tab</i> Logout</a></li>
@@ -92,9 +88,9 @@
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="bookmarks.html"><i class="material-icons">art_track</i><span class="menu-title" data-i18n="">Bookmarks</span></a>
         </li>
-        <li class="bold"><a class="active waves-effect waves-cyan " href="notifications.html"><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Notifications</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="notifications.html"><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Notifications</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="mypapers.html"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">Papers</span></a>
+        <li class="bold"><a class="active waves-effect waves-cyan " href="mypapers.html"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">Papers</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
@@ -105,10 +101,6 @@
     </aside>
     <!-- END: SideNav-->
 
-    <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top">
-      <a href="search.html" class="btn-floating btn-large gradient-45deg-light-red-cyan gradient-shadow"><i class="material-icons">search</i></a>
-    </div>
-
     <!-- BEGIN: Page Main-->
     <div id="main">
       <div class="row">
@@ -118,44 +110,49 @@
 
               <div class="card">
                 <div class="card-content">
-                  <p class="caption mb-0" style="text-align: center; font-weight: bolder; font-size: 18px;">My Notifications</p>
+                  <p class="caption mb-0" style="text-align: center; font-weight: bolder; font-size: 18px;">My Papers</p>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col s12 m12 l12">
-                  <div id="button-trigger" class="card card card-default scrollspy">
-                    <div class="card-content">
-
-                      <div class="row" id="user-notifications">
+              <div class="col s12 m8 l6" style="box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s;">
+                <div class="row">
+                  <div class="card user-card-negative-margin z-depth-0" id="feed">
+                    <div class="card-content card-border-gray">
+                      <div class="row">
                         <div class="col s12">
-                          <table id="scroll-dynamic" class="display">
-                            <thead>
-                              <tr>
-                                <th>Date Created</th>
-                                <th>Action</th>
-                              </tr>
-                            </thead>
-                            <tbody id="user-notification-list"></tbody>
-                          </table>
+                          <h5>Suzanne Martin</h5>
+                          <p>Senior Designer <span class="amber-text"><span class="material-icons star-width vertical-align-middle">star_rate</span>
+                              <span class="material-icons star-width vertical-align-middle">star_rate</span> <span class="material-icons star-width vertical-align-middle">star_rate</span>
+                              <span class="material-icons star-width vertical-align-middle">star_rate</span> <span class="material-icons star-width vertical-align-middle">star_rate</span></span></p>
                         </div>
                       </div>
 
-                      <div class="col s12 m4 center" id="m-profile-spinner" style="margin-top: 50px;">
-                        <div class="preloader-wrapper big active">
-                          <div class="spinner-layer spinner-blue-only">
-                            <div class="circle-clipper left">
-                              <div class="circle"></div>
-                            </div>
-                            <div class="gap-patch">
-                              <div class="circle"></div>
-                            </div>
-                            <div class="circle-clipper right">
-                              <div class="circle"></div>
+                      <div class="row mt-5">
+                        <div class="col s3 pr-0 circle">
+                          <a href="#"><img class="responsive-img circle" src="../assets/images/user/12.jpg" alt=""></a>
+                        </div>
+                        <div class="col s9">
+                          <a href="#">
+                            <p class="m-0">Suzanne Martin <span><i class="material-icons vertical-align-bottom">access_time</i> 1
+                                days</span></p>
+                          </a>
+                          <div class="row">
+                            <div class="col s12">
+                              <div class="card card-border z-depth-2">
+                                <div class="card-content">
+                                  <h6 class="font-weight-900 text-uppercase"><a href="#">Designing Services</a></h6>
+                                  <p>UI/UX & Graphics Design</p>
+                                </div>
+                              </div>
+                              <div class="social-icon">
+                                <span><i class="material-icons vertical-align-bottom mr-1">favorite_border</i>90</span> <i class="material-icons vertical-align-bottom ml-3 mr-1">chat_bubble_outline</i>
+                                15 <span><i class="material-icons vertical-align-bottom ml-3 mr-1">redo</i> 6</span>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <hr class="mt-5">
 
                     </div>
                   </div>
@@ -178,10 +175,6 @@
     <script src="../assets/js/app/default.js" type="text/javascript"></script>
     <script src="../assets/js/app/auth.js" type="text/javascript"></script>
     <script src="../assets/js/app/index.js" type="text/javascript"></script>
-    <script src="../assets/vendors/data-tables/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/data-tables/extensions/responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-    <script src="../assets/vendors/data-tables/js/dataTables.select.min.js" type="text/javascript"></script>
-    <script src="../assets/js/scripts/data-tables.js" type="text/javascript"></script>
     <!-- END JS-->
   </body>
 
