@@ -42,6 +42,7 @@ var userId = localStorage.getItem('id'),
     registerUser = "REGISTER USER",
     none = "NONE",
     noData = "No available data",
+    selectedKey = "",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -181,3 +182,9 @@ function INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, us
       status: 1
   });
 }
+
+
+/*
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales nisi nec risus fringilla varius. 
+Nam at est nec tellus maximus faucibus nec vel eros.
+*/
