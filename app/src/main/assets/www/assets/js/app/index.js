@@ -4,6 +4,7 @@ FETCH_USERS();
 ENROLLMENT_MODULE();
 BOOKMARK_LISTS();
 PAPER_LISTS();
+PROFILE_LISTENERS();
 SEARCH_CONFERENCE();
 
 $("#card-new-conference").click(function() {
@@ -64,13 +65,15 @@ $("#btn-save-new-conference").click(function() {
   }
 });
 
-$("#profile-history").click(function() {
-	REDIRECT('history.html');
-});
+function PROFILE_LISTENERS() {
+	$("#profile-history").click(function() {
+		REDIRECT('history.html');
+	});
 
-$("#profile-papers").click(function(){
-	REDIRECT('papers.html');
-});
+	$("#profile-papers").click(function() {
+		REDIRECT('papers.html');
+	});
+}
 
 function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, conferenceEventPlace, conferenceEventDate,
         				   conferenceEventTime, conferenceDescription, conferenceCategory, conferenceAbstractSubmission,
