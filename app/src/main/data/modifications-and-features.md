@@ -41,9 +41,40 @@ MOBILE
 
 • Add prompt alert/checker when no internet available
 
-• Allow download files using anchor href tag
+• !!! -> Allow download files using anchor href tag or View docs (docx, doc) 
 
 • Hide keyboard when search conference
 
 • Handle validation when no internet
 
+• No enroll and subscribe/bookmark paper when paper review is logged in otherwise, will review the specific papers
+
+
+
+
+
+
+
+***PROCESS***
+
+submitted = "Submitted", //first status when first submit author
+processing = "Processing", //paper reviewer - after feedback/comment or rate
+returned = "Returned", //conference chair - Returned - accepted, Returned - rejected, Returned - Revisions (update existing paper)
+
+
+
+Conference Chair
+- Approval
+- Notifications
+
+
+
+Paper Review
+- Individual approval review of papers submitted by Author
+- "Processing" status after review/comment
+
+
+
+Author
+- After subscribe the conference > Submit papers such as Abstract and Fullpaper or add more paper
+- One at a time for submission paper (Abstract or Fullpaper)

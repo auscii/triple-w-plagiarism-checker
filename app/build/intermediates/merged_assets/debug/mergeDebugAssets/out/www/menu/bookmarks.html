@@ -91,6 +91,8 @@
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="notifications.html"><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Notifications</span></a>
         </li>
+        <li class="bold"><a class="waves-effect waves-cyan " href="mypapers.html"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">Papers</span></a>
+        </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " onclick="USER_LOG_OUT()"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
@@ -99,10 +101,6 @@
       <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="#" data-target="slide-out"><i class="material-icons">menu</i></a>
     </aside>
     <!-- END: SideNav-->
-
-    <div style="bottom: 50px; right: 19px;" class="fixed-action-btn direction-top">
-      <a href="search.html" class="btn-floating btn-large gradient-45deg-light-red-cyan gradient-shadow"><i class="material-icons">search</i></a>
-    </div>
 
     <!-- BEGIN: Page Main-->
     <div id="main">
@@ -117,7 +115,7 @@
                 </div>
               </div>
 
-              <div class="col s12 m4 center" id="main-mobile-progress-spinner" style="margin-top: 150px;">
+              <div class="col s12 m4 center" id="m-progress-spinner" style="margin-top: 150px;">
                 <div class="preloader-wrapper big active">
                   <div class="spinner-layer spinner-blue-only">
                     <div class="circle-clipper left">
@@ -133,15 +131,173 @@
                 </div>
               </div>
 
-              <span id="list-conference-cards"></span>
+              <span id="list-bookmark-papers"></span>
 
-              <h5 id="warning-message" style="margin-top: 150px; text-align: center;"></h5>
+              <h5 id="bookmark-warning-message" style="display: none; margin-top: 150px; text-align: center;"></h5>
 
             </div>
           </div>
       </div>
     </div>
     <!-- END: Page Main-->
+
+    <div class="modal" id="modal-view-conference">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-title">
+              <p class="text-center default-caption" style="font-weight: bolder; font-size: 21px;">VIEW CONFERENCE</p> 
+            </div>
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                      <div class="col s12 m12 xl6">
+                       <ul id="projects-collection" class="collection z-depth-1">
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Conference Banner</p>
+                                   <img id="m-view-conference-banner" class="view-card-img">
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Title</p>
+                                   <p class="collections-content" id="m-view-event-title"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Place</p>
+                                   <p class="collections-content" id="m-view-event-place"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Date</p>
+                                   <p class="collections-content" id="m-view-event-date"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Event Time</p>
+                                   <p class="collections-content" id="m-view-event-time"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Description</p>
+                                   <p class="collections-content" id="m-view-description"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Category</p>
+                                   <p class="collections-content" id="m-view-category"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Abstract Submission Date</p>
+                                   <p class="collections-content" id="m-view-abstract-submission"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Full Paper Submission Date</p>
+                                   <p class="collections-content" id="m-view-full-paper-submission"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Average Percentage Report</p>
+                                   <p class="collections-content" id="m-view-average-percentage-report"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Number of Papers Accomodated</p>
+                                   <p class="collections-content" id="m-view-no-papers-accomodated"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Allow Paper Application</p>
+                                   <p class="collections-content" id="m-view-allow-paper-application"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Mode of Review</p>
+                                   <p class="collections-content" id="m-view-mode-of-review"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Date/Time Created</p>
+                                   <p class="collections-content" id="m-view-date-time-created"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Published by</p>
+                                   <p class="collections-content" id="m-view-publish-by"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Total Likes</p>
+                                   <p class="collections-content" id="m-view-likes"></p>
+                                </div>
+                             </div>
+                          </li>
+                          <li class="collection-item">
+                             <div class="row">
+                                <div class="col s12">
+                                   <p class="collections-title font-weight-900 uppercase">Paper Status</p>
+                                   <p class="collections-content" id="m-view-paper-status"></p>
+                                </div>
+                             </div>
+                          </li>
+                       </ul>
+                    </div>
+
+                </div> <br> <br>
+                <div class="modal-footer">
+                    <button onclick="MODAL('#modal-view-conference', 'close')" class="btn btn-danger text-center">
+                      <i class="fa fa-times-circle"></i> Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- BEGIN JS-->
     <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
