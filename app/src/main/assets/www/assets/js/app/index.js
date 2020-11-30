@@ -5,6 +5,7 @@ ENROLLMENT_MODULE();
 BOOKMARK_LISTS();
 PAPER_LISTS();
 PROFILE_LISTENERS();
+FETCH_REVIEWS();
 SEARCH_CONFERENCE();
 
 $("#card-new-conference").click(function() {
@@ -652,7 +653,6 @@ function ENROLLMENT_MODULE() {
 			    }, function() {
 			        submittingPaper.snapshot.ref.getDownloadURL().then(function(downloadURL) {
 			            let finalPaperUrl = downloadURL;
-						console.log('anotherPaper finalPaperUrl ->', finalPaperUrl);
 						SUBMITTING_PAPER(finalPaperUrl, subscribeTypePaper);
 			        });
 			    });
@@ -662,7 +662,6 @@ function ENROLLMENT_MODULE() {
 				} else {
 					finalPaper = userAbstractUrl;
 				}
-				console.log('existingPaper finalPaper ->', finalPaper);
 				SUBMITTING_PAPER(finalPaper, subscribeTypePaper);
 			}
 		});
@@ -675,7 +674,6 @@ function ENROLLMENT_MODULE() {
 function SUBMITTING_PAPER(paperUrl, subscribeTypePaper) {
 	database.ref(papers).on('child_added', function(data) {
 		if (conferenceEventKey != data.val().conference_key) {
- 			console.log('SUBMITTING_PAPER_SUCCESS');
 			database.ref(papers + conferenceEventKey).set({
 		    	conference_key: conferenceEventKey,
 		    	conference_banner: conferenceBanner,
@@ -808,19 +806,6 @@ function PAPER_LISTS() {
 	$('#my-papers-header-title').empty();
 	$('#my-papers-list').empty();
 	if (userType == mobile) {
-		$('#review-paper-title').html(reviewPaperEventTitle);
-		$('#btn-submit-review-paper').click(function() {
-			var reviewFeedbackCommentValue = $('#review-paper-feedback-comment').val();
-			console.log('btn-submit-review-paper');
-			database.ref(papers + reviewPaperKey + sub + review + reviewKey).set({
-		    	review_key: reviewKey,
-		    	review_stars: '',
-		    	review_feedback_comment: '',
-		    	review_email: userEmailAddress,
-		    	review_date_time_created: fullCurrentDateTime,
-		        status: 1
-		    });
-		});
 		database.ref(papers).on('child_added', function(data) {
 			var conferenceKey = data.val().conference_key;
 			var conferenceBanner = data.val().conference_banner;
@@ -846,7 +831,7 @@ function PAPER_LISTS() {
 					$('#m-papers-progress-spinner').css({"display":"none"});
 				}
 			});
-			if (isPaperAvailable) {
+			if (isPaperAvailable && conferenceDescription) {
 				conferenceDescription = conferenceDescription.replace(/\s/g, ' ');
 				$('#my-papers-list').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+conferenceBanner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+conferenceEventTitle+'</span><p>'+conferenceDescription+' <br/></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_PAPER(\''+conferenceKey+'\', \''+conferenceBanner+'\', \''+conferenceEventTitle+'\', \''+conferenceEventPlace+'\', \''+conferenceEventDate+'\', \''+conferenceEventTime+'\', \''+conferenceDescription+'\', \''+conferenceCategory+'\', \''+conferenceAbstractSubmission+'\', \''+conferenceFullPaperSubmission+'\', \''+conferenceAveragePercentageReport+'\', \''+conferenceNumberPapersAccomodated+'\', \''+conferenceAllowPaperApplication+'\', \''+conferenceModeOfReview+'\', \''+conferenceDateTimeCreated+'\', \''+conferencePublishedBy+'\', \''+conferenceLikes+'\')">View</button></div></div></div></div>');
 			}
@@ -874,6 +859,8 @@ function VIEW_PAPER(conferenceKey, conferenceBanner, conferenceEventTitle, confe
 					conferenceNumberPapersAccomodated, conferenceAllowPaperApplication, conferenceModeOfReview, conferenceDateTimeCreated, conferencePublishedBy,
 					conferenceLikes) {
     MODAL('#modal-view-paper', 'open');
+    $('#reviewer-lists').empty();
+	$('#review-conference-title').html(conferenceEventTitle);
 	$('#btn-review-paper').css({"display":"block"}); 
 	$('#btn-papers-submit-check').click(function() {
 		$('#list-of-paper-details').empty();
@@ -891,7 +878,7 @@ function VIEW_PAPER(conferenceKey, conferenceBanner, conferenceEventTitle, confe
 			subscriberKey = data.val().subscriber_key,
 			subscriberPosition = data.val().subscriber_position;
 			if (paperKey != undefined && conferenceKey) {
-				$('#list-of-paper-details').append('<div class="col s12 m4"><div class="card blue-grey darken-4"><div class="card-content white-text"><p>Author: <br /><span style="word-wrap: break-word;">'+subscriberEmail+'</span></p><br><p>Paper ID: <br />'+paperKey+'<br /><br />Type: <br />'+paperType+'<br /><br />Date/Time Created: <br />'+paperDateTimeCreated+'<br /><br /></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(this)" value="'+conferenceBanner+'">Download Paper</button><br><br><button id="btn-review-paper" class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(this)" value="'+paperKey+'">Review Paper</button></div></div></div></div>');
+				$('#list-of-paper-details').append('<div class="col s12 m4"><div class="card blue-grey darken-4"><div class="card-content white-text"><p>Author: <br /><span style="word-wrap: break-word;">'+subscriberEmail+'</span></p><br><p>Paper ID: <br />'+paperKey+'<br /><br />Type: <br />'+paperType+'<br /><br />Date/Time Created: <br />'+paperDateTimeCreated+'<br /><br /></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+downloadPaper+'\')">Download Paper</button><br><br><button id="btn-review-paper" class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+reviewPaper+'\')">Review Paper</button></div></div></div></div>');
 				if (userAccountType == author) {
 					$('#btn-review-paper').css({"display":"none"}); 
 				}
@@ -914,25 +901,6 @@ function VIEW_PAPER(conferenceKey, conferenceBanner, conferenceEventTitle, confe
 	$("#m-view-date-time-created").html(conferenceDateTimeCreated);
 	$("#m-view-published-by").html(conferencePublishedBy);
 	$("#m-view-total-likes").html(conferenceLikes);
-	localStorage.setItem('reviewPaperKey', paperKey);
-	localStorage.setItem('reviewPaperConferenceBanner', conferenceBanner);
-	localStorage.setItem('reviewPaperEventTitle', conferenceEventTitle);
-	localStorage.setItem('reviewPaperEventPlace', conferenceEventPlace);
-	localStorage.setItem('reviewPaperEventDate', conferenceEventDate);
-	localStorage.setItem('reviewPaperEventTime', conferenceEventTime);
-	localStorage.setItem('reviewPaperDescription', conferenceDescription);
-	localStorage.setItem('reviewPaperCategory', conferenceCategory);
-	localStorage.setItem('reviewPaperAbstractSubmission', conferenceAbstractSubmission);
-	localStorage.setItem('reviewPaperFullPaperSubmission', conferenceFullPaperSubmission);
-	localStorage.setItem('reviewPaperAveragePercentageReport', conferenceAveragePercentageReport);
-	localStorage.setItem('reviewPaperNumberPapersAccomodated', conferenceNumberPapersAccomodated);
-	localStorage.setItem('reviewPaperAllowPaperApplication', conferenceAllowPaperApplication);
-	localStorage.setItem('reviewPaperModeOfReview', conferenceModeOfReview);
-	localStorage.setItem('reviewPaperDateTimeCreated', conferenceDateTimeCreated);
-	localStorage.setItem('reviewPaperPublishedBy', conferencePublishedBy);
-	localStorage.setItem('reviewPaperLikes', conferenceLikes);
-	//localStorage.setItem('reviewPaperSubscriberEmail', subscriberEmail);
-	//localStorage.setItem('reviewPaperStatus', paperStatus);
 }
 
 function SUBSCRIBE_PAPER() {
@@ -941,12 +909,14 @@ function SUBSCRIBE_PAPER() {
 	MODAL('#modal-subscribe', 'open');
 }
 
-function DOWNLOAD_REVIEW_PAPER(input) {
-	let paperKey = input.value;
-	console.log('paperKey ->', paperKey);
-
-	if (paperKey.includes('http')) {
-		REDIRECT(paperKey);
+function DOWNLOAD_REVIEW_PAPER(paperKey, paperSubmittedUrl, conferenceKey, conferenceTitle, conferenceBanner, action) {
+	localStorage.setItem('reviewPaperKey', paperKey);
+	localStorage.setItem('reviewPaperEventTitle', conferenceTitle);
+	localStorage.setItem('reviewPaperConferenceKey', conferenceKey);
+	localStorage.setItem('reviewPaperConferenceBanner', conferenceBanner);
+	localStorage.setItem('reviewPaperUrl', paperSubmittedUrl);
+	if (action == downloadPaper) {
+		REDIRECT(paperSubmittedUrl);
 		return;
 	}
 	REDIRECT('mypapers2.html');
@@ -955,4 +925,74 @@ function DOWNLOAD_REVIEW_PAPER(input) {
 function BACK_VIEW_PAPER() {
 	MODAL('#modal-choose-papers', 'close');
 	MODAL('#modal-view-paper', 'open');
+}
+
+function FETCH_REVIEWS() {
+	var rateStarsValue = 5;
+	if (reviewPaperKey || reviewPaperKey != undefined) {
+   		$("#review-conference-banner").attr("src", reviewPaperConferenceBanner);
+		$('#review-star-ratings').html(5);
+		$('#review-paper-id').html(reviewPaperKey);
+		$('#review-conference-title').html(reviewPaperEventTitle);
+		$('#btn-review-paper-url').click(function() {
+			REDIRECT(reviewPaperUrl);
+		});
+		$('input[type="radio"]').on('click change', function(e) {
+	    	rateStarsValue = document.querySelector('input[name="rate-stars"]:checked').value;
+		    if ($(this).is(':checked'))  {
+		        $('#review-star-ratings').html(rateStarsValue);
+		    }
+		});
+		$('#btn-submit-review-paper').click(function() {
+			var reviewFeedbackCommentValue = $('#review-paper-feedback-comment').val();
+			if (!reviewFeedbackCommentValue || reviewFeedbackCommentValue == "") {
+			    $('#modal-message').html('Please fill out feedback/comment field!');
+			    MODAL('#modal-info', 'open');
+			    return;
+			}
+			database.ref(papers + reviewPaperConferenceKey + sub + reviewPaperKey + sub + review + reviewKey).set({
+		    	review_paper_key: reviewPaperKey,
+		    	review_key: reviewKey,
+		    	review_stars: rateStarsValue,
+		    	review_feedback_comment: reviewFeedbackCommentValue,
+		    	review_email: userEmailAddress,
+		    	review_date_time_created: fullCurrentDateTime,
+		        status: 1
+		    });
+		    $('#modal-message').html('Successfully saved!');
+		    MODAL('#modal-info', 'open');
+		    setTimeout(function() {
+		    	MODAL('#modal-info', 'close');
+		    	MODAL('#modal-warning', 'open');
+			}, 3000);
+		});
+
+		database.ref(papers).on('child_added', function(data) {
+			database.ref(papers + data.key).on('child_added', function(snapshot) {
+				database.ref(papers + data.key + sub + snapshot.val().paper_key + sub + review).on('child_added', function(data) {
+					var reviewKey = data.val().review_key,
+					reviewFeedBack = data.val().review_feedback_comment,
+					reviewDateTimeCreated = data.val().review_date_time_created,
+					reviewEmail = data.val().review_email,
+					reviewStars = data.val().review_stars,
+					paperKey = data.val().review_paper_key,
+					rateDataStars = '<span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span>';
+					if (paperKey == reviewPaperKey) {
+						if (reviewStars == 4) {
+							rateDataStars = '<span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span>';
+						} else if (reviewStars == 3) {
+							rateDataStars = '<span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span>';
+						} else if (reviewStars == 2) {
+							rateDataStars = '<span class="material-icons star-width vertical-align-middle">star_rate</span><span class="material-icons star-width vertical-align-middle">star_rate</span>';
+						} else if (reviewStars == 1) {
+							rateDataStars = '<span class="material-icons star-width vertical-align-middle">star_rate</span>';
+						}
+						if (reviewKey || reviewKey != undefined) {
+							$('#reviewer-lists').append('<div class="row" style="margin-top: 0px;"><div class="card user-card-negative-margin z-depth-0" id="feed"><div class="card-content card-border-gray"><hr class="mt-5"><div class="row"><div class="col s12"><h5><span id="review-author-email-address" style="font-size: 15px;">'+reviewEmail+'</span><br><span id="review-author-email-address" style="font-size: 11px;">'+reviewDateTimeCreated+'</span></h5></div></div><div class="row mt-5"><div class="col s3 pr-0 circle"><a href="#"><img class="responsive-img circle" src="'+defaultUserIconPlaceholder+'"></a></div><div class="col s9"><div class="row"><div class="col s12"><div class="social-icon" style="margin-left: -8px;"><span class="amber-text">'+rateDataStars+'</span><br><span style="margin-left: 5px;"><span>'+reviewStars+'</span> stars</span><br></div><br></div></div></div><br><br><br><br><div style="width: 250px; margin-top: -5px; margin-left: 15px; width: 200px;"><span style="text-align: justify; white-space: pre-line;">'+reviewFeedBack+'</span></div></div><br><hr class="mt-5"></div></div></div>');
+						}
+					}
+				});
+			});
+		});
+	} 
 }
