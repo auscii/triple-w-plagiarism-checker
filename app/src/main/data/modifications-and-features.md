@@ -49,6 +49,10 @@ MOBILE
 
 • No enroll and subscribe/bookmark paper when paper review is logged in otherwise, will review the specific papers
 
+• Adjust icons (include css/js)
+
+• Fix error for search enter key
+
 
 
 
