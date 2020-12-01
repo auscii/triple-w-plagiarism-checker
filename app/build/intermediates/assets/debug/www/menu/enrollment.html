@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="author" content="ThemeSelect">
+    <title>Triple W</title>
+    <link rel="apple-touch-icon" href="../assets/images/logo/ic_launcher.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/logo/ic_launcher.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- BEGIN: CSS-->
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/animate-css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/themes/vertical-modern-menu-template/materialize.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/themes/vertical-modern-menu-template/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/pages/dashboard-modern.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/pages/intro.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/custom/custom.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/hover-effects/media-hover-effects.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/dropify/css/dropify.min.css">
+    <!-- END: CSS-->
+  </head>
+
+  <body class="vertical-layout vertical-menu-collapsible page-header-dark vertical-modern-menu 2-columns  " data-open="click" data-menu="vertical-modern-menu" data-col="2-columns">
+    <!-- BEGIN: Header-->
+    <header class="page-topbar" id="header">
+      <div class="navbar navbar-fixed">
+        <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
+          <div class="nav-wrapper">
+            <ul class="navbar-list right">
+              <!-- <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light translation-button" href="javascript:void(0);" data-target="translation-dropdown"><span class="flag-icon flag-icon-gb"></span></a></li>
+              <li><a class="waves-effect waves-block waves-light notification-button" href="javascript:void(0);" data-target="notifications-dropdown"><i class="material-icons">notifications_none<small class="notification-badge">5</small></i></a></li> -->
+              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
+            </ul>
+            <!-- notifications-dropdown-->
+            <ul class="dropdown-content" id="notifications-dropdown">
+              <li>
+                <h6>NOTIFICATIONS<span class="new badge">5</span></h6>
+              </li>
+              <li class="divider"></li>
+              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle cyan small">add_shopping_cart</span> A new order has been placed!</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">2 hours ago</time>
+              </li>
+              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle red small">stars</span> Completed the task</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">3 days ago</time>
+              </li>
+              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle teal small">settings</span> Settings updated</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">4 days ago</time>
+              </li>
+              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle deep-orange small">today</span> Director meeting started</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">6 days ago</time>
+              </li>
+              <li><a class="grey-text text-darken-2" href="#!"><span class="material-icons icon-bg-circle amber small">trending_up</span> Generate monthly report</a>
+                <time class="media-meta" datetime="2015-06-12T20:50:48+08:00">1 week ago</time>
+              </li>
+            </ul>
+            <!-- profile-dropdown-->
+            <ul class="dropdown-content" id="profile-dropdown">
+              <li><a class="grey-text text-darken-1" href="profile.html"><i class="material-icons">person_pin</i> Profile</a></li>
+              <li class="divider"></li>
+              <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">compare_arrows</i> Switch User</a></li>
+              <li><a class="grey-text text-darken-1" href="#" onclick="USER_LOG_OUT()"><i class="material-icons">keyboard_tab</i> Logout</a></li>
+            </ul>
+          </div>
+          <nav class="display-none search-sm">
+            <div class="nav-wrapper">
+              <form>
+                <div class="input-field">
+                  <input class="search-box-sm" type="search" required="">
+                  <label class="label-icon" for="search"><i class="material-icons search-sm-icon">search</i></label><i class="material-icons search-sm-close">close</i>
+                </div>
+              </form>
+            </div>
+          </nav>
+        </nav>
+      </div>
+    </header>
+    <!-- END: Header-->
+
+    <!-- BEGIN: SideNav-->  
+    <aside class="sidenav-main nav-expanded nav-lock nav-collapsible sidenav-light sidenav-active-square">
+      <div class="brand-sidebar">
+        <h1 class="logo-wrapper"><a class="brand-logo darken-1" style="margin-top: 7px;"><span class="logo-text" style="margin-left: 35px; color: #fff;">Triple W</span></a><a class="navbar-toggler" href="#"><i class="material-icons">radio_button_checked</i></a></h1>
+      </div>
+      <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
+        <li class="bold"><a class="waves-effect waves-cyan " href="main.html"><i class="material-icons">assignment</i><span class="menu-title" data-i18n="">Conference</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan " href="bookmarks.html"><i class="material-icons">art_track</i><span class="menu-title" data-i18n="">Bookmarks</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan " href="notifications.html"><i class="material-icons">notifications</i><span class="menu-title" data-i18n="">Notifications</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan " href="mypapers.html"><i class="material-icons">insert_drive_file</i><span class="menu-title" data-i18n="">Papers</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">person_pin</i><span class="menu-title" data-i18n="">Profile</span></a>
+        </li>
+        <li class="bold"><a class="waves-effect waves-cyan " onclick="USER_LOG_OUT()"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
+        </li>
+      </ul>
+      <div class="navigation-background"></div><a class="sidenav-trigger btn-sidenav-toggle btn-floating btn-medium waves-effect waves-light hide-on-large-only" href="search.html"><i class="material-icons">arrow_back</i></a>
+    </aside>
+    <!-- END: SideNav-->
+
+    <!-- BEGIN: Page Main-->
+    <div id="main">
+      <div class="row">
+        <div class="content-wrapper-before gradient-45deg-indigo-purple"></div>
+          <div class="col s12">
+            <div class="container">
+
+              <div class="card">
+                <div class="card-content">
+                  <p class="caption mb-0" style="text-align: center; font-weight: bolder; font-size: 18px;">Enrollment Module</p>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s12 m7 l7">
+                  <div class="card large" style="height: 3600px;"> 
+                        <div class="card-image">
+                              <img id="conference-enrollment-image"/>
+                              <span class="card-title" id="conference-enrollment-event-title" style="background-color: rgba(0,0,0,0.7); margin-bottom:  90px;"></span>
+                        </div> <br>
+                        <center>
+                          <a class="waves-effect waves-light btn mb-1" onclick="PROMPT_BOOKMARK()" style="height: 35px; text-align: center; border-radius: 50px;">
+                            <i class="material-icons left">bookmark</i> Bookmark
+                          </a> <br> <br>
+                          <a class="waves-effect waves-light btn mb-1" onclick="SUBSCRIBE_PAPER()" style="height: 35px; text-align: center; border-radius: 50px;">
+                            <i class="material-icons left">check</i> Subscribe
+                          </a>
+                        </center>
+                        <div class="card-content">
+                              <h4 class="card-title">DESCRIPTION:</h4>
+                              <p id="conference-enrollment-description"></p> <hr> <br>
+
+                              <h4 class="card-title">PUBLISHED ON:</h4>
+                              <p id="conference-enrollment-published-on"></p> <hr> <br>
+
+                              <h4 class="card-title">PUBLISHED BY:</h4>
+                              <p id="conference-enrollment-published-by"></p> <hr> <br>
+
+                              <h4 class="card-title">EVENT PLACE:</h4>
+                              <p id="conference-enrollment-event-place"></p> <hr> <br>
+                              
+                              <h4 class="card-title">EVENT DATE:</h4>
+                              <p id="conference-enrollment-event-date"></p> <hr> <br>
+                              
+                              <h4 class="card-title">EVENT TIME:</h4>
+                              <p id="conference-enrollment-event-time"></p> <hr> <br>
+                              
+                              <h4 class="card-title">CATEGORY:</h4>
+                              <p id="conference-enrollment-category"></p> <hr> <br>
+                              
+                              <h4 class="card-title">ABSTRACT SUBMISSION:</h4>
+                              <p id="conference-enrollment-abstract-submission"></p> <hr> <br>
+                              
+                              <h4 class="card-title">FULL PAPER SUBMISSION:</h4>
+                              <p id="conference-enrollment-full-paper-submission"></p> <hr> <br>
+                              
+                              <h4 class="card-title">AVERAGE PERCENTAGE REPORT:</h4>
+                              <p id="conference-enrollment-average-percentage-report"></p> <hr> <br>
+                              
+                              <h4 class="card-title">NUMBER PAPERS ACCOMODATED:</h4>
+                              <p id="conference-enrollment-number-papers-accomodated"></p> <hr> <br>
+                              
+                              <h4 class="card-title">MODE OF REVIEW:</h4>
+                              <p id="conference-enrollment-mode-of-review"></p><hr> <br> <br> 
+                        </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- END: Page Main-->
+
+    <div class="modal" id="modal-final-prompt">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Do you wish to upload another paper for this conference?</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <a class="waves-effect waves-light btn mb-1" onclick="SUBMIT_ANOTHER_PAPER()">
+                    <i class="material-icons left">check</i> Yes
+                  </a>&nbsp;
+                  <a class="waves-effect waves-light btn mb-1" onclick="REDIRECT('mypapers.html')">
+                    <i class="material-icons left">close</i> No
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-warning" class="modal">
+      <div class="modal-content">
+          <div class="modal-header">
+              <div class="modal-title modal-header-title">
+                <p class="text-center default-caption" id="warning-message"></p> 
+              </div>
+          </div>
+          <div class="modal-body text-center">
+              <button href="#" onclick="MODAL('#modal-warning', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
+          </div>
+      </div>
+    </div>
+
+    <div id="modal-progress" class="modal">
+      <div class="modal-content">
+          <div class="modal-body">
+            <p class="text-center default-caption" id="loading-message"></p>
+            <div class="col s12 m4 center">
+                <div class="preloader-wrapper big active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-subscribe-upload-paper">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption" id="subscribe-upload-paper-message"></p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <div class="row margin" id="subscribe-input-form">
+                    <div class="row section">
+                      <div class="col s12 m8 5">
+                        <input type="file" id="subscribe-paper-submit-paper" class="dropify" accept=".xlsx,.xls,.doc,.docx,.ppt,.pptx,.txt,.pdf" data-max-file-size="10M" />
+                      </div>
+                    </div>
+                  </div> <br>
+
+                  <div class="row margin center">
+                    <div class="row section">
+                      <div class="col s12 m8 5">
+                        <a class="waves-effect waves-light btn mb-1" onclick="PREVIOUS_UPLOAD_PAPER()">
+                          <i class="material-icons left">arrow_back</i> Back
+                        </a> <br> <br>
+                        <a class="waves-effect waves-light btn mb-1" id="btn-subscribe-submit-paper">
+                          <i class="material-icons left">check</i> Submit
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-prompt-paper-type">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Do you want to upload new paper? Select Yes to continue, press No - existing paper</p>
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <a class="waves-effect waves-light btn mb-1" id="btn-subscribe-upload-another-paper">
+                    <i class="material-icons left">check</i> Yes
+                  </a>&nbsp;
+                  <a class="waves-effect waves-light btn mb-1" id="btn-subscribe-existing-paper">
+                    <i class="material-icons left">close</i> No
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-choose-paper-type">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Choose types of paper</p> 
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                      <div class="col s12 m3" id="conference-subscribe-fullpaper">
+                        <div class="card gradient-shadow gradient-45deg-red-pink border-radius-3">
+                          <div class="card-content center">
+                              <h5 class="white-text lighten-4">Full Paper</h5>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col s12 m3" id="conference-subscribe-abstract">
+                        <div class="card gradient-shadow gradient-45deg-deep-purple-blue border-radius-3">
+                          <div class="card-content center">
+                              <h5 class="white-text lighten-4">Abstract</h5>
+                          </div>
+                        </div>
+                      </div>
+                  </div> <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-subscribe">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption" id="subscribe-message"></p> 
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <a class="waves-effect waves-light btn mb-1" id="btn-submit-subscribe">
+                    <i class="material-icons left">check</i> Yes
+                  </a>&nbsp;
+                  <a class="waves-effect waves-light btn mb-1" onclick="MODAL('#modal-subscribe', 'close')">
+                    <i class="material-icons left">close</i> No
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-bookmark">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption" id="bookmark-message"></p> 
+                    </div>
+                </div>
+                <div class="modal-body">
+                  <a class="waves-effect waves-light btn mb-1" id="btn-submit-bookmark">
+                    <i class="material-icons left">check</i> Yes
+                  </a>&nbsp;
+                  <a class="waves-effect waves-light btn mb-1" onclick="MODAL('#modal-bookmark', 'close')">
+                    <i class="material-icons left">close</i> No
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-info">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption" id="modal-message"></p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                  <a class="waves-effect waves-light btn mb-1" onclick="MODAL('#modal-info', 'close')">
+                    <i class="material-icons left">check</i> OK
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- BEGIN JS-->
+    <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
+    <script src="../assets/js/vendors.min.js" type="text/javascript"></script>
+    <script src="../assets/js/plugins.js" type="text/javascript"></script>
+    <script src="../assets/js/custom/custom-script.js" type="text/javascript"></script>
+    <script src="../assets/js/scripts/customizer.js" type="text/javascript"></script>
+    <script src="../assets/js/scripts/advance-ui-modals.js" type="text/javascript"></script>
+    <script src="../assets/js/common/main.js" type="text/javascript"></script>
+    <script src="../assets/js/app/default.js" type="text/javascript"></script>
+    <script src="../assets/js/app/auth.js" type="text/javascript"></script>
+    <script src="../assets/js/app/index.js" type="text/javascript"></script>
+    <script src="../assets/vendors/dropify/js/dropify.min.js"></script>
+    <script src="../assets/js/scripts/form-file-uploads.js"></script>
+    <!-- END JS-->
+  </body>
+
+</html>

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "234149438631",
+    "firebase_url": "https://triple-w.firebaseio.com",
+    "project_id": "triple-w",
+    "storage_bucket": "triple-w.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:234149438631:android:ff945d32d09fdc1a746782",
+        "android_client_info": {
+          "package_name": "com.ccs.triplew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "234149438631-ot68endl1altosodit764v3o59phb2kv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeO9PZbgjcdp3PNnYRx3h-jRmQoRpLta8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "234149438631-ot68endl1altosodit764v3o59phb2kv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -4,7 +4,7 @@
             "outputFile": "C:\\Users\\knigh\\Documents\\Random\\triple-w-plagiarism-checker\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\knigh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\7193608a9bce3674e4164a51f7616eec\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\knigh\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\3e83eeee1bb13cca5157b0ca0d59aaaa\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\knigh\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\bff0dbe97560dfa6d0e3024495f58c74\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\knigh\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-28.0.0.aar\\4aa8414a3b1d048b17a42f753748deb1\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

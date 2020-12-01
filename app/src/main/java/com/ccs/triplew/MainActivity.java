@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,6 +20,10 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 @SuppressLint("NewApi")
 public class MainActivity extends Activity {
@@ -36,6 +41,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         web();
         checkPermissions();
+        setupNotification();
     }
 
     @Override
@@ -77,9 +83,6 @@ public class MainActivity extends Activity {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
-            Log.i("ON_REQUEST_PERMISSION" , "Permission Already Granted");
-        }
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -87,6 +90,22 @@ public class MainActivity extends Activity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void setupNotification() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                //To do//
+                    return;
+                }
+                // Get the Instance ID token//
+                String token = task.getResult().getToken();
+                String msg = "FCM Token: " + token;
+                Log.d("FIREBASE_NOTIF", msg);
+            }
+        });
     }
 
     private void web() {
@@ -106,7 +125,6 @@ public class MainActivity extends Activity {
         webView.setWebChromeClient(new WebChromeClient() {
             // For Android 3.0+
             protected void openFileChooser(ValueCallback uploadMsg, String acceptType) {
-                Log.i("openFileChooser", "-> openFileChooser 3.0");
                 mUploadMessage = uploadMsg;
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
@@ -115,7 +133,6 @@ public class MainActivity extends Activity {
             }
             // For Android 5.0+
             public boolean onShowFileChooser(WebView mWebView, ValueCallback<Uri[]> filePathCallback, WebChromeClient.FileChooserParams fileChooserParams) {
-                Log.i("onShowFileChooser", "-> onShowFileChooser 5.0+");
                 if (uploadMessage != null) {
                     uploadMessage.onReceiveValue(null);
                     uploadMessage = null;
@@ -133,7 +150,6 @@ public class MainActivity extends Activity {
             }
             //For Android 4.1 only
             protected void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType, String capture) {
-                Log.i("openFileChooser", "-> openFileChooser 4.1");
                 mUploadMessage = uploadMsg;
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -141,7 +157,6 @@ public class MainActivity extends Activity {
                 startActivityForResult(Intent.createChooser(intent, "File Browser"), FILECHOOSER_RESULTCODE);
             }
             protected void openFileChooser(ValueCallback<Uri> uploadMsg) {
-                Log.i("openFileChooser", "-> openFileChooser 4.2");
                 mUploadMessage = uploadMsg;
                 Intent i = new Intent(Intent.ACTION_GET_CONTENT);
                 i.addCategory(Intent.CATEGORY_OPENABLE);
@@ -155,8 +170,6 @@ public class MainActivity extends Activity {
         int permissionCheck = ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        } else {
-            Log.i("PERMISSION" , "Permission Granted");
         }
     }
 
@@ -177,7 +190,6 @@ class myWebClient extends WebViewClient {
     @Override
     public void onPageFinished(WebView view, String url) {
         super.onPageFinished(view, url);
-        Log.i("onPageFinished", "-> onPageFinished");
     }
 
 }
