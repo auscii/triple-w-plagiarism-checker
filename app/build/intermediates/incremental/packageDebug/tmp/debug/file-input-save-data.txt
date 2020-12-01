@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Tue Dec 01 03:13:27 CST 2020
+#Wed Dec 02 03:06:10 CST 2020
 1034.base=C\:\\Users\\knigh\\Documents\\Random\\triple-w-plagiarism-checker\\app\\build\\intermediates\\assets\\debug
 881.path=www/assets/vendors/flag-icon/flags/1x1/gl.svg
 508.set=ASSET

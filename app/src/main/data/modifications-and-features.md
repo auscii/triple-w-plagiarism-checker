@@ -53,6 +53,8 @@ MOBILE
 
 • Fix error for search enter key
 
+• Include paper status for every pages on mobile view
+
 
 ***PROCESS***
 

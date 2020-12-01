@@ -62,7 +62,7 @@ $(function () {
     "bLengthChange": false,
     "bInfo": false,
     "ordering": false,
-    "bAutoWidth": false,
+    "bAutoWidth": true,
     "bFilter": false //hide search input form
   })
 

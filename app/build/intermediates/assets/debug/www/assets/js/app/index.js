@@ -1,6 +1,7 @@
 CHECK_USER_SESSION();
 FETCH_CONFERENCES();
 FETCH_USERS();
+NOTIFICATIONS();
 ENROLLMENT_MODULE();
 BOOKMARK_LISTS();
 PAPER_LISTS();
@@ -759,29 +760,30 @@ function BOOKMARK_LISTS() {
 			var paperStatus = data.val().paper_status;
 			isBookmarkAvailable = true;
 			$('#m-progress-spinner').css({"display":"none"}); 
-			$('#list-bookmark-papers').append('<button onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+bookmarkKey+'" style="border: none; background: none; text-align: left;"><div class="col s12 m6 l4 card-width"><div class="card-panel border-radius-6 mt-10 card-animation-1"><img class="responsive-img border-radius-8 z-depth-4 image-n-margin" src="'+conferenceBanner+'"/><h6><a href="#" class="mt-5">'+conferenceEventTitle+'</a></h6><p>'+conferenceDescription+'</p><div class="row mt-4"><a href="#"><div class="col s12 p-0 mt-1"><span class="pt-2" style="margin-left: 10px;">STATUS: '+paperStatus+'</span></div></a><div class="col s12 mt-1 left-align" style="margin-left: -8px;"><a href="#"><span class="material-icons">thumb_up</span></a><span class="ml-3 vertical-align-top">'+userLikes+' like(s)</span></div></div></div></div></button>');
-			$('#list-bookmark-papers').click(function() {
-				MODAL('#modal-view-conference', 'open');
-				if (selectedKey == bookmarkKey) {
-					$("#m-view-conference-banner").attr("src", conferenceBanner);
-			   		$("#m-view-event-title").html(conferenceEventTitle);
-			   		$("#m-view-event-place").html(conferenceEventPlace);
-			   		$("#m-view-event-date").html(conferenceEventDate);
-			   		$("#m-view-event-time").html(conferenceEventTime);
-			   		$("#m-view-description").html(conferenceDescription);
-			   		$("#m-view-category").html(conferenceCategory);
-			   		$("#m-view-abstract-submission").html(conferenceAbstractSubmission);
-			   		$("#m-view-full-paper-submission").html(conferenceFullPaperSubmission);
-			   		$("#m-view-average-percentage-report").html(conferenceAveragePercentageReport);
-			   		$("#m-view-no-papers-accomodated").html(conferenceNumberPapersAccomodated);
-			   		$("#m-view-allow-paper-application").html(conferenceAllowPaperApplication);
-			   		$("#m-view-mode-of-review").html(conferenceModeOfReview);
-			   		$("#m-view-date-time-created").html(conferenceDateTimeCreated);
-			   		$("#m-view-publish-by").html(conferenceUserCreatedBy);
-			   		$("#m-view-likes").html(userLikes);
-			   		$("#m-view-paper-status").html(paperStatus);
-				}
-			});
+			$('#list-bookmark-papers').append('<div class="col s12 m6 l4 card-width"><div class="card-panel border-radius-6 mt-10 card-animation-1"><img class="responsive-img border-radius-8 z-depth-4 image-n-margin" src="'+conferenceBanner+'"/><h6><a href="#" class="mt-5">'+conferenceEventTitle+'</a></h6><p>'+conferenceDescription+'</p></div></div>');
+			// $('#list-bookmark-papers').append('<button onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+bookmarkKey+'" style="border: none; background: none; text-align: left;"><div class="col s12 m6 l4 card-width"><div class="card-panel border-radius-6 mt-10 card-animation-1"><img class="responsive-img border-radius-8 z-depth-4 image-n-margin" src="'+conferenceBanner+'"/><h6><a href="#" class="mt-5">'+conferenceEventTitle+'</a></h6><p>'+conferenceDescription+'</p><div class="row mt-4"><a href="#"><div class="col s12 p-0 mt-1"><span class="pt-2" style="margin-left: 10px;">STATUS: '+paperStatus+'</span></div></a><div class="col s12 mt-1 left-align" style="margin-left: -8px;"><a href="#"><span class="material-icons">thumb_up</span></a><span class="ml-3 vertical-align-top">'+userLikes+' like(s)</span></div></div></div></div></button>');
+			// $('#list-bookmark-papers').click(function() {
+			// 	MODAL('#modal-view-conference', 'open');
+			// 	if (selectedKey == bookmarkKey) {
+			// 		$("#m-view-conference-banner").attr("src", conferenceBanner);
+			//    		$("#m-view-event-title").html(conferenceEventTitle);
+			//    		$("#m-view-event-place").html(conferenceEventPlace);
+			//    		$("#m-view-event-date").html(conferenceEventDate);
+			//    		$("#m-view-event-time").html(conferenceEventTime);
+			//    		$("#m-view-description").html(conferenceDescription);
+			//    		$("#m-view-category").html(conferenceCategory);
+			//    		$("#m-view-abstract-submission").html(conferenceAbstractSubmission);
+			//    		$("#m-view-full-paper-submission").html(conferenceFullPaperSubmission);
+			//    		$("#m-view-average-percentage-report").html(conferenceAveragePercentageReport);
+			//    		$("#m-view-no-papers-accomodated").html(conferenceNumberPapersAccomodated);
+			//    		$("#m-view-allow-paper-application").html(conferenceAllowPaperApplication);
+			//    		$("#m-view-mode-of-review").html(conferenceModeOfReview);
+			//    		$("#m-view-date-time-created").html(conferenceDateTimeCreated);
+			//    		$("#m-view-publish-by").html(conferenceUserCreatedBy);
+			//    		$("#m-view-likes").html(userLikes);
+			//    		$("#m-view-paper-status").html(paperStatus);
+			// 	}
+			// });
 		});	
 		setTimeout(function() {
 			routeKey = search;
@@ -805,53 +807,77 @@ function PAPER_LISTS() {
 	var isPaperAvailable = false;
 	$('#my-papers-header-title').empty();
 	$('#my-papers-list').empty();
-	if (userType == mobile) {
-		database.ref(papers).on('child_added', function(data) {
-			var conferenceKey = data.val().conference_key;
-			var conferenceBanner = data.val().conference_banner;
-			var conferenceEventTitle = data.val().conference_title;
-			var conferenceEventPlace = data.val().conference_event_place;
-			var conferenceEventDate = data.val().conference_event_date;
-			var conferenceEventTime = data.val().conference_event_time;
-			var conferenceDescription = data.val().conference_description;
-			var conferenceCategory = data.val().conference_category;
-			var conferenceAbstractSubmission = data.val().conference_abstract_Submission;
-			var conferenceFullPaperSubmission = data.val().conference_full_paper_submission;
-			var conferenceAveragePercentageReport = data.val().conference_average_percentage_report;
-			var conferenceNumberPapersAccomodated = data.val().conference_number_papers_accomodated;
-			var conferenceAllowPaperApplication = data.val().conference_allow_paper_application;
-			var conferenceModeOfReview = data.val().conference_mode_of_review;
-			var conferenceDateTimeCreated = data.val().conference_date_time_created;
-			var conferencePublishedBy = data.val().conference_published_by;
-			var conferenceLikes = data.val().conference_likes;
-			database.ref(papers + conferenceKey).on('child_added', function(snapshot) {	
-				if (snapshot.val().paper_key != undefined) {
-					isPaperAvailable = true;
-					$('#papers-warning-message').empty();
-					$('#m-papers-progress-spinner').css({"display":"none"});
-				}
-			});
-			if (isPaperAvailable && conferenceDescription) {
-				conferenceDescription = conferenceDescription.replace(/\s/g, ' ');
-				$('#my-papers-list').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+conferenceBanner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+conferenceEventTitle+'</span><p>'+conferenceDescription+' <br/></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_PAPER(\''+conferenceKey+'\', \''+conferenceBanner+'\', \''+conferenceEventTitle+'\', \''+conferenceEventPlace+'\', \''+conferenceEventDate+'\', \''+conferenceEventTime+'\', \''+conferenceDescription+'\', \''+conferenceCategory+'\', \''+conferenceAbstractSubmission+'\', \''+conferenceFullPaperSubmission+'\', \''+conferenceAveragePercentageReport+'\', \''+conferenceNumberPapersAccomodated+'\', \''+conferenceAllowPaperApplication+'\', \''+conferenceModeOfReview+'\', \''+conferenceDateTimeCreated+'\', \''+conferencePublishedBy+'\', \''+conferenceLikes+'\')">View</button></div></div></div></div>');
+	// if (userType == mobile) {
+	database.ref(papers).on('child_added', function(data) {
+		var conferenceKey = data.val().conference_key;
+		var conferenceBanner = data.val().conference_banner;
+		var conferenceEventTitle = data.val().conference_title;
+		var conferenceEventPlace = data.val().conference_event_place;
+		var conferenceEventDate = data.val().conference_event_date;
+		var conferenceEventTime = data.val().conference_event_time;
+		var conferenceDescription = data.val().conference_description;
+		var conferenceCategory = data.val().conference_category;
+		var conferenceAbstractSubmission = data.val().conference_abstract_Submission;
+		var conferenceFullPaperSubmission = data.val().conference_full_paper_submission;
+		var conferenceAveragePercentageReport = data.val().conference_average_percentage_report;
+		var conferenceNumberPapersAccomodated = data.val().conference_number_papers_accomodated;
+		var conferenceAllowPaperApplication = data.val().conference_allow_paper_application;
+		var conferenceModeOfReview = data.val().conference_mode_of_review;
+		var conferenceDateTimeCreated = data.val().conference_date_time_created;
+		var conferencePublishedBy = data.val().conference_published_by;
+		var conferenceLikes = data.val().conference_likes;
+		database.ref(papers + conferenceKey).on('child_added', function(snapshot) {	
+			var paperKey = snapshot.val().paper_key,
+			paperDateTimeCreated = snapshot.val().paper_date_time_created,
+			paperStatus = snapshot.val().paper_status,
+			paperSubmittedUrl = snapshot.val().paper_submitted_url,
+			paperType = snapshot.val().paper_type,
+			status = snapshot.val().status,
+			subscriberEmail = snapshot.val().subscriber_email,
+			subscriberKey = snapshot.val().subscriber_key,
+			colorStatusValue = submittedColor,
+			btnActionStatus = "enabled";
+			if (paperStatus == processing) {
+				colorStatusValue = processingColor;
+			} else if (paperStatus == returnedAccepted) {
+				colorStatusValue = returnAcceptedColor;
+				btnActionStatus = "disabled";
+			} else if (paperStatus == returnedRejected) {
+				colorStatusValue = returnRejectedColor;
+				btnActionStatus = "disabled";
+			} else if (paperStatus == returnedRevisions) {
+				colorStatusValue = returnRevisionsColor;
+				btnActionStatus = "disabled";
 			}
-
+			if (paperKey != undefined) {
+				isPaperAvailable = true;
+				$('#papers-warning-message').empty();
+				$('#m-papers-progress-spinner').css({"display":"none"});
+				$('#papers-spinner').css({"display":"none"}); 
+	        	$('#papers-table-list').append('<tr><td class="text-center"><img id="mobile-upper-user-icon" style="border-radius: 25px; height: 50px; width: 50px;" src="'+conferenceBanner+'"></td><td class="text-center">'+conferenceEventTitle+'</td><td class="text-center">'+paperKey+'</td><td class="text-center">'+subscriberEmail+'</td><td class="text-center"><span style="font-weight: bolder; text-transform: uppercase; color: '+colorStatusValue+';">'+paperStatus+'</span></td><td class="text-center">'+paperDateTimeCreated+'</td><td class="text-center"><button class="btn btn-success btn-small text-center" onclick="REDIRECT(\''+paperSubmittedUrl+'\')"><i class="material-icons">download</i></button></td><td class="text-center"><a '+btnActionStatus+' title="'+returnedAccepted+'" style="background: '+returnAcceptedColor+';" class="btn-floating mb-1 btn-small waves-effect waves-light" onclick="UPDATE_PAPER_STATUS(\''+conferenceKey+'\',\''+conferenceBanner+'\',\''+conferenceEventTitle+'\',\''+paperKey+'\',\''+returnedAccepted+'\',\''+subscriberKey+'\')"><i class="material-icons">check</i></a>&nbsp;&nbsp;&nbsp;<a '+btnActionStatus+' title="'+returnedRejected+'" style="background: '+returnRejectedColor+';" class="btn-floating mb-1 btn-small waves-effect waves-light" onclick="UPDATE_PAPER_STATUS(\''+conferenceKey+'\',\''+conferenceBanner+'\',\''+conferenceEventTitle+'\',\''+paperKey+'\',\''+returnedRejected+'\',\''+subscriberKey+'\')"><i class="material-icons">close</i></a>&nbsp;&nbsp;&nbsp;<a '+btnActionStatus+' title="'+returnedRevisions+'" style="background: '+returnRevisionsColor+';" class="btn-floating mb-1 btn-small waves-effect waves-light"  onclick="UPDATE_PAPER_STATUS(\''+conferenceKey+'\',\''+conferenceBanner+'\',\''+conferenceEventTitle+'\',\''+paperKey+'\',\''+returnedRevisions+'\',\''+subscriberKey+'\')"><i class="material-icons">update</i></a></td></tr>');
+			}
 		});
-		setTimeout(function() {
-			var start = setInterval( function() {
-				if (isPaperAvailable) {
-					$('#m-papers-progress-spinner').css({"display":"none"}); 
-			  		clearInterval(start);
-					return;
-				} else {
-					$('#m-papers-progress-spinner').css({"display":"none"}); 
-					$('#papers-warning-message').css({"display":"block"});
-					$('#papers-warning-message').html(noData);
-					isPaperAvailable = true;
-				}
-			}, 1000);
-		}, 5000);	
-	}
+		if (isPaperAvailable && conferenceDescription) {
+			conferenceDescription = conferenceDescription.replace(/\s/g, ' ');
+			$('#my-papers-list').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+conferenceBanner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+conferenceEventTitle+'</span><p>'+conferenceDescription+' <br/></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_PAPER(\''+conferenceKey+'\', \''+conferenceBanner+'\', \''+conferenceEventTitle+'\', \''+conferenceEventPlace+'\', \''+conferenceEventDate+'\', \''+conferenceEventTime+'\', \''+conferenceDescription+'\', \''+conferenceCategory+'\', \''+conferenceAbstractSubmission+'\', \''+conferenceFullPaperSubmission+'\', \''+conferenceAveragePercentageReport+'\', \''+conferenceNumberPapersAccomodated+'\', \''+conferenceAllowPaperApplication+'\', \''+conferenceModeOfReview+'\', \''+conferenceDateTimeCreated+'\', \''+conferencePublishedBy+'\', \''+conferenceLikes+'\')">View</button></div></div></div></div>');
+		}
+
+	});
+	setTimeout(function() {
+		var start = setInterval( function() {
+			if (isPaperAvailable) {
+				$('#m-papers-progress-spinner').css({"display":"none"}); 
+		  		clearInterval(start);
+				return;
+			} else {
+				$('#m-papers-progress-spinner').css({"display":"none"}); 
+				$('#papers-warning-message').css({"display":"block"});
+				$('#papers-warning-message').html(noData);
+				isPaperAvailable = true;
+			}
+		}, 1000);
+	}, 5000);	
+	// }
 }
 
 function VIEW_PAPER(conferenceKey, conferenceBanner, conferenceEventTitle, conferenceEventPlace, conferenceEventDate, conferenceEventTime, 
@@ -959,6 +985,11 @@ function FETCH_REVIEWS() {
 		    	review_date_time_created: fullCurrentDateTime,
 		        status: 1
 		    });
+		    database.ref(papers + reviewPaperConferenceKey + sub + reviewPaperKey).update({
+		    	paper_status: processing
+		    });
+		    INSERT_NOTIFICATIONS(reviewPaperConferenceKey, reviewPaperConferenceBanner, reviewPaperEventTitle,
+		    					 reviewPaperKey, processing, reviewAuthorPaper);
 		    $('#modal-message').html('Successfully saved!');
 		    MODAL('#modal-info', 'open');
 		    setTimeout(function() {
@@ -966,7 +997,6 @@ function FETCH_REVIEWS() {
 		    	MODAL('#modal-warning', 'open');
 			}, 3000);
 		});
-
 		database.ref(papers).on('child_added', function(data) {
 			database.ref(papers + data.key).on('child_added', function(snapshot) {
 				database.ref(papers + data.key + sub + snapshot.val().paper_key + sub + review).on('child_added', function(data) {
@@ -995,4 +1025,113 @@ function FETCH_REVIEWS() {
 			});
 		});
 	} 
+}
+
+function UPDATE_PAPER_STATUS(conferenceKey, conferenceBanner, conferenceTitle, paperKey, action, authorUserKey) {
+	if (userType == web) {
+		var actionMessage = returnedAccepted;
+		if (action == returnedRejected) {
+			actionMessage = returnedRejected;
+		} else if (action == returnedRevisions) {
+			actionMessage = returnedRevisions;
+		}
+		MODAL('#modal-update-paper', 'open');
+		$('#update-paper-action-message').html(actionMessage);
+		$('#btn-submit-update-paper-status').click(function() {
+			MODAL('#modal-update-paper', 'close');
+		    database.ref(papers + conferenceKey + sub + paperKey).update({
+		    	paper_status: action
+		    });
+		    INSERT_NOTIFICATIONS(conferenceKey, conferenceBanner, conferenceTitle, 
+								 paperKey, action, updatePaper, authorUserKey, 
+								 userEmailAddress)
+		    RELOAD_PAGE();
+		});
+	}
+}
+
+function NOTIFICATIONS() {
+	var notifyMessage = "",
+	notifyFlag = false,
+	nTimer = false;
+	database.ref(notifications).on('child_added', function(snapshot) {
+		localStorage.setItem('totalNumberNotifications', snapshot.numChildren());
+	});
+	if (userType == mobile) {
+		$('#m-notification-lists').empty();
+		database.ref(notifications + userGetKey).limitToLast(3).on('child_added', function(data) {
+			const authorUserKey = data.val().author_user_key,
+			conferenceBanner = data.val().conference_banner,
+			conferenceKey = data.val().conference_key,
+			conferenceTitle = data.val().conference_title,
+			notifyDateTimeCreated = data.val().notify_date_time_created,
+			paperKey = data.val().paper_key,
+			paperStatus = data.val().paper_status,
+			status = data.val().status,
+			updateUserEmailAddress = data.val().update_user_email_address,
+			userActionType = data.val().user_action_type;
+			if (userActionType == updatePaper) {
+				notifyMessage = "Paper ID: "+paperKey+" has been updated into "+paperStatus+" by conference chair: "+updateUserEmailAddress+".";
+			} else {
+				notifyMessage = "Paper ID: "+paperKey+" is now processing and successfully review by Paper reviewer: "+updateUserEmailAddress+".";
+			}
+			if (totalNumberNotifications != 1 && totalNumberNotifications != 2 && totalNumberNotifications > 3) {
+				totalNumberNotifications = 3;
+			}
+			$('#btn-submit-notification').click(function() {
+				MODAL('#modal-notification', 'close');
+			    database.ref(notifications + authorUserKey + sub + data.key).update({
+			    	status: 1
+			    });
+				nTimer = true;
+				RELOAD_PAGE();
+			});
+			var t = setInterval( function() {
+				if (nTimer) {
+			  		clearInterval(t);
+					return;
+				} else {
+					if (status == 0) {
+						MODAL('#modal-notification', 'open');
+						$('#m-notification-message').html(notifyMessage);
+						nTimer = true;
+					}
+				}
+			}, 1000);
+			if (authorUserKey != undefined || authorUserKey) {
+				notifyFlag = true;
+				$('#m-notification-lists').append('<li><a class="grey-text text-darken-2" href="notifications.html"><img class="responsive-img circle" style="height: 35px; width: 35px;" src="'+conferenceBanner+'"/><span style="margin-left: 20px; font-size: 15px; width: 250px;">'+notifyMessage+'</span></a><time style="margin-left: 55px;" class="media-meta" datetime="'+notifyDateTimeCreated+'">'+notifyDateTimeCreated+'</time></li><li class="divider"></li>');
+				$('#user-notification-list').append('<tr><td class="text-center">'+paperKey+'</td><td class="text-center">'+paperStatus+'</td></tr>');
+				$('#m-total-notifications-outer').html(totalNumberNotifications);
+				$('#m-total-notifications-inner').html(totalNumberNotifications);
+				$('#view-all-notifications').css({"display":"block"});
+				$('#no-available-notifications').css({"display":"none"});
+			}
+		});
+		setTimeout(function() {
+			if (!notifyFlag) {
+				$('#m-total-notifications-outer').html(0);
+				$('#m-total-notifications-inner').html(0);
+				$('#view-all-notifications').css({"display":"none"});
+				$('#no-available-notifications').css({"display":"block"});
+			}
+		}, 5000);
+	}
+}
+
+function INSERT_NOTIFICATIONS(conferenceKey, conferenceBanner, conferenceTitle, 
+							  paperKey, paperStatus, actionType, authorUserKey, 
+							  userUpdateByEmailAddress) {
+	database.ref(notifications + authorUserKey + sub + notificationKey).set({
+    	conference_key: conferenceKey,
+    	conference_banner: conferenceBanner,
+    	conference_title: conferenceTitle,
+    	paper_key: paperKey,
+    	paper_status: paperStatus,
+    	notify_date_time_created: fullCurrentDateTime,
+    	author_user_key: authorUserKey,
+    	update_user_email_address: userUpdateByEmailAddress,
+    	user_action_type: actionType,
+    	status: 0
+    });
 }
