@@ -959,6 +959,9 @@ function FETCH_REVIEWS() {
 		    	review_date_time_created: fullCurrentDateTime,
 		        status: 1
 		    });
+		    database.ref(papers + reviewPaperConferenceKey + sub + reviewPaperKey).update({
+		    	paper_status: processing
+		    });
 		    $('#modal-message').html('Successfully saved!');
 		    MODAL('#modal-info', 'open');
 		    setTimeout(function() {

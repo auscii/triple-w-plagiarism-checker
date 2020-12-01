@@ -54,11 +54,6 @@ MOBILE
 • Fix error for search enter key
 
 
-
-
-
-
-
 ***PROCESS***
 
 submitted = "Submitted", //first status when first submit author
@@ -66,17 +61,14 @@ processing = "Processing", //paper reviewer - after feedback/comment or rate
 returned = "Returned", //conference chair - Returned - accepted, Returned - rejected, Returned - Revisions (update existing paper)
 
 
-
 Conference Chair
 - Approval
 - Notifications
 
 
-
 Paper Review
 - Individual approval review of papers submitted by Author
 - "Processing" status after review/comment
-
 
 
 Author
