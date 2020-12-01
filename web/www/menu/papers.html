@@ -40,7 +40,7 @@
             <ul class="navbar-list right">
               <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen" href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
               <li class="hide-on-large-only"><a class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i class="material-icons">search</i></a></li>
-              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
+              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../../../app/src/main/assets/www/assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
             </ul>
             <!-- profile-dropdown-->
             <ul class="dropdown-content" id="profile-dropdown">
@@ -77,9 +77,9 @@
       <ul class="sidenav sidenav-collapsible leftside-navigation collapsible sidenav-fixed menu-shadow" id="slide-out" data-menu="menu-navigation" data-collapsible="menu-accordion">
         <li class="bold"><a class="waves-effect waves-cyan " href="main.html"><i class="material-icons">info</i><span class="menu-title" data-i18n="">My Programmes</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="papers.html"><i class="material-icons">insert_comment</i><span class="menu-title" data-i18n="">Papers</span></a>
+        <li class="bold"><a class="active waves-effect waves-cyan " href="papers.html"><i class="material-icons">insert_comment</i><span class="menu-title" data-i18n="">Papers</span></a>
         </li>
-        <li class="bold"><a class="active waves-effect waves-cyan " href="users.html"><i class="material-icons">people</i><span class="menu-title" data-i18n="">Users Management</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="users.html"><i class="material-icons">people</i><span class="menu-title" data-i18n="">Users Management</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">contact_mail</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
@@ -100,7 +100,7 @@
                   <div class="col s12">
                     <div id="faq-search" class="card z-depth-0 faq-search-image center-align p-35">
                       <div class="card-content">
-                        <h5>User Management</h5>
+                        <h5>Papers</h5>
                       </div>
                     </div>
                   </div>
@@ -110,7 +110,7 @@
                   <div class="col s12">&nbsp;</div>
                   <div class="col s12">&nbsp;</div>
                 </div>
-                <h4 class="card-title">All users</h4>
+                <h4 class="card-title">Author papers</h4>
                 <div id="borderless-table" class="card card-tabs">
                   <div class="card-content">
                     <div id="view-borderless-table">
@@ -119,21 +119,22 @@
                           <table>
                             <thead>
                               <tr>
-                                <th>USER ICON</th>
-                                <th>ID</th>
-                                <th>Full Name</th>
-                                <th>Email Address</th>
-                                <th>Account Type</th>
-                                <th>Date/Time Registered</th>
-                                <th>Papers</th>
+                                <th class="text-center">Banner</th>
+                                <th class="text-center">Conference Title</th>
+                                <th class="text-center">Paper ID</th>
+                                <th class="text-center">Author Email Address</th>
+                                <th class="text-center">Paper Status</th>
+                                <th class="text-center">Date/Time Created</th>
+                                <th class="text-center">Download Paper</th>
+                                <th class="text-center">Action</th>
                               </tr>
                             </thead>
-                            <tbody id="user-table-list"></tbody>
+                            <tbody id="papers-table-list"></tbody>
                           </table>
                         </div>
                       </div>
 
-                      <div class="col s12 m4 center" id="users-management-spinner">
+                      <div class="col s12 m4 center" id="papers-spinner">
                         <div class="preloader-wrapper big active">
                           <div class="spinner-layer spinner-blue-only">
                             <div class="circle-clipper left">
@@ -193,6 +194,26 @@
               <button href="#" onclick="MODAL('#modal-warning', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
           </div>
       </div>
+    </div>
+
+    <div class="modal" id="modal-update-paper">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Do you wish to <span id="update-paper-action-message" style="text-transform: uppercase;"></span> this paper?</p>
+                    </div>
+                </div>
+                <div class="modal-body center">
+                  <a class="waves-effect waves-light btn mb-1" id="btn-submit-update-paper-status">
+                    <i class="material-icons left">check</i> Yes
+                  </a>&nbsp;
+                  <a class="waves-effect waves-light btn mb-1" onclick="MODAL('#modal-update-paper', 'close')">
+                    <i class="material-icons left">close</i> No
+                  </a>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- BEGIN: Footer-->
