@@ -40,7 +40,7 @@
             <ul class="navbar-list right">
               <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen" href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
               <li class="hide-on-large-only"><a class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i class="material-icons">search</i></a></li>
-              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
+              <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../../../app/src/main/assets/www/assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
             </ul>
             <!-- profile-dropdown-->
             <ul class="dropdown-content" id="profile-dropdown">
@@ -69,7 +69,7 @@
       <div class="brand-sidebar">
         <h1 class="logo-wrapper">
           <a class="brand-logo darken-1" href="#">
-            <img src="../../../app/src/main/assets/www/assets/images/logo/materialize-logo-color.png" alt="materialize logo"/>
+            <!-- <img src="../../../app/src/main/assets/www/assets/images/logo/materialize-logo-color.png" alt="materialize logo"/> -->
             <span class="logo-text hide-on-med-and-down">Triple W</span>
           </a>
         </h1>
@@ -110,7 +110,10 @@
                   <div class="col s12">&nbsp;</div>
                   <div class="col s12">&nbsp;</div>
                 </div>
-                <h4 class="card-title">All users</h4>
+                <h4 class="card-title">Total users: <span id="total-users"></span></h4>
+                <button class="btn btn-success text-center" id="btn-save-new-conference" onclick="RELOAD_PAGE()">
+                  <i class="material-icons left">refresh</i> Refresh
+                </button> <br/>
                 <div id="borderless-table" class="card card-tabs">
                   <div class="card-content">
                     <div id="view-borderless-table">
@@ -126,6 +129,7 @@
                                 <th>Account Type</th>
                                 <th>Date/Time Registered</th>
                                 <th>Papers</th>
+                                <th>Send Invitation</th>
                               </tr>
                             </thead>
                             <tbody id="user-table-list"></tbody>
@@ -133,7 +137,7 @@
                         </div>
                       </div>
 
-                      <div class="col s12 m4 center" id="users-management-spinner">
+                      <div class="col s12 m4 center" id="users-management-spinner" style="margin-top: 20px; margin-left: 430px;">
                         <div class="preloader-wrapper big active">
                           <div class="spinner-layer spinner-blue-only">
                             <div class="circle-clipper left">
@@ -193,6 +197,43 @@
               <button href="#" onclick="MODAL('#modal-warning', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
           </div>
       </div>
+    </div>
+
+    <div class="modal" id="modal-prompt-invitation">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Do you want to sent an invitation to <span id="prompt-paper-reviewer-name"></span> for reviewing paper(s)?</p>
+                    </div>
+                </div>
+                <div class="modal-body center">
+                  <a class="waves-effect waves-light btn mb-1" id="btn-submit-invitation-paper-reviewer">
+                    <i class="material-icons left">check</i> Yes
+                  </a>&nbsp;
+                  <a class="waves-effect waves-light btn mb-1" onclick="MODAL('#modal-prompt-invitation', 'close')">
+                    <i class="material-icons left">close</i> No
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-success">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Successfully sent an invitation to <span id="paper-reviewer-invitation-name"></span>!</p> 
+                    </div>
+                </div>
+                <div class="modal-body center">
+                  <a class="waves-effect waves-light btn mb-1" onclick="RELOAD_PAGE()">
+                    <i class="material-icons left">check</i> OK
+                  </a>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- BEGIN: Footer-->

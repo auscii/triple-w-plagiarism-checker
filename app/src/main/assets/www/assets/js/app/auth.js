@@ -262,6 +262,7 @@ function AUTH_USER_ACCOUNT(typeUser) {
                 var userAccountType = data.val().account_type;
                 var userDateTimeRegistered = data.val().date_time_registered;
                 var userIconUrl = data.val().profile_picture;
+                var status = data.val().status;
                 if (userLoginEmailAddress == userEmailAddress) {
                    if (typeUser == web) {
                      if (userAccountType == author || userAccountType == paperReviewer) {
@@ -290,6 +291,7 @@ function AUTH_USER_ACCOUNT(typeUser) {
                    localStorage.setItem('account_type', userAccountType);
                    localStorage.setItem('date_time_registered', userDateTimeRegistered);
                    localStorage.setItem('profile_picture', userIconUrl);
+                   localStorage.setItem('status', status);
                    INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, userFullPaperUrl, userPaperAbstractUrl,
                                     userPaperCategories, userAccountType, userDateTimeRegistered, userIconUrl,
                                     loggedInUser);
@@ -360,6 +362,6 @@ function STORE_PREFERENCES(type) {
   } else {
     $('#loading-message').html('Saving user account...');
     MODAL('#modal-progress', 'open');
-    NEW_ACCOUNT(mobile, none, none, none);
+    NEW_ACCOUNT(mobile, none, none, type);
   }
 }

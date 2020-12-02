@@ -61,11 +61,26 @@ _DONE • Fix error for search enter key
 
 • Validation for uploading doc or docx file only.
 
-• Uploading of profile picture of individual user for mobile and web
+_DONE • Uploading of profile picture of individual user for mobile and web
 
-• Filter by Preferences of Pre-register author and/or paper reviewer on conferences list for Mobile
+_DONE • Filter by Preferences of Pre-register author and/or paper reviewer on conferences list for Mobile
 
-***PROCESS***
+• Slow refresh and fetch data on conference main for mobile and other pages
+
+• Save login user credentials in order to auto login when accidentally exit the app and re-enter the mobile
+
+• Update height of modal
+
+• Invitation for paper reviewer to grant access on mobile from conference chair with approval on the website
+
+• Remove 2 radio button forms for creating new conference (website)
+
+• Total entries for every table lists
+
+• Change password of user
+
+
+***PROCESS*** = DONE
 
 submitted = "Submitted", //first status when first submit author
 processing = "Processing", //paper reviewer - after feedback/comment or rate

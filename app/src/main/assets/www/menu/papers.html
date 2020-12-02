@@ -152,6 +152,36 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="modal-invitation-prompt">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Congratulations! Conference chair send you an invitation for reviewing papers. </p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <button type="button" id="btn-invitation-submit" class="btn btn-danger text-center"><i class="material-icons">check</i>Accept invitation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-invitation-warning">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Warning! You're account is not yet invited. Please wait for an invitation of Conference Chair</p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <button type="button" onclick="MODAL('#modal-invitation-warning', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
     
     <!-- BEGIN JS-->
     <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
