@@ -7,6 +7,7 @@ var userId = localStorage.getItem('id'),
     userAddress = localStorage.getItem('address'),
     userOccupation = localStorage.getItem('occupation'),
     userAccountType = localStorage.getItem('account_type'),
+    userPaperCategories = localStorage.getItem('paperCategories'),
     userDateTimeRegistered = localStorage.getItem('date_time_registered'),
     userProfileIcon = localStorage.getItem('profile_picture'),
     userAbstractUrl = localStorage.getItem('paperAbstractUrl'),
@@ -64,6 +65,7 @@ var userId = localStorage.getItem('id'),
     users = "USERS/",
     credentials = "CREDENTIALS/",
     papers = "PAPERS/",
+    profilePicture = "PROFILE_PICTURE/",
     conferences = "CONFERENCES/",
     programmes = "PROGRAMMES/",
     logs = "LOGS/",
@@ -73,6 +75,7 @@ var userId = localStorage.getItem('id'),
     conferenceDetails = "CONFERENCE DETAILS/",
     loggedInUser = "LOGGED IN USER",
     loggedOutUser = "LOGGED OUT USER",
+    switchUser = "SWITCH USER",
     registerUser = "REGISTER USER",
     none = "NONE",
     noData = "No available data",
@@ -115,7 +118,9 @@ var userId = localStorage.getItem('id'),
     paperKey = "",
     reviewKey = "",
     notificationKey = "",
-    defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png",
+    uniqNum = 69,
+    newStatus = 1,
+    defaultUserIconPlaceholder = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png",
     noImage = "https://media.istockphoto.com/vectors/no-image-available-sign-vector-id936182806?k=6&m=936182806&s=612x612&w=0&h=F5sh9tAuiAtEPNE1NiFZ7mH7-7cjx0q4CXOcxiziFpw=";
 
 setInterval( function() {
@@ -156,6 +161,9 @@ function USER_CLEAR_LOCAL_STORAGE() {
 
 function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, userPassword, 
                      userPreferences, userPaperAbstract, userFullPaper, userPaperCategories, type) {
+    if (userAccountType == paperReviewer) {
+        newStatus = 7
+    }
     database.ref(users + userKey + sub + credentials).set({
         id: userId,
         key: userKey,
@@ -169,7 +177,7 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
         account_type: userAccountType,
         date_time_registered: fullCurrentDateTime,
         profile_picture: defaultUserIconPlaceholder,
-        status: 1
+        status: newStatus
     });
     INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, userPassword, userFullPaper, userPaperAbstract,
                      userPaperCategories, userPreferences, userAccountType, fullCurrentDateTime, defaultUserIconPlaceholder,
@@ -193,12 +201,13 @@ function SET_USER_REGISTRATION_VALUE() {
    $("#input-paper-abstract-paper").attr("src", userRegisterPaperAbstract);
    $("#input-paper-full-paper").attr("src", userRegisterFullPaper);
    $("#mobile-upper-user-icon").attr("src", userProfileIcon);
-   $("#mobile-user-profile-icon").attr("src", userProfileIcon);
    $("#user-profile-fullname").html(userFullName);
    $("#user-profile-email-address").html(userEmailAddress);
    $("#user-profile-account-type").html(userAccountType);
    $("a.user-profile-full-paper").attr("href", userAbstractUrl);
    $("a.user-profile-abstract").attr("href", userFullPaperUrl);
+   $("#mobile-user-profile-icon").attr("src", userProfileIcon);
+   $("#switch-user-img-user").attr("src", userProfileIcon);
 }
 
 function POPULATE_USER_PAPERS() {
@@ -242,11 +251,12 @@ function INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, us
       paperAbstractUrl: userPaperAbstractUrl,
       fullPaperUrl: userFullPaperUrl,
       account_type: userAccountType,
-      profile_picture: defaultUserIconPlaceholder,
+      profile_picture: userIconUrl,
       date_created: fullCurrentDateTime,
       action_type: action,
-      status: 1
+      status: newStatus
   });
+  newStatus = 1;
 }
 
 

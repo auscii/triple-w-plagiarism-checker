@@ -44,7 +44,7 @@
             <ul class="dropdown-content" id="profile-dropdown">
               <li><a class="grey-text text-darken-1" href="profile.html"><i class="material-icons">person_pin</i> Profile</a></li>
               <li class="divider"></li>
-              <li><a class="grey-text text-darken-1" href="#"><i class="material-icons">compare_arrows</i> Switch User</a></li>
+              <li><a class="grey-text text-darken-1" onclick="MODAL('#modal-switch-user', 'open')"><i class="material-icons">compare_arrows</i> Switch User</a></li>
               <li><a class="grey-text text-darken-1" onclick="USER_LOG_OUT()"><i class="material-icons">keyboard_tab</i> Logout</a></li>
             </ul>
           </div>
@@ -284,6 +284,132 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal" id="modal-invitation-prompt">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Congratulations! Conference chair send you an invitation for reviewing papers. </p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <button type="button" id="btn-invitation-submit" class="btn btn-danger text-center"><i class="material-icons">check</i>Accept invitation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-invitation-warning">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Warning! You're account is not yet invited. Please wait for an invitation of Conference Chair</p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <button type="button" onclick="MODAL('#modal-invitation-warning', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-login-error" class="modal">
+      <div class="modal-content">
+          <div class="modal-header">
+              <div class="modal-title modal-header-title">
+                <p class="text-center default-caption" id="error-message"></p> 
+              </div>
+          </div>
+          <div class="modal-body text-center">
+              <button href="#" onclick="MODAL('#modal-login-error', 'close')" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Close</button>
+          </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-switch-user">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Switch User</p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <form class="login-form">
+                      <div class="row"><br>
+                        <div class="input-field col s12 center">
+                          <img class="responsive-img circle" id="switch-user-img-user" width="150" height="150">
+                        </div>
+                      </div>
+                      <div class="row margin">
+                        <div class="input-field col s12">
+                          <i class="material-icons prefix pt-2">person_outline</i>
+                          <input id="switch-user-email-address" type="email">
+                          <label for="switch-user-email-address" class="center-align">Email Address</label>
+                        </div>
+                      </div>
+                      <div class="row margin">
+                        <div class="input-field col s12">
+                          <i class="material-icons prefix pt-2">lock_outline</i>
+                          <input id="switch-user-password" type="password">
+                          <label for="switch-user-password">Password</label>
+                        </div>
+                      </div>
+                    </form> <br/>
+
+                    <div class="row"><br>
+                      <div class="input-field col s12 center">
+                        <button type="button" id="btn-submit-switch-user" class="btn btn-danger">Save</button> &nbsp;
+                        <button type="button" class="btn btn-danger" onclick="MODAL('#modal-switch-user', 'close')">Close</button>
+                      </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-warning-s">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-left default-caption text-center" id="s-warning-message"></p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center"> <br/>
+                    <p class="default-caption" id="m-notification-message"></p> <br/>
+                    <button type="button" class="btn btn-danger text-center" onclick="MODAL('#modal-warning-s', 'close')">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-progress-s" class="modal">
+      <div class="modal-content">
+          <div class="modal-body">
+            <p class="text-center default-caption" id="loading-message"></p>
+            <div class="col s12 m4 center">
+                <div class="preloader-wrapper big active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
     </div>
     
     <!-- BEGIN JS-->

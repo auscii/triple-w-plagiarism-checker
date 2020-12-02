@@ -77,7 +77,7 @@ $("#btn-next-password").click(function() {
   var userRegisterConfirmPassword = $('#register-c-password').val();
   if (!userRegisterPassword && !userRegisterConfirmPassword) {
       $('#warning-message').html('Please fill out this field!');
-    MODAL('#modal-warning', 'open');
+      MODAL('#modal-warning', 'open');
   } else if (userRegisterPassword.length < 6) {
       $('#warning-message').html('You have to enter at least 6 characters!');
       MODAL('#modal-warning', 'open');
@@ -178,6 +178,57 @@ $("#btn-previous-paper").click(function() {
   REDIRECT("preferences.html");
 });
 
+$('#btn-submit-switch-user').click(function() {
+    MODAL('#modal-progress-s', 'open');
+    $('#loading-message').html("Switching account...");
+    const switchEmailAddress = $('#switch-user-email-address').val(), 
+    switchPassword = $('#switch-user-password').val();
+    if (!switchEmailAddress || !switchPassword) {
+        MODAL('#modal-progress-s', 'close');
+        MODAL('#modal-warning-s', 'open');
+        $('#s-warning-message').html("User not found!");
+        return;
+    }
+    SETTING_USER_CREDENTIALS(switchEmailAddress, switchPassword, switchUser, mobile);
+});
+
+$("#btn-change-password").click(function() {
+   MODAL('#modal-prompt-change-pw', 'open');
+   $('#btn-submit-cp').click(function() {
+     var currentPassword = $('#cp-current-password').val(), 
+     newPassword = $('#cp-current-password').val();
+     MODAL('#modal-progress-s', 'open');
+
+     if (!currentPassword || !newPassword) {
+        $('#error-message').html('Please fill out password field!');
+        MODAL('#modal-progress-s', 'close');
+        MODAL('#modal-login-error', 'open');
+     } else if (newPassword != currentPassword) {
+        $('#error-message').html('Password mismatched!');
+        MODAL('#modal-progress-s', 'close');
+        MODAL('#modal-login-error', 'open');
+     } else {
+        firebase.auth().signInWithEmailAndPassword(userEmailAddress, currentPassword).then(function(user) {
+             firebase.auth().currentUser.updatePassword(newPassword).then(function() {
+               $('#success-message-label').html('Successfully Changed Password! your account will automatically logout in 3 seconds.');
+               MODAL('#modal-success', 'open');
+               setTimeout(function() {
+                  USER_LOG_OUT();
+               }, 3000);
+             }).catch(function(e) {
+               MODAL('#modal-progress-s', 'close');
+               MODAL('#modal-login-error', 'open');
+               $('#error-message').html(e.message);
+             });
+         }).catch(function(e) {
+             MODAL('#modal-progress-s', 'close');
+             MODAL('#modal-login-error', 'open');
+             $('#error-message').html(e.message);
+         });
+     }
+   });
+});
+
 function LOGIN_GOOGLE_ACCOUNT() {
     firebase.auth().signInWithPopup(provider).then(function(result) {
       var token = result.credential.accessToken;
@@ -245,71 +296,7 @@ function AUTH_USER_ACCOUNT(typeUser) {
       $('#error-message').html("User not found!");
       return;
   }
-  firebase.auth().signInWithEmailAndPassword(userLoginEmailAddress, userLoginPassword).then(function(firebaseUser) {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user != null) {
-          var user = firebase.auth().currentUser;
-          database.ref(users).on('child_added', function(snapshot) {
-             firebase.database().ref(users + snapshot.key).orderByChild("user_key").on("child_added", function(data) {
-                var userId = data.val().id;
-                var userKey = data.val().key;
-                var userFullName = data.val().full_name;
-                var userEmailAddress = data.val().email_address;
-                var p = data.val().password;
-                var userFullPaperUrl = data.val().fullPaperUrl;
-                var userPaperAbstractUrl = data.val().paperAbstractUrl;
-                var userPaperCategories = data.val().paperCategories;
-                var userAccountType = data.val().account_type;
-                var userDateTimeRegistered = data.val().date_time_registered;
-                var userIconUrl = data.val().profile_picture;
-                if (userLoginEmailAddress == userEmailAddress) {
-                   if (typeUser == web) {
-                     if (userAccountType == author || userAccountType == paperReviewer) {
-                        MODAL('#modal-progress', 'close');
-                        MODAL('#modal-login-error', 'open');
-                        $('#error-message').html("Conference Chair user account only.");
-                        return;
-                     }
-                   } 
-                   else {
-                      if (userAccountType == conferenceChair) {
-                        MODAL('#modal-progress', 'close');
-                        MODAL('#modal-login-error', 'open');
-                        $('#error-message').html("Author and Paper Reviewer user account only.");
-                        return;
-                      }
-                   }
-                   localStorage.setItem('id', userId);
-                   localStorage.setItem('key', userKey);
-                   localStorage.setItem('full_name', userFullName);
-                   localStorage.setItem('email_address', userEmailAddress);
-                   localStorage.setItem('p', p);
-                   localStorage.setItem('fullPaperUrl', userFullPaperUrl);
-                   localStorage.setItem('paperAbstractUrl', userPaperAbstractUrl);
-                   localStorage.setItem('paperCategories', userPaperCategories);
-                   localStorage.setItem('account_type', userAccountType);
-                   localStorage.setItem('date_time_registered', userDateTimeRegistered);
-                   localStorage.setItem('profile_picture', userIconUrl);
-                   INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, userFullPaperUrl, userPaperAbstractUrl,
-                                    userPaperCategories, userAccountType, userDateTimeRegistered, userIconUrl,
-                                    loggedInUser);
-                   REDIRECT("main.html");
-                }
-            });
-          });
-        } else {
-          MODAL('#modal-progress', 'close');
-          MODAL('#modal-login-error', 'open');
-          $('#error-message').html('User Not Found!');
-      }
-    });
-    }).catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        MODAL('#modal-progress', 'close');
-        MODAL('#modal-login-error', 'open');
-        $('#error-message').html("Error: " + errorMessage);
-    });
+  SETTING_USER_CREDENTIALS(userLoginEmailAddress, userLoginPassword, loggedInUser, typeUser);
 }
 
 function NEW_ACCOUNT(type, abstractUrl, fullPaperUrl, paperCategories) {
@@ -360,6 +347,83 @@ function STORE_PREFERENCES(type) {
   } else {
     $('#loading-message').html('Saving user account...');
     MODAL('#modal-progress', 'open');
-    NEW_ACCOUNT(mobile, none, none, none);
+    NEW_ACCOUNT(mobile, none, none, type);
   }
+}
+
+function SETTING_USER_CREDENTIALS(emailAddress, password, action, typeUser) {
+  firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(function(firebaseUser) {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user != null) {
+          var user = firebase.auth().currentUser;
+          database.ref(users).on('child_added', function(snapshot) {
+             firebase.database().ref(users + snapshot.key).orderByChild("user_key").on("child_added", function(data) {
+                var userId = data.val().id;
+                var userKey = data.val().key;
+                var userFullName = data.val().full_name;
+                var userEmailAddress = data.val().email_address;
+                var p = data.val().password;
+                var userFullPaperUrl = data.val().fullPaperUrl;
+                var userPaperAbstractUrl = data.val().paperAbstractUrl;
+                var userPaperCategories = data.val().paperCategories;
+                var userAccountType = data.val().account_type;
+                var userDateTimeRegistered = data.val().date_time_registered;
+                var userIconUrl = data.val().profile_picture;
+                var status = data.val().status;
+
+                if (emailAddress == userEmailAddress) {
+                   if (typeUser == web) {
+                     if (userAccountType == author || userAccountType == paperReviewer) {
+                        MODAL('#modal-progress', 'close');
+                        MODAL('#modal-login-error', 'open');
+                        $('#error-message').html("Conference Chair user account only.");
+                        return;
+                     }
+                   } else {
+                      if (userAccountType == conferenceChair) {
+                        MODAL('#modal-progress', 'close');
+                        MODAL('#modal-login-error', 'open');
+                        $('#error-message').html("Author and Paper Reviewer user account only.");
+                        return;
+                      }
+                   }
+                   localStorage.setItem('id', userId);
+                   localStorage.setItem('key', userKey);
+                   localStorage.setItem('full_name', userFullName);
+                   localStorage.setItem('email_address', userEmailAddress);
+                   localStorage.setItem('p', p);
+                   localStorage.setItem('fullPaperUrl', userFullPaperUrl);
+                   localStorage.setItem('paperAbstractUrl', userPaperAbstractUrl);
+                   localStorage.setItem('paperCategories', userPaperCategories);
+                   localStorage.setItem('account_type', userAccountType);
+                   localStorage.setItem('date_time_registered', userDateTimeRegistered);
+                   localStorage.setItem('profile_picture', userIconUrl);
+                   localStorage.setItem('status', status);
+                   INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, userFullPaperUrl, userPaperAbstractUrl,
+                                    userPaperCategories, userAccountType, userDateTimeRegistered, userIconUrl,
+                                    action);
+                  if (action == loggedInUser) {
+                     REDIRECT("main.html");
+                  } else {
+                     MODAL('#modal-progress-s', 'close');
+                     RELOAD_PAGE();
+                  }
+                }
+            });
+          });
+        } else {
+          MODAL('#modal-progress', 'close');
+          MODAL('#modal-progress-s', 'close');
+          MODAL('#modal-login-error', 'open');
+          $('#error-message').html('User Not Found!');
+      }
+    });
+    }).catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        MODAL('#modal-progress', 'close');
+        MODAL('#modal-progress-s', 'close');
+        MODAL('#modal-login-error', 'open');
+        $('#error-message').html("Error: " + errorMessage);
+    });
 }
