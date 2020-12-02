@@ -51,7 +51,7 @@ MOBILE
 
 • Adjust icons (include css/js)
 
-• Fix error for search enter key
+_DONE • Fix error for search enter key
 
 • Include paper status for every pages on mobile view
 

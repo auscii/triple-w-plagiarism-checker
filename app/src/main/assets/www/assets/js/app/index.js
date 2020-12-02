@@ -7,7 +7,6 @@ BOOKMARK_LISTS();
 PAPER_LISTS();
 PROFILE_LISTENERS();
 FETCH_REVIEWS();
-// SEARCH_CONFERENCE();
 
 $("#card-new-conference").click(function() {
   MODAL('#modal-create-conference', 'open');
@@ -142,9 +141,11 @@ function FETCH_CONFERENCES() {
 			var modeOfReview = data.val().conference_mode_of_review;
 			var dateTimeCreated = data.val().date_time_created;
 			isConferenceAvailable = true;
-			$('#list-conference-cards').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+banner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+title+'</span><p>'+description+' <br/>online Huge selection of Apple</p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+key+'">View</button></div></div></div></div>');
-	    	$('#main-mobile-progress-spinner').css({"display":"none"}); 
-			$('#warning-message').empty();
+			if (key != undefined && userPaperCategories == category) {
+				$('#list-conference-cards').append('<div class="col s12 m4"><div class="card blue-grey darken-4 bg-image-1" style="background-image: url('+banner+'); background-size: cover;"><div class="card-content white-text" style="background-color: rgba(0, 0, 0, 0.7);"><span class="card-title font-weight-400 mb-10" style="text-transform: uppercase; font-weight: bolder;">'+title+'</span><p>'+description+' <br/>online Huge selection of Apple</p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="VIEW_UPDATE_CONFERENCE(this)" value="'+key+'">View</button></div></div></div></div>');
+		    	$('#main-mobile-progress-spinner').css({"display":"none"}); 
+				$('#warning-message').empty();
+			}
 	    });
 	} else {
 		database.ref(users + userGetKey + sub + conferences).on('child_added', function(data) {
@@ -451,11 +452,10 @@ function CHECK_USER_SESSION() {
 }
 
 $(document).keypress(function (e) {
-    if (e.which == 13) {
+    if (userType == mobile && e.which == 13) {
 		var isConferenceAvailable = false;
 		var totalConferenceResult = 0;
 		routeKey = search;
-		// if (userType == mobile && event.key === 'Enter') {
 		if (userType == mobile) {
 			$('#search-warning-message').css({"display":"none"});
 			$("#card-search-conference").empty();
