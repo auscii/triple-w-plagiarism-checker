@@ -55,6 +55,15 @@ MOBILE
 
 • Include paper status for every pages on mobile view
 
+• Include Reports (Return accepted, revisions, rejected, processing and submitted paper status) with Print and Download as PDF and Audit Logs (User and System Logs)
+
+• When Download, Automatically convert as PDF the selected download doc or docx file.
+
+• Validation for uploading doc or docx file only.
+
+• Uploading of profile picture of individual user for mobile and web
+
+• Filter by Preferences of Pre-register author and/or paper reviewer on conferences list for Mobile
 
 ***PROCESS***
 

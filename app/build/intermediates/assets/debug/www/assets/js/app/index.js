@@ -669,34 +669,27 @@ function ENROLLMENT_MODULE() {
 	}
 }
 
-//BUGS:
-// - Need to refresh to request another paper and inserted new paper
-
 function SUBMITTING_PAPER(paperUrl, subscribeTypePaper) {
-	database.ref(papers).on('child_added', function(data) {
-		if (conferenceEventKey != data.val().conference_key) {
-			database.ref(papers + conferenceEventKey).set({
-		    	conference_key: conferenceEventKey,
-		    	conference_banner: conferenceBanner,
-		    	conference_title: conferenceEventTitle,
-		    	conference_event_place: conferenceEventPlace,
-		    	conference_event_date: conferenceEventDate,
-		    	conference_event_time: conferenceEventTime,
-		    	conference_description: conferenceDescription,
-		    	conference_category: conferenceCategory,
-		    	conference_abstract_Submission: conferenceAbstractSubmission,
-		    	conference_full_paper_submission: conferenceFullPaperSubmission,
-		    	conference_average_percentage_report: conferenceAveragePercentageReport,
-		    	conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
-		    	conference_allow_paper_application: conferenceAllowPaperApplication,
-		    	conference_mode_of_review: conferenceModeOfReview,
-		    	conference_published_by: conferenceUserCreatedBy,
-		    	conference_date_time_created: conferenceDateTimeCreated,
-		    	conference_likes: 0,
-		        status: 1
-		    });
-		}
-    });
+	database.ref(papers + conferenceEventKey + sub + conferenceDetails).set({
+		conference_key: conferenceEventKey,
+		conference_banner: conferenceBanner,
+		conference_title: conferenceEventTitle,
+		conference_event_place: conferenceEventPlace,
+		conference_event_date: conferenceEventDate,
+		conference_event_time: conferenceEventTime,
+		conference_description: conferenceDescription,
+		conference_category: conferenceCategory,
+		conference_abstract_Submission: conferenceAbstractSubmission,
+		conference_full_paper_submission: conferenceFullPaperSubmission,
+		conference_average_percentage_report: conferenceAveragePercentageReport,
+		conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
+		conference_allow_paper_application: conferenceAllowPaperApplication,
+		conference_mode_of_review: conferenceModeOfReview,
+		conference_published_by: conferenceUserCreatedBy,
+		conference_date_time_created: conferenceDateTimeCreated,
+		conference_likes: 0,
+		status: 1
+	});
 
     database.ref(papers + conferenceEventKey + sub + paperKey).set({
     	paper_key: paperKey,

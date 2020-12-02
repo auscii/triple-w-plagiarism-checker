@@ -69,6 +69,7 @@ var userId = localStorage.getItem('id'),
     bookmarks = "BOOKMARKS/",
     review = "REVIEW/",
     notifications = "NOTIFICATIONS/",
+    conferenceDetails = "CONFERENCE DETAILS/",
     loggedInUser = "LOGGED IN USER",
     loggedOutUser = "LOGGED OUT USER",
     registerUser = "REGISTER USER",
@@ -104,17 +105,27 @@ var userId = localStorage.getItem('id'),
     currentDate = yyyy + '-' + mm + '-' + dd,
     currentTime = Date().slice(16,25),
     fullCurrentDateTime = currentDate + ' ' + currentTime,
+    isConferenceAvailable = false,
+    isMobileAvailable = false,
+    userKey = "",
+    conferenceKey = "",
+    logKey = "",
+    bookmarkKey = "",
+    paperKey = "",
+    reviewKey = "",
+    notificationKey = "",
+    defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png",
+    noImage = "https://media.istockphoto.com/vectors/no-image-available-sign-vector-id936182806?k=6&m=936182806&s=612x612&w=0&h=F5sh9tAuiAtEPNE1NiFZ7mH7-7cjx0q4CXOcxiziFpw=";
+
+setInterval( function() {
     userKey = "USER" + KEY_CODE(3) + fullDate + time,
     conferenceKey = "CONF" + KEY_CODE(3) + fullDate + time,
     logKey = "LOGS" + KEY_CODE(3) + fullDate + time,
     bookmarkKey = "BM" + KEY_CODE(3) + fullDate + time,
     paperKey = "PPRS" + KEY_CODE(3) + fullDate + time,
     reviewKey = "RVW" + KEY_CODE(3) + fullDate + time,
-    notificationKey = "NTFY" + KEY_CODE(3) + fullDate + time,
-    isConferenceAvailable = false,
-    isMobileAvailable = false,
-    defaultUserIconPlaceholder = "https://www.pngfind.com/pngs/m/610-6104451_image-placeholder-png-user-profile-placeholder-image-png.png",
-    noImage = "https://media.istockphoto.com/vectors/no-image-available-sign-vector-id936182806?k=6&m=936182806&s=612x612&w=0&h=F5sh9tAuiAtEPNE1NiFZ7mH7-7cjx0q4CXOcxiziFpw=";
+    notificationKey = "NTFY" + KEY_CODE(3) + fullDate + time;
+}, 1000);
 
 function KEY_CODE(len, charSet) {
     charSet = charSet || 'ABCDFGHIJKLMNOPQRSTUVWXYZ'+'0123456789';
