@@ -77,7 +77,7 @@ _DONE • Invitation for paper reviewer to grant access on mobile from conferenc
 
 • Total entries for every table lists
 
-• Change password of user
+_DONE • Change password of user
 
 _DONE • Switch user for mobile
 

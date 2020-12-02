@@ -26,8 +26,8 @@ $("#btn-save-new-conference").click(function() {
   var conferenceFullPaperSubmission = $('#new-conference-full-paper-submission').val();
   var conferenceAveragePercentageReport = $('#new-conference-average-percentage-report').val();
   var conferenceNumberPapersAccomodated = $('#new-conference-number-papers-accomodated').val();
-  var conferenceAllowPaperApplication = $('input[name="new-conference-allow-paper-application"]:checked').val();
-  var conferenceModeOfReview = $('input[name="new-conference-mode-of-review"]:checked').val();
+  var conferenceAllowPaperApplication = none; //$('input[name="new-conference-allow-paper-application"]:checked').val();
+  var conferenceModeOfReview = none; //$('input[name="new-conference-mode-of-review"]:checked').val();
   $('#loading-message').html('Adding new conference...');
   MODAL('#modal-progress', 'open');
   if (conferenceBanner == undefined) {
