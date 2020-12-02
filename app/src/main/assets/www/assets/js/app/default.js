@@ -75,6 +75,7 @@ var userId = localStorage.getItem('id'),
     conferenceDetails = "CONFERENCE DETAILS/",
     loggedInUser = "LOGGED IN USER",
     loggedOutUser = "LOGGED OUT USER",
+    switchUser = "SWITCH USER",
     registerUser = "REGISTER USER",
     none = "NONE",
     noData = "No available data",
@@ -206,6 +207,7 @@ function SET_USER_REGISTRATION_VALUE() {
    $("a.user-profile-full-paper").attr("href", userAbstractUrl);
    $("a.user-profile-abstract").attr("href", userFullPaperUrl);
    $("#mobile-user-profile-icon").attr("src", userProfileIcon);
+   $("#switch-user-img-user").attr("src", userProfileIcon);
 }
 
 function POPULATE_USER_PAPERS() {
