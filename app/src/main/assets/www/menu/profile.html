@@ -101,8 +101,11 @@
                   <div class="col s12 center-align">
                     <img class="responsive-img circle z-depth-5" width="200" id="mobile-user-profile-icon" src="../assets/images/logo/no-image-available.jpg">
                     <br><br>
-                    <a class="waves-effect  waves-light btn mb-1" id="btn-upload-profile-pic">
+                    <a class="waves-effect waves-light btn mb-1" id="btn-upload-profile-pic">
                       U<span style="padding-top: 500px; text-transform: lowercase;">pload profile picture</span>
+                    </a><br><br>
+                    <a class="waves-effect waves-light btn mb-1" id="btn-change-password">
+                      C<span style="text-transform: lowercase;">hange Password</span>
                     </a><br>
                   </div>
                 </div>
@@ -217,7 +220,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <div class="modal-title">
-                      <p class="text-center default-caption">Successfully upload new profile picture!</p> 
+                      <p class="text-center default-caption" id="success-message-label">Successfully upload new profile picture!</p> 
                     </div>
                 </div>
                 <div class="modal-body center">
@@ -332,8 +335,6 @@
                         <button type="button" class="btn btn-danger" onclick="MODAL('#modal-switch-user', 'close')">Close</button>
                       </div>
                     </div>
-
-                    
                 </div>
             </div>
         </div>
@@ -376,6 +377,41 @@
               </div>
           </div>
       </div>
+    </div>
+
+    <div class="modal" id="modal-prompt-change-pw">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-left default-caption text-center">Change Password</p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="row margin">
+                      <div class="input-field col s12">
+                        <i class="material-icons prefix pt-2">lock_outline</i>
+                        <input id="cp-current-password" type="password">
+                        <label for="cp-current-password" class="center-align">Current Password</label>
+                      </div>
+                    </div>
+                    <div class="row margin">
+                      <div class="input-field col s12">
+                        <i class="material-icons prefix pt-2">lock_outline</i>
+                        <input id="cp-new-password" type="password">
+                        <label for="cp-new-password">New Password</label>
+                      </div>
+                    </div> <br/>
+
+                    <div class="row"><br>
+                      <div class="input-field col s12 center">
+                        <button type="button" id="btn-submit-cp" class="btn btn-danger">Save</button> &nbsp;
+                        <button type="button" class="btn btn-danger" onclick="MODAL('#modal-prompt-change-pw', 'close')">Close</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     
     <!-- BEGIN JS-->

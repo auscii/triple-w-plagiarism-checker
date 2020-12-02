@@ -77,7 +77,7 @@ $("#btn-next-password").click(function() {
   var userRegisterConfirmPassword = $('#register-c-password').val();
   if (!userRegisterPassword && !userRegisterConfirmPassword) {
       $('#warning-message').html('Please fill out this field!');
-    MODAL('#modal-warning', 'open');
+      MODAL('#modal-warning', 'open');
   } else if (userRegisterPassword.length < 6) {
       $('#warning-message').html('You have to enter at least 6 characters!');
       MODAL('#modal-warning', 'open');
@@ -181,15 +181,52 @@ $("#btn-previous-paper").click(function() {
 $('#btn-submit-switch-user').click(function() {
     MODAL('#modal-progress-s', 'open');
     $('#loading-message').html("Switching account...");
-    const switchEmailAddress = $('#switch-user-email-address').val(),
-          switchPassword = $('#switch-user-password').val();
+    const switchEmailAddress = $('#switch-user-email-address').val(), 
+    switchPassword = $('#switch-user-password').val();
     if (!switchEmailAddress || !switchPassword) {
         MODAL('#modal-progress-s', 'close');
         MODAL('#modal-warning-s', 'open');
         $('#s-warning-message').html("User not found!");
         return;
     }
-    SETTING_USER_CREDENTIALS(switchEmailAddress, switchPassword, switchUser);
+    SETTING_USER_CREDENTIALS(switchEmailAddress, switchPassword, switchUser, mobile);
+});
+
+$("#btn-change-password").click(function() {
+   MODAL('#modal-prompt-change-pw', 'open');
+   $('#btn-submit-cp').click(function() {
+     var currentPassword = $('#cp-current-password').val(), 
+     newPassword = $('#cp-current-password').val();
+     MODAL('#modal-progress-s', 'open');
+
+     if (!currentPassword || !newPassword) {
+        $('#error-message').html('Please fill out password field!');
+        MODAL('#modal-progress-s', 'close');
+        MODAL('#modal-login-error', 'open');
+     } else if (newPassword != currentPassword) {
+        $('#error-message').html('Password mismatched!');
+        MODAL('#modal-progress-s', 'close');
+        MODAL('#modal-login-error', 'open');
+     } else {
+        firebase.auth().signInWithEmailAndPassword(userEmailAddress, currentPassword).then(function(user) {
+             firebase.auth().currentUser.updatePassword(newPassword).then(function() {
+               $('#success-message-label').html('Successfully Changed Password! your account will automatically logout in 3 seconds.');
+               MODAL('#modal-success', 'open');
+               setTimeout(function() {
+                  USER_LOG_OUT();
+               }, 3000);
+             }).catch(function(e) {
+               MODAL('#modal-progress-s', 'close');
+               MODAL('#modal-login-error', 'open');
+               $('#error-message').html(e.message);
+             });
+         }).catch(function(e) {
+             MODAL('#modal-progress-s', 'close');
+             MODAL('#modal-login-error', 'open');
+             $('#error-message').html(e.message);
+         });
+     }
+   });
 });
 
 function LOGIN_GOOGLE_ACCOUNT() {
@@ -259,7 +296,7 @@ function AUTH_USER_ACCOUNT(typeUser) {
       $('#error-message').html("User not found!");
       return;
   }
-  SETTING_USER_CREDENTIALS(userLoginEmailAddress, userLoginPassword, loggedInUser);
+  SETTING_USER_CREDENTIALS(userLoginEmailAddress, userLoginPassword, loggedInUser, typeUser);
 }
 
 function NEW_ACCOUNT(type, abstractUrl, fullPaperUrl, paperCategories) {
@@ -314,7 +351,7 @@ function STORE_PREFERENCES(type) {
   }
 }
 
-function SETTING_USER_CREDENTIALS(emailAddress, password, action) {
+function SETTING_USER_CREDENTIALS(emailAddress, password, action, typeUser) {
   firebase.auth().signInWithEmailAndPassword(emailAddress, password).then(function(firebaseUser) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user != null) {
@@ -333,27 +370,22 @@ function SETTING_USER_CREDENTIALS(emailAddress, password, action) {
                 var userDateTimeRegistered = data.val().date_time_registered;
                 var userIconUrl = data.val().profile_picture;
                 var status = data.val().status;
-                console.log('userFullName is ->', userFullName);
 
                 if (emailAddress == userEmailAddress) {
-                  console.log('EQUAL EMAIL');
-                   if (action != switchUser) {   
-                     if (typeUser == web) {
-                       if (userAccountType == author || userAccountType == paperReviewer) {
-                          MODAL('#modal-progress', 'close');
-                          MODAL('#modal-login-error', 'open');
-                          $('#error-message').html("Conference Chair user account only.");
-                          return;
-                       }
-                     } 
-                     else {
-                        if (userAccountType == conferenceChair) {
-                          MODAL('#modal-progress', 'close');
-                          MODAL('#modal-login-error', 'open');
-                          $('#error-message').html("Author and Paper Reviewer user account only.");
-                          return;
-                        }
+                   if (typeUser == web) {
+                     if (userAccountType == author || userAccountType == paperReviewer) {
+                        MODAL('#modal-progress', 'close');
+                        MODAL('#modal-login-error', 'open');
+                        $('#error-message').html("Conference Chair user account only.");
+                        return;
                      }
+                   } else {
+                      if (userAccountType == conferenceChair) {
+                        MODAL('#modal-progress', 'close');
+                        MODAL('#modal-login-error', 'open');
+                        $('#error-message').html("Author and Paper Reviewer user account only.");
+                        return;
+                      }
                    }
                    localStorage.setItem('id', userId);
                    localStorage.setItem('key', userKey);

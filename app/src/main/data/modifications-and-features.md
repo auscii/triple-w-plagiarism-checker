@@ -71,13 +71,15 @@ _DONE • Filter by Preferences of Pre-register author and/or paper reviewer on 
 
 • Update height of modal
 
-• Invitation for paper reviewer to grant access on mobile from conference chair with approval on the website
+_DONE • Invitation for paper reviewer to grant access on mobile from conference chair with approval on the website
 
 • Remove 2 radio button forms for creating new conference (website)
 
 • Total entries for every table lists
 
 • Change password of user
+
+_DONE • Switch user for mobile
 
 
 ***PROCESS*** = DONE
