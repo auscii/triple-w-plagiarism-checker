@@ -65,6 +65,7 @@ var userId = localStorage.getItem('id'),
     users = "USERS/",
     credentials = "CREDENTIALS/",
     papers = "PAPERS/",
+    profilePicture = "PROFILE_PICTURE/",
     conferences = "CONFERENCES/",
     programmes = "PROGRAMMES/",
     logs = "LOGS/",
@@ -194,12 +195,17 @@ function SET_USER_REGISTRATION_VALUE() {
    $("#input-paper-abstract-paper").attr("src", userRegisterPaperAbstract);
    $("#input-paper-full-paper").attr("src", userRegisterFullPaper);
    $("#mobile-upper-user-icon").attr("src", userProfileIcon);
-   $("#mobile-user-profile-icon").attr("src", userProfileIcon);
    $("#user-profile-fullname").html(userFullName);
    $("#user-profile-email-address").html(userEmailAddress);
    $("#user-profile-account-type").html(userAccountType);
    $("a.user-profile-full-paper").attr("href", userAbstractUrl);
    $("a.user-profile-abstract").attr("href", userFullPaperUrl);
+   // if (!value) {
+   //   $("#mobile-user-profile-icon").attr("src", userProfileIcon);
+   // } else {
+   //   $("#mobile-user-profile-icon").attr("src", userProfileIcon);
+   // }
+   $("#mobile-user-profile-icon").attr("src", userProfileIcon);
 }
 
 function POPULATE_USER_PAPERS() {

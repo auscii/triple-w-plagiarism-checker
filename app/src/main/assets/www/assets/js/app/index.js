@@ -7,6 +7,7 @@ BOOKMARK_LISTS();
 PAPER_LISTS();
 PROFILE_LISTENERS();
 FETCH_REVIEWS();
+PROFILE_PICTURE();
 
 $("#card-new-conference").click(function() {
   MODAL('#modal-create-conference', 'open');
@@ -65,6 +66,51 @@ $("#btn-save-new-conference").click(function() {
     });
   }
 });
+
+function PROFILE_PICTURE() {
+	$('#btn-upload-profile-pic').click(function() {
+		MODAL('#modal-profile-picture', 'open');
+	});
+
+	$('#btn-submit-profile-pic').click(function() {
+		var imageProfilePic = $('#user-profile-picture')[0].files[0];
+		MODAL('#modal-progress', 'open');
+		$('#loading-message').html('Updating profile picture...');
+	 	if (imageProfilePic == undefined) {
+			$('#modal-message').html('Please upload image!');
+			MODAL('#modal-progress', 'close');
+			MODAL('#modal-info', 'open');
+			return;
+		} else {
+	  		var uploadProfilePic = storageReference.child(profilePicture + imageProfilePic.name).put(imageProfilePic);
+		  	uploadProfilePic.on('state_changed', function(snapshot) {
+		      switch (snapshot.state) {
+		        case firebase.storage.TaskState.PAUSED:
+		          console.log('Upload pic is paused');
+		          break;
+		        case firebase.storage.TaskState.RUNNING: 
+		          console.log('Upload pic is running');
+		          break;
+		      }
+		    }, function(error) {
+		        $('#modal-message').html('Failed uploading conference banner file!');
+		  	    MODAL('#modal-progress', 'close');
+		        MODAL('#modal-info', 'open');
+		    }, function() {
+		        uploadProfilePic.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    localStorage.setItem('profile_picture', downloadURL);
+					database.ref(users + userGetKey + sub + credentials).update({
+				        profile_picture: downloadURL
+				    });
+					MODAL('#modal-progress', 'close');
+			    	MODAL('#modal-profile-picture', 'close');
+			    	MODAL('#modal-success', 'open');
+		        });
+		    });
+		  }
+
+	});
+}
 
 function PROFILE_LISTENERS() {
 	$("#profile-history").click(function() {

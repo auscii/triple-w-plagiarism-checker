@@ -41,7 +41,7 @@ MOBILE
 
 • Add prompt alert/checker when no internet available
 
-• !!! -> Allow download files using anchor href tag or View docs (docx, doc) 
+• !!! -> Allow download files using anchor href tag or View docs (docx, doc) when android device mode
 
 • Hide keyboard when search conference
 

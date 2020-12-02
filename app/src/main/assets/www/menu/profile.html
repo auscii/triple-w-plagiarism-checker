@@ -19,6 +19,7 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/dashboard-modern.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/pages/intro.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/custom/custom.css">
+    <link rel="stylesheet" type="text/css" href="../assets/vendors/dropify/css/dropify.min.css">
     <!-- END: CSS-->
   </head>
 
@@ -99,6 +100,10 @@
                 <div class="row">
                   <div class="col s12 center-align">
                     <img class="responsive-img circle z-depth-5" width="200" id="mobile-user-profile-icon" src="../assets/images/logo/no-image-available.jpg">
+                    <br><br>
+                    <a class="waves-effect  waves-light btn mb-1" id="btn-upload-profile-pic">
+                      U<span style="padding-top: 500px; text-transform: lowercase;">pload profile picture</span>
+                    </a><br>
                   </div>
                 </div>
                 <div class="row mt-5">
@@ -119,7 +124,6 @@
                   </div>
                 </div>
                 <hr>
-
                 <div class="row">
                   <div class="col s12 m6 l3 card-width" id="profile-history">
                         <div class="card gradient-45deg-deep-orange-orange gradient-shadow white-text padding-4 mt-5" style="border-radius: 10px;">
@@ -142,37 +146,7 @@
                         </div>
                   </div>
                 </div>
-
-                <!-- <div class="row">
-                  <div class="col s12">
-                    <h6>Papers</h6>
-                  </div>
-                </div>
-                <div class="row mt-2"> -->
-
-                  <!-- <div class="col s9">
-                    <a href="#">
-                      <p class="m-0" style="font-weight: bolder; text-transform: uppercase;">Abstract Paper</p>
-                    </a>
-                    <a href="#">
-                      <p class="m-0"><a class="user-profile-abstract">View and download here</a></p>
-                    </a>
-                  </div> 
-
-                  <div class="col s9">&nbsp;</div>
-
-                  <div class="col s9">
-                    <a href="#">
-                      <p class="m-0" style="font-weight: bolder; text-transform: uppercase;">Full Paper</p>
-                    </a>
-                    <a href="#">
-                      <p class="m-0"><a class="user-profile-full-paper">View and download here</a></p>
-                    </a>
-                  </div>
-
-                </div> -->
               </div>
-
             </div>
           </div>
       </div>
@@ -194,6 +168,89 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" id="modal-profile-picture">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-left default-caption text-center">Upload profile picture</p> 
+                    </div>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="row margin">
+                      <div class="row section">
+                        <div class="col s12 m8 5">
+                          <p class="text-center">Maximum file upload size 5MB</p>
+                          <input type="file" id="user-profile-picture" class="dropify" data-max-file-size="5M" />
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="modal-footer center">
+                  <button type="button" id="btn-submit-profile-pic" class="btn btn-danger text-center"><i class="fa fa-times-circle"></i> Submit</button>&nbsp;
+                  <button type="button" class="btn btn-danger text-center" onclick="MODAL('#modal-profile-picture', 'close')"><i class="fa fa-times-circle"></i> Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-info">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption" id="modal-message"></p> 
+                    </div>
+                </div>
+                <div class="modal-body center">
+                  <a class="waves-effect waves-light btn mb-1" onclick="MODAL('#modal-info', 'close')">
+                    <i class="material-icons left">check</i> OK
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-success">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">
+                      <p class="text-center default-caption">Successfully upload new profile picture!</p> 
+                    </div>
+                </div>
+                <div class="modal-body center">
+                  <a class="waves-effect waves-light btn mb-1" onclick="RELOAD_PAGE()">
+                    <i class="material-icons left">check</i> OK
+                  </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-progress" class="modal">
+      <div class="modal-content">
+          <div class="modal-body">
+            <p class="text-center default-caption" id="loading-message"></p>
+            <div class="col s12 m4 center">
+                <div class="preloader-wrapper big active">
+                  <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                      <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                      <div class="circle"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+    </div>
     
     <!-- BEGIN JS-->
     <script src="https://www.gstatic.com/firebasejs/5.5.9/firebase.js"></script>
@@ -202,6 +259,8 @@
     <script src="../assets/js/custom/custom-script.js" type="text/javascript"></script>
     <script src="../assets/js/scripts/customizer.js" type="text/javascript"></script>
     <script src="../assets/js/scripts/advance-ui-modals.js" type="text/javascript"></script>
+    <script src="../assets/vendors/dropify/js/dropify.min.js"></script>
+    <script src="../assets/js/scripts/form-file-uploads.js"></script>
     <script src="../assets/js/common/main.js" type="text/javascript"></script>
     <script src="../assets/js/app/default.js" type="text/javascript"></script>
     <script src="../assets/js/app/auth.js" type="text/javascript"></script>
