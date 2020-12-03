@@ -45,6 +45,10 @@ var userId = localStorage.getItem('id'),
     reviewAuthorUserKey = localStorage.getItem('reviewAuthorUserKey'),
     totalNumberNotifications = localStorage.getItem('totalNumberNotifications'),
     userType = localStorage.getItem('userType'),
+    alUsername = localStorage.getItem('al-username'),
+    alPassword = localStorage.getItem('al-password'),
+    totalReviewPapers = 0,
+    totalSubmittedPapers = 0,
     subscribeTypePaper = "",
     optionPaper = "",
     finalPaper = "",
@@ -69,6 +73,7 @@ var userId = localStorage.getItem('id'),
     conferences = "CONFERENCES/",
     programmes = "PROGRAMMES/",
     logs = "LOGS/",
+    activity = "ACTIVITY/",
     bookmarks = "BOOKMARKS/",
     review = "REVIEW/",
     notifications = "NOTIFICATIONS/",
@@ -98,6 +103,14 @@ var userId = localStorage.getItem('id'),
     returnRevisionsColor = "#1ac9af",
     updatePaper = "UPDATE_PAPER",
     reviewAuthorPaper = "REVIEW_AUTHOR_PAPER",
+    addNewConference = "Add new conference - ",
+    updateConference = "Update conference - ",
+    bookmarkConference = "Bookmark conference - ",
+    addNewPaper = "Add new paper - ",
+    updateExistingPaper = "Update paper - ",
+    sendInvitationPaper = "Send Invitation paper - ",
+    downloadExistingPaper = "Download paper - ",
+    newNotification = "New notification - ",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -114,6 +127,7 @@ var userId = localStorage.getItem('id'),
     userKey = "",
     conferenceKey = "",
     logKey = "",
+    actKey = "",
     bookmarkKey = "",
     paperKey = "",
     reviewKey = "",
@@ -131,6 +145,7 @@ setInterval( function() {
     paperKey = "PPRS" + KEY_CODE(3) + fullDate + time,
     reviewKey = "RVW" + KEY_CODE(3) + fullDate + time,
     notificationKey = "NTFY" + KEY_CODE(3) + fullDate + time;
+    actKey = "ACT" + KEY_CODE(3) + fullDate + time;
 }, 1000);
 
 function KEY_CODE(len, charSet) {
@@ -156,7 +171,22 @@ function MODAL(id, action) {
 }
 
 function USER_CLEAR_LOCAL_STORAGE() {
-  localStorage.clear();
+  // localStorage.clear();
+  localStorage.removeItem("id");
+  localStorage.removeItem("key");
+  localStorage.removeItem("full_name");
+  localStorage.removeItem("email_address");
+  localStorage.removeItem("p");
+  localStorage.removeItem("fullPaperUrl");
+  localStorage.removeItem("paperAbstractUrl");
+  localStorage.removeItem("paperCategories");
+  localStorage.removeItem("account_type");
+  localStorage.removeItem("date_time_registered");
+  localStorage.removeItem("profile_picture");
+  localStorage.removeItem("status");
+  localStorage.removeItem("totalNumberNotifications");
+  localStorage.removeItem("al-username");
+  localStorage.removeItem("al-password");
 }
 
 function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, userPassword, 
@@ -259,8 +289,56 @@ function INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, us
   newStatus = 1;
 }
 
+function INSERT_ACTIVITY_LOGS(userKey, userFullName, userEmailAddress, userIconUrl, action) {
+  database.ref(logs + activity + userKey + sub + actKey).set({
+      user_key: userKey,
+      full_name: userFullName,
+      email_address: userEmailAddress,
+      user_icon_url: userIconUrl,
+      date_created: fullCurrentDateTime,
+      action_type: action,
+      status: newStatus
+  });
+}
 
-/*
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales nisi nec risus fringilla varius. 
-Nam at est nec tellus maximus faucibus nec vel eros.
-*/
+function FETCH_DASHBOARD_DATA() {
+    database.ref(papers).on('child_added', function(data) {
+        database.ref(papers + data.key).on('child_added', function(data) {
+            database.ref(papers + data.val().conference_key).orderByChild("paper_status").equalTo(processing).on('value', function(snapshot) {
+                if (snapshot.numChildren() != 0) {
+                   totalReviewPapers = snapshot.numChildren();
+                }
+            });
+        });
+    });
+
+    database.ref(papers).on('child_added', function(data) {
+        database.ref(papers + data.key).on('child_added', function(data) {
+            database.ref(papers + data.val().conference_key).orderByChild("paper_status").equalTo(submitted).on('value', function(snapshot) {
+                if (snapshot.numChildren() != 0) {
+                   totalSubmittedPapers = snapshot.numChildren();
+                }
+            });
+        });
+    });
+
+    database.ref(logs + activity + userGetKey).orderByChild("date_created").limitToFirst(5).on('child_added', function(data) {
+        let iconUrl = data.val().user_icon_url,
+        fullname = data.val().full_name,
+        actionType = data.val().action_type,
+        dateCreated = data.val().date_created;
+        $('#recent-activities-tbl').append('<tr><td class="text-center"><img class="responsive-img circle" style="height: 50px; width: 50px;" src="'+iconUrl+'"/></td><td class="text-center">'+fullname+'</td><td class="text-center">'+actionType+'</td><td class="text-center">'+dateCreated+'</td></tr>');
+        $('#d-main-ra-spinner').css({"display":"none"});
+        $('#d-main-ra-title').css({"display":"block"});
+        $('#d-main-ra-tbl').css({"display":"block"});
+    });
+
+    database.ref(users).on('child_added', function(snapshot) {
+        database.ref(users + snapshot.key).orderByChild("account_type").equalTo(paperReviewer).limitToFirst(3).on('child_added', function(data) {
+            $('#user-list-pr').append('<li class="collection-item avatar"><img src="'+data.val().profile_picture+'" alt="" class="circle" /><p class="font-weight-600">'+data.val().full_name+'</p><p class="medium-small">'+data.val().email_address+'</p></li>');
+            $('#d-main-prl-spinner').css({"display":"none"});
+            $('#d-main-pr-title').css({"display":"block"});
+        });
+    });
+
+}

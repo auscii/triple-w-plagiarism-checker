@@ -45,6 +45,8 @@ var userId = localStorage.getItem('id'),
     reviewAuthorUserKey = localStorage.getItem('reviewAuthorUserKey'),
     totalNumberNotifications = localStorage.getItem('totalNumberNotifications'),
     userType = localStorage.getItem('userType'),
+    alUsername = localStorage.getItem('al-username'),
+    alPassword = localStorage.getItem('al-password'),
     totalReviewPapers = 0,
     totalSubmittedPapers = 0,
     subscribeTypePaper = "",
@@ -169,7 +171,22 @@ function MODAL(id, action) {
 }
 
 function USER_CLEAR_LOCAL_STORAGE() {
-  localStorage.clear();
+  // localStorage.clear();
+  localStorage.removeItem("id");
+  localStorage.removeItem("key");
+  localStorage.removeItem("full_name");
+  localStorage.removeItem("email_address");
+  localStorage.removeItem("p");
+  localStorage.removeItem("fullPaperUrl");
+  localStorage.removeItem("paperAbstractUrl");
+  localStorage.removeItem("paperCategories");
+  localStorage.removeItem("account_type");
+  localStorage.removeItem("date_time_registered");
+  localStorage.removeItem("profile_picture");
+  localStorage.removeItem("status");
+  localStorage.removeItem("totalNumberNotifications");
+  localStorage.removeItem("al-username");
+  localStorage.removeItem("al-password");
 }
 
 function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, userPassword, 

@@ -422,3 +422,7 @@
 .rating-label {
 	color: #000; margin-top: -5px; font-size: 20px;
 }
+
+.dnone {
+  display: none;
+}

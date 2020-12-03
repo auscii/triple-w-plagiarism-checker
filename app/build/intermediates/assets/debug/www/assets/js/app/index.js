@@ -9,6 +9,8 @@ PROFILE_LISTENERS();
 FETCH_REVIEWS();
 PROFILE_PICTURE();
 CONTINOUS_CHECKING_STATUS_PR();
+REPORTS();
+LOGS();
 
 $("#card-new-conference").click(function() {
   MODAL('#modal-create-conference', 'open');
@@ -134,6 +136,7 @@ function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, con
         				   conferenceEventTime, conferenceDescription, conferenceCategory, conferenceAbstractSubmission,
         				   conferenceFullPaperSubmission, conferenceAveragePercentageReport, conferenceNumberPapersAccomodated,
         				   conferenceAllowPaperApplication, conferenceModeOfReview) {
+	let action = addNewConference + conferenceKey;
     database.ref(users + userGetKey + sub + conferences + conferenceKey).set({
     	conference_key: conferenceKey,
     	conference_banner: conferenceBanner,
@@ -172,6 +175,7 @@ function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, con
         user_icon: userProfileIcon,
         status: 1
     });
+    INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, action);
     MODAL('#modal-progress', 'close');
     RELOAD_PAGE();
 }
@@ -210,6 +214,7 @@ function FETCH_CONFERENCES() {
 			}
 	    });
 	} else {
+		FETCH_DASHBOARD_DATA();
 		database.ref(users + userGetKey + sub + conferences).on('child_added', function(data) {
 			var key = data.val().conference_key;
 			var banner = data.val().conference_banner;
@@ -407,18 +412,18 @@ function VIEW_UPDATE_CONFERENCE(input) {
 			$('#e-conference-full-paper-submission').val(fullPaperSubmission);
 			$('#e-conference-average-percentage-report').val(averagePercentageReport);
 			$('#e-conference-number-papers-accomodated').val(numberPapersAccomodated);
-			if (allowPaperApplication === "Do not allow") {
-			  $("#e-conference-paper-application-not-allow").prop('checked', true);
-			} else {
-			  $("#e-conference-paper-application-allow").prop('checked', true);
-			}
-			if (modeOfReview === "Blind-review") {
-			  $("#e-conference-mode-of-review-blind-review").prop('checked', true);
-			} else if (modeOfReview === "Single-review") {
-			  $("#e-conference-mode-of-review-single-review").prop('checked', true);
-			} else {
-			  $("#e-conference-mode-of-review-double-review").prop('checked', true);
-			}
+			// if (allowPaperApplication === "Do not allow") {
+			//   $("#e-conference-paper-application-not-allow").prop('checked', true);
+			// } else {
+			//   $("#e-conference-paper-application-allow").prop('checked', true);
+			// }
+			// if (modeOfReview === "Blind-review") {
+			//   $("#e-conference-mode-of-review-blind-review").prop('checked', true);
+			// } else if (modeOfReview === "Single-review") {
+			//   $("#e-conference-mode-of-review-single-review").prop('checked', true);
+			// } else {
+			//   $("#e-conference-mode-of-review-double-review").prop('checked', true);
+			// }
 		}
 	});
 	$("#btn-save-update-conference").click(function() {
@@ -465,7 +470,8 @@ function VIEW_UPDATE_CONFERENCE(input) {
 		        MODAL('#modal-warning', 'open');
 		    }, function() {
 		        uploadConferenceBanner.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-		            let conferenceBannerUrl = downloadURL;
+		            let conferenceBannerUrl = downloadURL,
+		            action = updateConference + selectedKey;
 		            database.ref(users + userGetKey + sub + conferences + selectedKey).update({
 				    	conference_key: selectedKey,
 				    	conference_banner: conferenceBannerUrl,
@@ -504,6 +510,7 @@ function VIEW_UPDATE_CONFERENCE(input) {
 				        user_icon: userProfileIcon,
 				        status: 1
 				    });
+    				INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, action);
 			    	MODAL('#modal-update-conference', 'close');
 			    	RELOAD_PAGE();
 		        });
@@ -658,6 +665,8 @@ function ENROLLMENT_MODULE() {
 		    	subscriber_key: userGetKey,
 		        status: 1
 		    });
+		    let action = bookmarkConference + conferenceEventKey;
+			INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, action);
 		    MODAL('#modal-bookmark', 'close');
 		    MODAL('#modal-info', 'open');
 		    $('#modal-message').html('Bookmark saved!');
@@ -741,6 +750,7 @@ function ENROLLMENT_MODULE() {
 }
 
 function SUBMITTING_PAPER(paperUrl, subscribeTypePaper) {
+	let action = addNewPaper + paperKey;
 	database.ref(papers + conferenceEventKey + sub + conferenceDetails).set({
 		conference_key: conferenceEventKey,
 		conference_banner: conferenceBanner,
@@ -774,7 +784,7 @@ function SUBMITTING_PAPER(paperUrl, subscribeTypePaper) {
     	paper_date_time_created: fullCurrentDateTime,
         status: 1
     });
-
+    INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, action);
 	MODAL('#modal-progress', 'close');
     MODAL('#modal-subscribe', 'close');
 	MODAL('#modal-info', 'open');
@@ -970,9 +980,19 @@ function VIEW_PAPER(conferenceKey, conferenceBanner, conferenceEventTitle, confe
 			subscriberEmail = data.val().subscriber_email,
 			subscriberIcon = data.val().subscriber_icon,
 			subscriberKey = data.val().subscriber_key,
-			subscriberPosition = data.val().subscriber_position;
+			subscriberPosition = data.val().subscriber_position,
+			colorStatusValue = submittedColor;
 			if (paperKey != undefined && conferenceKey) {
-				$('#list-of-paper-details').append('<div class="col s12 m4"><div class="card blue-grey darken-4"><div class="card-content white-text"><p>Author: <br /><span style="word-wrap: break-word;">'+subscriberEmail+'</span></p><br><p>Paper ID: <br />'+paperKey+'<br /><br />Type: <br />'+paperType+'<br /><br />Date/Time Created: <br />'+paperDateTimeCreated+'<br /><br /></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+downloadPaper+'\', \''+subscriberKey+'\')">Download Paper</button><br><br><button id="btn-review-paper" style="display: '+btnReviewStatus+';" class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+reviewPaper+'\', \''+subscriberKey+'\')">Review Paper</button></div></div></div></div>');
+				if (paperStatus == processing) {
+					colorStatusValue = processingColor;
+				} else if (paperStatus == returnedAccepted) {
+					colorStatusValue = returnAcceptedColor;
+				} else if (paperStatus == returnedRejected) {
+					colorStatusValue = returnRejectedColor;
+				} else if (paperStatus == returnedRevisions) {
+					colorStatusValue = returnRevisionsColor;
+				}
+				$('#list-of-paper-details').append('<div class="col s12 m4"><div class="card blue-grey darken-4"><div class="card-content white-text"><p>Author: <br /><span style="word-wrap: break-word;">'+subscriberEmail+'</span></p><br><p>Paper ID: <br />'+paperKey+'<br /><br />Type: <br />'+paperType+'<br /><br />Date/Time Created: <br />'+paperDateTimeCreated+'<br /><br />Paper Status: <br /><span style="text-transform: uppercase; color:'+colorStatusValue+'">'+paperStatus+'</span><br /><br /></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+downloadPaper+'\', \''+subscriberKey+'\')">Download Paper</button><br><br><button id="btn-review-paper" style="display: '+btnReviewStatus+';" class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+reviewPaper+'\', \''+subscriberKey+'\')">Review Paper</button></div></div></div></div>');
 			}
 		});
 	});
@@ -1008,7 +1028,9 @@ function DOWNLOAD_REVIEW_PAPER(paperKey, paperSubmittedUrl, conferenceKey, confe
 	localStorage.setItem('reviewPaperUrl', paperSubmittedUrl);
 	localStorage.setItem('reviewAuthorUserKey', subscriberKey);
 	if (action == downloadPaper) {
+		let action = downloadExistingPaper + paperKey;
 		REDIRECT(paperSubmittedUrl);
+    	INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, action);
 		return;
 	}
 	REDIRECT('mypapers2.html');
@@ -1112,6 +1134,7 @@ function UPDATE_PAPER_STATUS(conferenceKey, conferenceBanner, conferenceTitle, p
 		    INSERT_NOTIFICATIONS(conferenceKey, conferenceBanner, conferenceTitle, 
 								 paperKey, action, updatePaper, authorUserKey, 
 								 userEmailAddress);
+    		INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, sendInvitationPaper + paperKey + " ("+action+")");
 		    RELOAD_PAGE();
 		});
 	}
@@ -1189,6 +1212,7 @@ function NOTIFICATIONS() {
 function INSERT_NOTIFICATIONS(conferenceKey, conferenceBanner, conferenceTitle, 
 							  paperKey, paperStatus, actionType, authorUserKey, 
 							  userUpdateByEmailAddress) {
+	let action = newNotification + paperKey;
 	database.ref(notifications + authorUserKey + sub + notificationKey).set({
     	conference_key: conferenceKey,
     	conference_banner: conferenceBanner,
@@ -1201,18 +1225,21 @@ function INSERT_NOTIFICATIONS(conferenceKey, conferenceBanner, conferenceTitle,
     	user_action_type: actionType,
     	status: 0
     });
+    INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, action);
 }
 
 function SEND_INVITATION_PAPER_REVIEWER(userKey, paperReviewerName) {
 	$('#prompt-paper-reviewer-name').html(paperReviewerName);
     MODAL('#modal-prompt-invitation', 'open');
 	$('#btn-submit-invitation-paper-reviewer').click(function() {
+		let action = "";
 		database.ref(users + userKey + sub + credentials).update({
 	        status: uniqNum
 	    });
 	    $('#paper-reviewer-invitation-name').html(paperReviewerName);
     	MODAL('#modal-prompt-invitation', 'close');
 	    MODAL('#modal-success', 'open');
+    	INSERT_ACTIVITY_LOGS(userGetKey, userFullName, userEmailAddress, userProfileIcon, action);
 	});
 }
 
@@ -1234,4 +1261,93 @@ function CONTINOUS_CHECKING_STATUS_PR() {
 			} 
 	    });
 	}, 1000);
+}
+
+function REPORTS() {
+	$('select[id=reports-status]').on('change', function (e) {
+		var numberOfReports = 0, noReportsData = false;
+		//$('#total-entries').html(0);
+		$('#reports-table-list').empty();
+	    var valueSelected = this.value;
+	    $('#report-status-populate').html(valueSelected + " Papers");
+		database.ref(papers).on('child_added', function(snapshot) {
+			numberOfReports++;
+			database.ref(papers + snapshot.key).on('child_added', function(data) {
+				var conferenceKey = data.val().conference_key,
+				conferenceBanner = data.val().conference_banner,
+				conferenceTitle = data.val().conference_title,
+				conferenceDateTimeCreated = data.val().conference_date_time_created;
+				database.ref(papers + conferenceKey).on('child_added', function(snapshot) {	
+					var paperKey = snapshot.val().paper_key,
+					paperDateTimeCreated = snapshot.val().paper_date_time_created,
+					paperStatus = snapshot.val().paper_status,
+					paperSubmittedUrl = snapshot.val().paper_submitted_url,
+					paperType = snapshot.val().paper_type,
+					status = snapshot.val().status,
+					subscriberEmail = snapshot.val().subscriber_email,
+					subscriberKey = snapshot.val().subscriber_key;
+					if (conferenceKey != undefined && paperKey != undefined && valueSelected == paperStatus) {
+						noReportsData = true;
+						$('#no-available-reports').empty();
+						//$('#total-entries').html(snapshot.numChildren());
+			        	$('#reports-table-list').append('<tr><td class="text-center"><img class="responsive-img circle" id="mobile-upper-user-icon" style="height: 100px; width: 100px;" src="'+conferenceBanner+'"></td><td class="text-center">'+conferenceTitle+'</td><td class="text-center">'+paperKey+'</td><td class="text-center">'+subscriberEmail+'</td><td class="text-center">'+paperDateTimeCreated+'</td></tr>');
+					}
+				});
+			});
+		});
+		setTimeout(function() {
+			if (!noReportsData) {
+	    		$('#reports-table-list').append('<tr><td colspan="8"><h2 class="card-title text-center" id="no-available-reports" style="font-weight: bolder;">'+noData+'</h2></td></tr>');
+			}
+		}, 1000);
+	});
+	//$('#total-entries').html(0);
+}
+
+function PRINT(tableId) {
+   var tablePrint = document.getElementById(tableId);
+   newWin = window.open("");
+   newWin.document.write(tablePrint.outerHTML);
+   newWin.print();
+   newWin.close();
+}
+
+function LOGS() {
+	$('select[id=logs-type]').on('change', function (e) {
+	    var valueSelected = this.value, 
+	    logType = activity, 
+	    actionType = "", 
+		fullName = "", 
+		dateTimeCreated = "", 
+		emailAddress = "", 
+		iconUrl = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png", 
+		userKey = "";
+		$('#logs-table-list').empty();
+		$('#audit-logs-populate').html(valueSelected);
+		if (valueSelected == 'User Logs') {
+			logType = users;
+		}
+		console.log('1st_db_url ->', logs + logType);
+		database.ref(logs + logType).on('child_added', function(snapshot) {
+			console.log('2nd_db_url ->', logs + logType + snapshot.key);
+			database.ref(logs + logType + snapshot.key).on('child_added', function(data) {
+				actionType = data.val().action_type;
+				fullName = data.val().full_name;
+				dateTimeCreated = data.val().date_created;
+				emailAddress = data.val().email_address;
+				if (valueSelected == 'User Logs') {
+					iconUrl = data.val().profile_picture;
+					userKey = data.val().key;
+				} else {
+					iconUrl = data.val().user_icon_url;
+					userKey = data.val().user_key;
+				}
+				if (userKey != undefined) {
+					console.log('userKey ->', userKey);
+    				$('#logs-table-list').append('<tr><td class="text-center"><img class="responsive-img circle" id="mobile-upper-user-icon" style="height: 100px; width: 100px;" src="'+iconUrl+'"></td><td class="text-center">'+userKey+'</td><td class="text-center">'+fullName+'</td><td class="text-center">'+emailAddress+'</td><td class="text-center">'+actionType+'</td><td class="text-center">'+dateTimeCreated+'</td></tr>');
+				}
+			});
+		});
+	});
+
 }

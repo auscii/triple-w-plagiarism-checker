@@ -1,3 +1,4 @@
+AUTO_LOGIN();
 SET_USER_REGISTRATION_VALUE();
 
 $("#btn-login").click(function() {
@@ -386,6 +387,9 @@ function SETTING_USER_CREDENTIALS(emailAddress, password, action, typeUser) {
                         $('#error-message').html("Author and Paper Reviewer user account only.");
                         return;
                       }
+
+                      localStorage.setItem('al-username', emailAddress);
+                      localStorage.setItem('al-password', password);
                    }
                    localStorage.setItem('id', userId);
                    localStorage.setItem('key', userKey);
@@ -426,4 +430,16 @@ function SETTING_USER_CREDENTIALS(emailAddress, password, action, typeUser) {
         MODAL('#modal-login-error', 'open');
         $('#error-message').html("Error: " + errorMessage);
     });
+}
+
+function AUTO_LOGIN() {
+   if (userType == mobile) {
+      if (alUsername && alPassword || alUsername != undefined || alPassword != undefined) {
+          $('#user-email-address').val(alUsername);
+          $('#user-password').val(alPassword);
+          if ($('#user-email-address').val() || $('#user-password').val()) {
+             SETTING_USER_CREDENTIALS(alUsername, alPassword, loggedInUser, mobile);
+          }
+      }
+   }
 }

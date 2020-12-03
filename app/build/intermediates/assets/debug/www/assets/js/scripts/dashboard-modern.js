@@ -9,29 +9,60 @@
 
     // Donut chart
     // -----------
-    var CurrentBalanceDonutChart = new Chartist.Pie(
-        "#current-balance-donut-chart",
-        {
-            labels: [1, 2],
-            series: [{ meta: "Completed", value: 80 }, { meta: "Remaining", value: 20 }]
-        },
-        {
-            donut: true,
-            donutWidth: 8,
-            showLabel: false,
-            plugins: [
-                Chartist.plugins.tooltip({ class: "current-balance-tooltip", appendToBody: true }),
-                Chartist.plugins.fillDonut({
-                    items: [
-                        {
-                            content: '<p class="small">Balance</p><h5 class="mt-0 mb-0">$ 10k</h5>'
-                        }
-                    ]
-                })
-            ]
-        }
-    )
+    setTimeout(function() {   
+        var CurrentBalanceDonutChart = new Chartist.Pie(
+            "#current-balance-donut-chart",
+            {
+                labels: [1, 2],
+                series: [{ meta: "Total:", value: totalReviewPapers }, { meta: "Remaining", value: 0 }]
+            },
+            {
+                donut: true,
+                donutWidth: 8,
+                showLabel: false,
+                plugins: [
+                    Chartist.plugins.tooltip({ class: "current-balance-tooltip", appendToBody: true }),
+                    Chartist.plugins.fillDonut({
+                        items: [
+                            {
+                                content: '<h3 class="mt-0 mb-0">'+totalReviewPapers+'</h3>'
+                            }
+                        ]
+                    })
+                ]
+            }
+        )
 
+        var CurrentBalanceDonutChart2 = new Chartist.Pie(
+            "#current-balance-donut-chart2",
+            {
+                labels: [1, 2],
+                series: [{ meta: "Total", value: totalSubmittedPapers }, { meta: "Remaining", value: 0 }]
+            },
+            {
+                donut: true,
+                donutWidth: 8,
+                showLabel: false,
+                plugins: [
+                    Chartist.plugins.tooltip({ class: "current-balance-tooltip", appendToBody: true }),
+                    Chartist.plugins.fillDonut({
+                        items: [
+                            {
+                                content: '<h3 class="mt-0 mb-0">'+totalSubmittedPapers+'</h3>'
+                            }
+                        ]
+                    })
+                ]
+            }
+        )
+
+        $('#d-main-rp-title').css({"display":"block"});
+        $('#d-main-rp-caption').css({"display":"block"});
+        $('#d-main-ps-title').css({"display":"block"});
+        $('#d-main-ps-caption').css({"display":"block"});
+        $('#d-main-rp-spinner').css({"display":"none"});
+        $('#d-main-ps-spinner').css({"display":"none"});
+    }, 2500);
 
     // Total Transaction
     // -----------------
