@@ -106,3 +106,29 @@ Paper Review
 Author
 - After subscribe the conference > Submit papers such as Abstract and Fullpaper or add more paper
 - One at a time for submission paper (Abstract or Fullpaper)
+
+
+
+
+
+
+
+
+
+
+
+1. Create Conference Chair User (Website)
+
+2. Create conference (website) 
+
+3. Create Author User (mobile)
+
+4. Login author user > enroll conference > subscribe and submit paper
+
+
+NOTE:
+• Guys always remember na, bago kayo mag create AUTHOR user or PAPER REVIEWER user make sure na SAME sila ng CATEGORY sa na-create nyong Conference from Conference Chair para may mag populate sa mobile > conference, para may lumabas na conference card(s) naka filter kasi by preferences 
+
+• Pag nag update kayo sa conference at nag loloading pa rin, try nyo mag logout then login nyo yun account sa mobile
+
+• Always remember at wag kayo malito na si PAPER REVIEWER ay makakapag-review sya sa Papers menu at kailangan approved sya ni conference chair

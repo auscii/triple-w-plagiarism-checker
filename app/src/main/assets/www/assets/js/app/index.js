@@ -39,7 +39,7 @@ $("#btn-save-new-conference").click(function() {
      return;
   } else if (!conferenceTitle || !conferenceEventPlace || !conferenceEventDate || !conferenceEventTime || !conferenceDescription ||
 		   	 !conferenceCategory || !conferenceAbstractSubmission || !conferenceFullPaperSubmission || !conferenceAveragePercentageReport || 
-		   	 !conferenceNumberPapersAccomodated || !conferenceAllowPaperApplication || !conferenceModeOfReview) {
+		   	 !conferenceNumberPapersAccomodated) {
      $('#warning-message').html('Please fill out input fields!');
   	 MODAL('#modal-progress', 'close');
      MODAL('#modal-warning', 'open');
@@ -150,8 +150,8 @@ function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, con
     	conference_full_paper_submission: conferenceFullPaperSubmission,
     	conference_average_percentage_report: conferenceAveragePercentageReport,
     	conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
-    	conference_allow_paper_application: conferenceAllowPaperApplication,
-    	conference_mode_of_review: conferenceModeOfReview,
+    	conference_allow_paper_application: none,
+    	conference_mode_of_review: none,
     	date_time_created: fullCurrentDateTime,
         status: 1
     });
@@ -168,8 +168,8 @@ function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, con
     	conference_full_paper_submission: conferenceFullPaperSubmission,
     	conference_average_percentage_report: conferenceAveragePercentageReport,
     	conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
-    	conference_allow_paper_application: conferenceAllowPaperApplication,
-    	conference_mode_of_review: conferenceModeOfReview,
+    	conference_allow_paper_application: none,
+    	conference_mode_of_review: none,
     	date_time_created: fullCurrentDateTime,
         user_created_by: userEmailAddress,
         user_icon: userProfileIcon,
@@ -182,6 +182,11 @@ function INSERT_CONFERENCE(conferenceKey, conferenceBanner, conferenceTitle, con
 
 function FETCH_CONFERENCES() {
 	if (userType == mobile) {
+		if (userAccountType == paperReviewer) {
+			$('#btn-enroll-view-conference').css({"display":"none"});
+		} else {
+			$('#btn-enroll-view-conference').css({"display":"block"});
+		}
 		database.ref(programmes + conferences).on('child_added', function(data) {
 			var key = data.val().conference_key;
 			var banner = data.val().conference_banner;
@@ -275,7 +280,7 @@ function FETCH_USERS() {
 		        	btnSendInvStatus = "disabled";
 		        }
 		        if (userId != undefined) {
-		        	$('#user-table-list').append('<tr><td><img class="responsive-img circle" id="mobile-upper-user-icon" style="height: 100px; width: 100px;" src="'+userIconUrl+'"></td><td>'+userKey+'</td><td>'+userFullName+'</td><td>'+userEmailAddress+'</td><td>'+userAccountType+'</td><td>'+userDateTimeRegistered+'</td><td><button style="text-align: center;" class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userFullPaperUrl+'">Full Paper</button><br><br><button class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userPaperAbstractUrl+'">Abstract Paper</button></td><td class="text-center"><a '+btnSendInvStatus+' title="Send Invitation to Paper Reviewer" style="background: #3279a6;" class="btn-floating btn-medium waves-effect waves-light" onclick="SEND_INVITATION_PAPER_REVIEWER(\''+userKey+'\',\''+userFullName+'\')"><i class="material-icons">insert_invitation</i></a></td></tr>');
+		        	$('#user-table-list').append('<tr><td><img class="responsive-img circle" id="mobile-upper-user-icon" style="height: 100px; width: 100px;" src="'+userIconUrl+'"></td><td>'+userKey+'</td><td>'+userFullName+'</td><td>'+userEmailAddress+'</td><td>'+userAccountType+'</td><td>'+userDateTimeRegistered+'</td><td>'+userPaperCategories+'</td><td><button style="text-align: center;" class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userFullPaperUrl+'">Full Paper</button><br><br><button class="btn btn-success text-center" id="btn-save-new-conference" onclick="OPEN_URL(this)" value="'+userPaperAbstractUrl+'">Abstract Paper</button></td><td class="text-center"><a '+btnSendInvStatus+' title="Send Invitation to Paper Reviewer" style="background: #3279a6;" class="btn-floating btn-medium waves-effect waves-light" onclick="SEND_INVITATION_PAPER_REVIEWER(\''+userKey+'\',\''+userFullName+'\')"><i class="material-icons">insert_invitation</i></a></td></tr>');
 		        	$('#users-management-spinner').css({"display":"none"}); 
 		        }
 		    });
@@ -447,13 +452,14 @@ function VIEW_UPDATE_CONFERENCE(input) {
 			MODAL('#modal-progress', 'close');
 			MODAL('#modal-warning', 'open');
 			return;
-		} else if (!conferenceTitle || !conferenceEventPlace || !conferenceEventDate || !conferenceEventTime || !conferenceDescription ||
-				   !conferenceCategory || !conferenceAbstractSubmission || !conferenceFullPaperSubmission || !conferenceAveragePercentageReport || 
-				   !conferenceNumberPapersAccomodated || !conferenceAllowPaperApplication || !conferenceModeOfReview) {
+		}  else if (!conferenceTitle || !conferenceEventPlace || !conferenceEventDate || !conferenceEventTime || !conferenceDescription ||
+				    !conferenceCategory || !conferenceAbstractSubmission || !conferenceFullPaperSubmission || !conferenceAveragePercentageReport || 
+				    !conferenceNumberPapersAccomodated) {
 		    $('#warning-message').html('Please fill out input fields!');
 		  	MODAL('#modal-progress', 'close');
 		    MODAL('#modal-warning', 'open');
-	  	} else {
+	  	} 
+	  	else {
 	  		var uploadConferenceBanner = storageReference.child(papers + conferenceBanner.name).put(conferenceBanner);
 		  	uploadConferenceBanner.on('state_changed', function(snapshot) {
 		      switch (snapshot.state) {
@@ -485,8 +491,8 @@ function VIEW_UPDATE_CONFERENCE(input) {
 				    	conference_full_paper_submission: conferenceFullPaperSubmission,
 				    	conference_average_percentage_report: conferenceAveragePercentageReport,
 				    	conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
-				    	conference_allow_paper_application: conferenceAllowPaperApplication,
-				    	conference_mode_of_review: conferenceModeOfReview,
+				    	conference_allow_paper_application: none,
+				    	conference_mode_of_review: none,
 				    	date_time_created: fullCurrentDateTime,
 				        status: 1
 				    });
@@ -503,8 +509,8 @@ function VIEW_UPDATE_CONFERENCE(input) {
 				    	conference_full_paper_submission: conferenceFullPaperSubmission,
 				    	conference_average_percentage_report: conferenceAveragePercentageReport,
 				    	conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
-				    	conference_allow_paper_application: conferenceAllowPaperApplication,
-				    	conference_mode_of_review: conferenceModeOfReview,
+				    	conference_allow_paper_application: none,
+				    	conference_mode_of_review: none,
 				    	date_time_created: fullCurrentDateTime,
 				        user_created_by: userEmailAddress,
 				        user_icon: userProfileIcon,
@@ -655,8 +661,8 @@ function ENROLLMENT_MODULE() {
 		    	conference_full_paper_submission: conferenceFullPaperSubmission,
 		    	conference_average_percentage_report: conferenceAveragePercentageReport,
 		    	conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
-		    	conference_allow_paper_application: conferenceAllowPaperApplication,
-		    	conference_mode_of_review: conferenceModeOfReview,
+		    	conference_allow_paper_application: none,
+		    	conference_mode_of_review: none,
 		    	date_time_created: fullCurrentDateTime,
 		    	user_likes: 0,
 		    	paper_status: noSubmission,
@@ -764,8 +770,8 @@ function SUBMITTING_PAPER(paperUrl, subscribeTypePaper) {
 		conference_full_paper_submission: conferenceFullPaperSubmission,
 		conference_average_percentage_report: conferenceAveragePercentageReport,
 		conference_number_papers_accomodated: conferenceNumberPapersAccomodated,
-		conference_allow_paper_application: conferenceAllowPaperApplication,
-		conference_mode_of_review: conferenceModeOfReview,
+		conference_allow_paper_application: none,
+		conference_mode_of_review: none,
 		conference_published_by: conferenceUserCreatedBy,
 		conference_date_time_created: conferenceDateTimeCreated,
 		conference_likes: 0,
