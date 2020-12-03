@@ -83,6 +83,8 @@ _DONE • Change password of user
 
 _DONE • Switch user for mobile
 
+• Dashboard for web
+
 
 ***PROCESS*** = DONE
 

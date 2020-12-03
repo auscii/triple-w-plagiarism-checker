@@ -45,6 +45,8 @@ var userId = localStorage.getItem('id'),
     reviewAuthorUserKey = localStorage.getItem('reviewAuthorUserKey'),
     totalNumberNotifications = localStorage.getItem('totalNumberNotifications'),
     userType = localStorage.getItem('userType'),
+    totalReviewPapers = 0,
+    totalSubmittedPapers = 0,
     subscribeTypePaper = "",
     optionPaper = "",
     finalPaper = "",
@@ -282,8 +284,44 @@ function INSERT_ACTIVITY_LOGS(userKey, userFullName, userEmailAddress, userIconU
   });
 }
 
+function FETCH_DASHBOARD_DATA() {
+    database.ref(papers).on('child_added', function(data) {
+        database.ref(papers + data.key).on('child_added', function(data) {
+            database.ref(papers + data.val().conference_key).orderByChild("paper_status").equalTo(processing).on('value', function(snapshot) {
+                if (snapshot.numChildren() != 0) {
+                   totalReviewPapers = snapshot.numChildren();
+                }
+            });
+        });
+    });
 
-/*
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sodales nisi nec risus fringilla varius. 
-Nam at est nec tellus maximus faucibus nec vel eros.
-*/
+    database.ref(papers).on('child_added', function(data) {
+        database.ref(papers + data.key).on('child_added', function(data) {
+            database.ref(papers + data.val().conference_key).orderByChild("paper_status").equalTo(submitted).on('value', function(snapshot) {
+                if (snapshot.numChildren() != 0) {
+                   totalSubmittedPapers = snapshot.numChildren();
+                }
+            });
+        });
+    });
+
+    database.ref(logs + activity + userGetKey).orderByChild("date_created").limitToFirst(5).on('child_added', function(data) {
+        let iconUrl = data.val().user_icon_url,
+        fullname = data.val().full_name,
+        actionType = data.val().action_type,
+        dateCreated = data.val().date_created;
+        $('#recent-activities-tbl').append('<tr><td class="text-center"><img class="responsive-img circle" style="height: 50px; width: 50px;" src="'+iconUrl+'"/></td><td class="text-center">'+fullname+'</td><td class="text-center">'+actionType+'</td><td class="text-center">'+dateCreated+'</td></tr>');
+        $('#d-main-ra-spinner').css({"display":"none"});
+        $('#d-main-ra-title').css({"display":"block"});
+        $('#d-main-ra-tbl').css({"display":"block"});
+    });
+
+    database.ref(users).on('child_added', function(snapshot) {
+        database.ref(users + snapshot.key).orderByChild("account_type").equalTo(paperReviewer).limitToFirst(3).on('child_added', function(data) {
+            $('#user-list-pr').append('<li class="collection-item avatar"><img src="'+data.val().profile_picture+'" alt="" class="circle" /><p class="font-weight-600">'+data.val().full_name+'</p><p class="medium-small">'+data.val().email_address+'</p></li>');
+            $('#d-main-prl-spinner').css({"display":"none"});
+            $('#d-main-pr-title').css({"display":"block"});
+        });
+    });
+
+}

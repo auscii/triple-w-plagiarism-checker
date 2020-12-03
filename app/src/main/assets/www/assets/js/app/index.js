@@ -214,6 +214,7 @@ function FETCH_CONFERENCES() {
 			}
 	    });
 	} else {
+		FETCH_DASHBOARD_DATA();
 		database.ref(users + userGetKey + sub + conferences).on('child_added', function(data) {
 			var key = data.val().conference_key;
 			var banner = data.val().conference_banner;
