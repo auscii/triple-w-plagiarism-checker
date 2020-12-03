@@ -9,6 +9,7 @@ PROFILE_LISTENERS();
 FETCH_REVIEWS();
 PROFILE_PICTURE();
 CONTINOUS_CHECKING_STATUS_PR();
+REPORTS();
 
 $("#card-new-conference").click(function() {
   MODAL('#modal-create-conference', 'open');
@@ -1234,4 +1235,53 @@ function CONTINOUS_CHECKING_STATUS_PR() {
 			} 
 	    });
 	}, 1000);
+}
+
+function REPORTS() {
+	$('select[id=reports-status]').on('change', function (e) {
+		var numberOfReports = 0, noReportsData = false;
+		//$('#total-entries').html(0);
+		$('#reports-table-list').empty();
+	    var valueSelected = this.value;
+	    $('#reportStatusPopulate').html(valueSelected);
+		database.ref(papers).on('child_added', function(snapshot) {
+			numberOfReports++;
+			database.ref(papers + snapshot.key).on('child_added', function(data) {
+				var conferenceKey = data.val().conference_key,
+				conferenceBanner = data.val().conference_banner,
+				conferenceTitle = data.val().conference_title,
+				conferenceDateTimeCreated = data.val().conference_date_time_created;
+				database.ref(papers + conferenceKey).on('child_added', function(snapshot) {	
+					var paperKey = snapshot.val().paper_key,
+					paperDateTimeCreated = snapshot.val().paper_date_time_created,
+					paperStatus = snapshot.val().paper_status,
+					paperSubmittedUrl = snapshot.val().paper_submitted_url,
+					paperType = snapshot.val().paper_type,
+					status = snapshot.val().status,
+					subscriberEmail = snapshot.val().subscriber_email,
+					subscriberKey = snapshot.val().subscriber_key;
+					if (conferenceKey != undefined && paperKey != undefined && valueSelected == paperStatus) {
+						noReportsData = true;
+						$('#no-available-reports').empty();
+						//$('#total-entries').html(snapshot.numChildren());
+			        	$('#reports-table-list').append('<tr><td class="text-center"><img class="responsive-img circle" id="mobile-upper-user-icon" style="height: 100px; width: 100px;" src="'+conferenceBanner+'"></td><td class="text-center">'+conferenceTitle+'</td><td class="text-center">'+paperKey+'</td><td class="text-center">'+subscriberEmail+'</td><td class="text-center">'+paperDateTimeCreated+'</td></tr>');
+					}
+				});
+			});
+		});
+		setTimeout(function() {
+			if (!noReportsData) {
+	    		$('#reports-table-list').append('<tr><td colspan="8"><h2 class="card-title text-center" id="no-available-reports" style="font-weight: bolder;">'+noData+'</h2></td></tr>');
+			}
+		}, 2000);
+	});
+	//$('#total-entries').html(0);
+}
+
+function PRINT() {
+   var tablePrint = document.getElementById("reports-table");
+   newWin = window.open("");
+   newWin.document.write(tablePrint.outerHTML);
+   newWin.print();
+   newWin.close();
 }
