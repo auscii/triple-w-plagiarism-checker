@@ -73,17 +73,17 @@ _DONE • Filter by Preferences of Pre-register author and/or paper reviewer on 
 
 _DONE • Invitation for paper reviewer to grant access on mobile from conference chair with approval on the website
 
-• Remove 2 radio button forms for creating new conference (website)
+_DONE • Remove 2 radio button forms for creating new conference (website)
 
 • Total entries for every table lists
 
-• Paper status (Return - accepted, return - rejected, return - revision, processing or submitted) on mobile
+_DONE • Paper status (Return - accepted, return - rejected, return - revision, processing or submitted) on mobile
 
 _DONE • Change password of user
 
 _DONE • Switch user for mobile
 
-• Dashboard for web
+_DONE • Dashboard for web
 
 
 ***PROCESS*** = DONE

@@ -980,9 +980,19 @@ function VIEW_PAPER(conferenceKey, conferenceBanner, conferenceEventTitle, confe
 			subscriberEmail = data.val().subscriber_email,
 			subscriberIcon = data.val().subscriber_icon,
 			subscriberKey = data.val().subscriber_key,
-			subscriberPosition = data.val().subscriber_position;
+			subscriberPosition = data.val().subscriber_position,
+			colorStatusValue = submittedColor;
 			if (paperKey != undefined && conferenceKey) {
-				$('#list-of-paper-details').append('<div class="col s12 m4"><div class="card blue-grey darken-4"><div class="card-content white-text"><p>Author: <br /><span style="word-wrap: break-word;">'+subscriberEmail+'</span></p><br><p>Paper ID: <br />'+paperKey+'<br /><br />Type: <br />'+paperType+'<br /><br />Date/Time Created: <br />'+paperDateTimeCreated+'<br /><br /></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+downloadPaper+'\', \''+subscriberKey+'\')">Download Paper</button><br><br><button id="btn-review-paper" style="display: '+btnReviewStatus+';" class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+reviewPaper+'\', \''+subscriberKey+'\')">Review Paper</button></div></div></div></div>');
+				if (paperStatus == processing) {
+					colorStatusValue = processingColor;
+				} else if (paperStatus == returnedAccepted) {
+					colorStatusValue = returnAcceptedColor;
+				} else if (paperStatus == returnedRejected) {
+					colorStatusValue = returnRejectedColor;
+				} else if (paperStatus == returnedRevisions) {
+					colorStatusValue = returnRevisionsColor;
+				}
+				$('#list-of-paper-details').append('<div class="col s12 m4"><div class="card blue-grey darken-4"><div class="card-content white-text"><p>Author: <br /><span style="word-wrap: break-word;">'+subscriberEmail+'</span></p><br><p>Paper ID: <br />'+paperKey+'<br /><br />Type: <br />'+paperType+'<br /><br />Date/Time Created: <br />'+paperDateTimeCreated+'<br /><br />Paper Status: <br /><span style="text-transform: uppercase; color:'+colorStatusValue+'">'+paperStatus+'</span><br /><br /></p><div class="border-non mt-5"><button class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+downloadPaper+'\', \''+subscriberKey+'\')">Download Paper</button><br><br><button id="btn-review-paper" style="display: '+btnReviewStatus+';" class="waves-effect waves-light btn red border-round box-shadow" onclick="DOWNLOAD_REVIEW_PAPER(\''+paperKey+'\', \''+paperSubmittedUrl+'\', \''+conferenceKey+'\', \''+conferenceEventTitle+'\', \''+conferenceBanner+'\', \''+reviewPaper+'\', \''+subscriberKey+'\')">Review Paper</button></div></div></div></div>');
 			}
 		});
 	});
