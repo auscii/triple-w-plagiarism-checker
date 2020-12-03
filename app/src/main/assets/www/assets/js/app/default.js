@@ -69,6 +69,7 @@ var userId = localStorage.getItem('id'),
     conferences = "CONFERENCES/",
     programmes = "PROGRAMMES/",
     logs = "LOGS/",
+    activity = "ACTIVITY/",
     bookmarks = "BOOKMARKS/",
     review = "REVIEW/",
     notifications = "NOTIFICATIONS/",
@@ -98,6 +99,14 @@ var userId = localStorage.getItem('id'),
     returnRevisionsColor = "#1ac9af",
     updatePaper = "UPDATE_PAPER",
     reviewAuthorPaper = "REVIEW_AUTHOR_PAPER",
+    addNewConference = "Add new conference - ",
+    updateConference = "Update conference - ",
+    bookmarkConference = "Bookmark conference - ",
+    addNewPaper = "Add new paper - ",
+    updateExistingPaper = "Update paper - ",
+    sendInvitationPaper = "Send Invitation paper - ",
+    downloadExistingPaper = "Download paper - ",
+    newNotification = "New notification - ",
     provider = new firebase.auth.GoogleAuthProvider(),
     storageReference = firebase.storage().ref(),
     date = new Date(),
@@ -114,6 +123,7 @@ var userId = localStorage.getItem('id'),
     userKey = "",
     conferenceKey = "",
     logKey = "",
+    actKey = "",
     bookmarkKey = "",
     paperKey = "",
     reviewKey = "",
@@ -131,6 +141,7 @@ setInterval( function() {
     paperKey = "PPRS" + KEY_CODE(3) + fullDate + time,
     reviewKey = "RVW" + KEY_CODE(3) + fullDate + time,
     notificationKey = "NTFY" + KEY_CODE(3) + fullDate + time;
+    actKey = "ACT" + KEY_CODE(3) + fullDate + time;
 }, 1000);
 
 function KEY_CODE(len, charSet) {
@@ -257,6 +268,18 @@ function INSERT_USER_LOGS(userId, userKey, userFullName, userEmailAddress, p, us
       status: newStatus
   });
   newStatus = 1;
+}
+
+function INSERT_ACTIVITY_LOGS(userKey, userFullName, userEmailAddress, userIconUrl, action) {
+  database.ref(logs + activity + userKey + sub + actKey).set({
+      user_key: userKey,
+      full_name: userFullName,
+      email_address: userEmailAddress,
+      user_icon_url: userIconUrl,
+      date_created: fullCurrentDateTime,
+      action_type: action,
+      status: newStatus
+  });
 }
 
 

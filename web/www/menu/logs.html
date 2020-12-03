@@ -34,15 +34,11 @@
       <div class="navbar navbar-fixed"> 
         <nav class="navbar-main navbar-color nav-collapsible sideNav-lock navbar-dark gradient-45deg-indigo-purple no-shadow">
           <div class="nav-wrapper">
-            <!-- <div class="header-search-wrapper hide-on-med-and-down"><i class="material-icons">search</i>
-              <input class="header-search-input z-depth-2" type="text" name="Search" placeholder="Search...">
-            </div> -->
             <ul class="navbar-list right">
               <li class="hide-on-med-and-down"><a class="waves-effect waves-block waves-light toggle-fullscreen" href="javascript:void(0);"><i class="material-icons">settings_overscan</i></a></li>
               <li class="hide-on-large-only"><a class="waves-effect waves-block waves-light search-button" href="javascript:void(0);"><i class="material-icons">search</i></a></li>
               <li><a class="waves-effect waves-block waves-light profile-button" href="javascript:void(0);" data-target="profile-dropdown"><span class="avatar-status avatar-online"><img id="mobile-upper-user-icon" src="../../../app/src/main/assets/www/assets/images/logo/no-image-available.jpg"><i></i></span></a></li>
             </ul>
-            <!-- profile-dropdown-->
             <ul class="dropdown-content" id="profile-dropdown">
               <li><a class="grey-text text-darken-1" href="profile.html"><i class="material-icons">person_outline</i> Profile</a></li>
               <li class="divider"></li>
@@ -83,9 +79,9 @@
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " href="profile.html"><i class="material-icons">contact_mail</i><span class="menu-title" data-i18n="">Profile</span></a>
         </li>
-        <li class="bold"><a class="active waves-effect waves-cyan " href="reports.html"><i class="material-icons">insert_chart</i><span class="menu-title" data-i18n="">Reports</span></a>
+        <li class="bold"><a class="waves-effect waves-cyan " href="reports.html"><i class="material-icons">insert_chart</i><span class="menu-title" data-i18n="">Reports</span></a>
         </li>
-        <li class="bold"><a class="waves-effect waves-cyan " href="logs.html"><i class="material-icons">storage</i><span class="menu-title" data-i18n="">Audit Logs</span></a>
+        <li class="bold"><a class="active waves-effect waves-cyan " href="logs.html"><i class="material-icons">storage</i><span class="menu-title" data-i18n="">Audit Logs</span></a>
         </li>
         <li class="bold"><a class="waves-effect waves-cyan " onclick="USER_LOG_OUT()"><i class="material-icons">cancel</i><span class="menu-title" data-i18n="">Logout</span></a>
         </li>
@@ -104,7 +100,7 @@
                   <div class="col s12">
                     <div id="faq-search" class="card z-depth-0 faq-search-image center-align p-35">
                       <div class="card-content">
-                        <h5>Reports</h5>
+                        <h5>Audit logs</h5>
                       </div>
                     </div>
                   </div>
@@ -114,16 +110,13 @@
                   <div class="col s12">&nbsp;</div>
                   <div class="col s12">&nbsp;</div>
                 </div>
-                <h5 class="card-title">Paper Status</h5>
-                <select id="reports-status" class="form-control validate">
-                  <option disabled selected>--Select Status--</option>
-                  <option value="Submitted">Submitted</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Return Accepted">Return Accepted</option>
-                  <option value="Return Rejected">Return Rejected</option>
-                  <option value="Return Revisions">Return Revisions</option>
+                <h5 class="card-title">Select Log Type</h5>
+                <select id="logs-type" class="form-control validate">
+                  <option disabled selected>--Select log type--</option>
+                  <option value="Activity logs">Activity logs</option>
+                  <option value="User Logs">User Logs</option>
                 </select> <br/>
-                <button class="btn btn-success text-center" id="btn-save-new-conference" onclick="PRINT('reports-table')">
+                <button class="btn btn-success text-center" id="btn-save-new-conference" onclick="PRINT('logs-table')">
                   <i class="material-icons left">local_printshop</i> Print
                 </button> &nbsp;
                 <button class="btn btn-success text-center" id="btn-save-new-conference" onclick="RELOAD_PAGE()">
@@ -135,21 +128,21 @@
                     <div id="view-borderless-table">
                       <div class="row">
                         <div class="col s12">
-                          <table id="reports-table">
+                          <table id="logs-table">
                             <thead>
                               <tr>
-                                <td colspan="8"><h2 class="card-title text-center" id="report-status-populate" style="font-size: 30px; text-transform: uppercase; font-weight: bolder;"></h2></td>
+                                <td colspan="8"><h2 class="card-title text-center" id="audit-logs-populate" style="font-size: 30px; text-transform: uppercase; font-weight: bolder;"></h2></td>
                               </tr>
                               <tr>
-                                <!-- <th class="text-center>#</th> -->
-                                <th class="text-center">Banner</th>
-                                <th class="text-center">Conference Title</th>
-                                <th class="text-center">Paper ID</th>
-                                <th class="text-center">Published by</th>
-                                <th class="text-center">Paper Date/Time Created</th>
+                                <th class="text-center">Icon</th>
+                                <th class="text-center">ID</th>
+                                <th class="text-center">Fullname</th>
+                                <th class="text-center">Email Address</th>
+                                <th class="text-center">Action</th>
+                                <th class="text-center">Date/Time Created</th>
                               </tr>
                             </thead>
-                            <tbody id="reports-table-list"></tbody>
+                            <tbody id="logs-table-list"></tbody>
                           </table>
                         </div>
                       </div>
