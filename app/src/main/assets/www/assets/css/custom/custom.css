@@ -426,3 +426,13 @@
 .dnone {
   display: none;
 }
+
+.if-banner-top {
+    width: 100%;
+    height: 90px;
+    background: #8e24aa;
+    float: inherit;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}

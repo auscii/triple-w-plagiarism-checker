@@ -197,21 +197,18 @@ $("#btn-change-password").click(function() {
    MODAL('#modal-prompt-change-pw', 'open');
    $('#btn-submit-cp').click(function() {
      var currentPassword = $('#cp-current-password').val(), 
-     newPassword = $('#cp-current-password').val();
+     newPassword = $('#cp-new-password').val();
      MODAL('#modal-progress-s', 'open');
 
      if (!currentPassword || !newPassword) {
         $('#error-message').html('Please fill out password field!');
         MODAL('#modal-progress-s', 'close');
         MODAL('#modal-login-error', 'open');
-     } else if (newPassword != currentPassword) {
-        $('#error-message').html('Password mismatched!');
-        MODAL('#modal-progress-s', 'close');
-        MODAL('#modal-login-error', 'open');
      } else {
         firebase.auth().signInWithEmailAndPassword(userEmailAddress, currentPassword).then(function(user) {
              firebase.auth().currentUser.updatePassword(newPassword).then(function() {
                $('#success-message-label').html('Successfully Changed Password! your account will automatically logout in 3 seconds.');
+               $('#btn-success').css({"display":"none"});
                MODAL('#modal-success', 'open');
                setTimeout(function() {
                   USER_LOG_OUT();

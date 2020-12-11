@@ -1,0 +1,8 @@
+email:
+pw: G1qwmeqklwej!@SDqwe$!@$XCZXCAdwqeqwe_
+
+
+ftm email: knightdubster@gmail.com
+
+
+node C:\Users\knigh\Downloads\web-test\NodeJS-Plagiarism-Checker-master\example_async.js

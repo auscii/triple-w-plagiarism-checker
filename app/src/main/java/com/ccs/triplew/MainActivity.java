@@ -215,7 +215,12 @@ class myWebClient extends WebViewClient {
 
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        view.loadUrl(url);
+        if (url.contains("prepostseo")) {
+            Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            view.getContext().startActivity(i);
+        } else {
+            view.loadUrl(url);
+        }
         return true;
     }
 
