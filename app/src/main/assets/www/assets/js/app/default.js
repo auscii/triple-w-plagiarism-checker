@@ -191,6 +191,7 @@ function USER_CLEAR_LOCAL_STORAGE() {
 
 function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, userPassword, 
                      userPreferences, userPaperAbstract, userFullPaper, userPaperCategories, type) {
+    const newPassword = CryptoJS.SHA256(userPassword).toString();
     if (userAccountType == paperReviewer) {
         newStatus = 7
     }
@@ -199,7 +200,7 @@ function INSERT_USER(userId, userEmailAddress, userAccountType, userFullName, us
         key: userKey,
         full_name: userFullName,
         email_address: userEmailAddress,
-        password: userPassword,
+        password: newPassword,
         preferences: userPreferences,
         paperAbstractUrl: userPaperAbstract,
         fullPaperUrl: userFullPaper,
